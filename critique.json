@@ -1,0 +1,11 @@
+{
+  "kind": "critique-panel",
+  "score": 4,
+  "axes": {
+    "clarity": { "score": 4, "notes": "Navigation remains reduced to Home, Events, Visit, and Join; visible copy now reads as club-facing content rather than prototype scaffolding." },
+    "hierarchy": { "score": 4, "notes": "The polish pass reduced nested card surfaces, replaced list cards with separators, and kept the photo-led hierarchy intact." },
+    "typography": { "score": 4, "notes": "Compact Manrope-style hierarchy is more consistent after tightening headings, eyebrows, and paragraph rhythm across the edited sections." },
+    "motion": { "score": 4, "notes": "Existing hero and gallery carousel behavior remains intact, including dynamic slide counts, thumbnails, pause/play, and share interactions." },
+    "brand": { "score": 4, "notes": "Dark RC club system remains restrained: black logo area, functional red accents, real aircraft/field photography placeholders, and fewer generic AI-style boxes." }
+  }
+}
