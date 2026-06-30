@@ -12,77 +12,89 @@
       --surface-warm: #1f1f1f;
       --fg: #ffffff;
       --fg-2: #fdfdfd;
-      --muted: #b3b3b3; 
+      --muted: #b3b3b3;
       --meta: #cbcbcb;
       --border: #4d4d4d;
       --border-soft: rgba(255,255,255,0.1);
       --accent: #c1121f;
-      --accent-on: #ffffff; 
-      --accent-hover: #a20f1a;
-      --font-display: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      --font-body: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --accent-on: #ffffff;
+      --font-display: "Manrope", "SpotifyMixUITitle", "CircularSp", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-body: "Manrope", "SpotifyMixUI", "CircularSp", "Helvetica Neue", Helvetica, Arial, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --text-xs: 10px;
+      --text-sm: 12px;
+      --text-base: 16px;
+      --text-lg: 18px;
+      --leading-body: 1.5;
+      --tracking-display: -0.02em;
       --radius-md: 6px;
       --radius-lg: 8px;
       --radius-pill: 9999px;
       --focus-ring: 0 0 0 3px rgba(193,18,31,0.4);
+      --motion-base: 200ms;
+      --container-max: 1280px;
+      --gutter-desktop: 24px;
+      --gutter-mobile: 16px;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); line-height: 1.5; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
     :focus-visible { outline: none; box-shadow: var(--focus-ring); }
-    .container { width: min(100% - 48px, 1180px); margin: 0 auto; }
-    .header { position: sticky; top: 0; z-index: 50; background: color-mix(in oklab, var(--bg), black 72%); border-bottom: 1px solid var(--border-soft); box-shadow: rgba(0,0,0,.5) 0 8px 24px; }
+    .container { width: min(100% - calc(var(--gutter-desktop) * 2), var(--container-max)); margin: 0 auto; }
+    .site-header { position: sticky; top: 0; z-index: 50; background: color-mix(in oklab, var(--bg), black 18%); border-bottom: 1px solid var(--border-soft); box-shadow: rgba(0,0,0,.5) 0 8px 24px; }
     .nav { min-height: 112px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
-    .logo { width: clamp(188px, 18vw, 262px); min-height: 88px; display: grid; place-items: center; padding: 8px 18px; border-radius: var(--radius-md); background: color-mix(in oklab, var(--bg), black 72%); box-shadow: inset 0 0 0 1px var(--border-soft); }
-    .logo img { width: 100%; max-height: 74px; object-fit: contain; }
-    .brand-note { color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .logo-deck { width: clamp(188px, 18vw, 262px); min-height: 88px; display: grid; place-items: center; padding: 8px 18px; border-radius: var(--radius-md); background: color-mix(in oklab, var(--bg), black 72%); box-shadow: inset 0 0 0 1px var(--border-soft); }
+    .logo-deck img { width: 100%; max-height: 74px; object-fit: contain; }
     .nav-links { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-    .nav-links a { border-radius: var(--radius-pill); background: var(--surface-warm); color: var(--muted); padding: 10px 16px; font-size: 14px; font-weight: 800; }
-    .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--fg); background: color-mix(in oklab, var(--surface-warm), white 8%); }
-    .nav-links a.cta { background: var(--accent); color: var(--accent-on); letter-spacing: .08em; text-transform: uppercase; }
-    .site-search { position: relative; min-width: min(24vw, 270px); }
-    .site-search label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-    .site-search input { width: 100%; min-height: 44px; border: 0; border-radius: var(--radius-pill); background: var(--surface-warm); color: var(--fg); padding: 0 16px 0 42px; box-shadow: inset 0 0 0 1px var(--border-soft); }
-    .site-search input::placeholder { color: var(--muted); }
-    .site-search::before { content: ""; position: absolute; left: 17px; top: 50%; width: 12px; height: 12px; border: 2px solid var(--muted); border-radius: 50%; transform: translateY(-58%); pointer-events: none; }
-    .site-search::after { content: ""; position: absolute; left: 29px; top: 27px; width: 8px; height: 2px; border-radius: var(--radius-pill); background: var(--muted); transform: rotate(45deg); pointer-events: none; }
-    .nav-share, .menu-toggle { border: 0; border-radius: 50%; width: 44px; height: 44px; display: inline-grid; place-items: center; background: var(--surface-warm); color: var(--fg); cursor: pointer; box-shadow: inset 0 0 0 1px var(--border-soft); }
-    .nav-share svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
-    .menu-toggle { display: none; width: 48px; height: 48px; }
+    .nav-pill { border: 0; border-radius: var(--radius-pill); background: var(--surface-warm); color: var(--muted); padding: 10px 16px; font-size: 14px; font-weight: 800; cursor: pointer; transition: background var(--motion-base), color var(--motion-base), transform var(--motion-base), box-shadow var(--motion-base); }
+    .nav-pill:hover, .nav-pill[aria-current="page"] { color: var(--fg); background: color-mix(in oklab, var(--surface-warm), white 8%); }
+    .nav-pill:active { transform: translateY(1px); }
+    .nav-pill.cta { background: var(--accent); color: var(--accent-on); letter-spacing: .08em; text-transform: uppercase; }
+    .menu-toggle { border: 0; border-radius: 50%; width: 48px; height: 48px; display: none; place-items: center; background: var(--surface-warm); color: var(--fg); cursor: pointer; box-shadow: inset 0 0 0 1px var(--border-soft); }
     .menu-toggle span { display: block; width: 20px; height: 2px; margin: 4px auto; background: currentColor; border-radius: var(--radius-pill); transition: transform 200ms ease, opacity 200ms ease; }
     .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
     .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
     .menu-scrim { display: none; }
+    .menu-close { display: none; }
     .page-hero { padding: 92px 0 44px; background-image: linear-gradient(130deg, rgba(0,0,0,.92), rgba(0,0,0,.68)), url("https://commons.wikimedia.org/wiki/Special:FilePath/Radio_controlled_model_aircraft_event_-_geograph.org.uk_-_3992818.jpg?width=1600"); background-size: cover; background-position: center; border-bottom: 1px solid var(--border-soft); }
     .eyebrow { color: var(--muted); font-family: var(--font-mono); font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
-    h1, h2, h3 { margin: 0; font-family: var(--font-display); line-height: 1; letter-spacing: -.02em; }
+    h1, h2, h3 { margin: 0; font-family: var(--font-display); line-height: 0.98; letter-spacing: var(--tracking-display); text-wrap: balance; }
     h1 { margin-top: 14px; font-size: clamp(44px, 8vw, 92px); max-width: 850px; }
+    h2 { font-size: clamp(28px, 4vw, 48px); }
+    h3 { font-size: clamp(22px, 3vw, 30px); line-height: 1.08; }
     p { margin: 0; color: var(--meta); }
     .lede { margin-top: 18px; max-width: 720px; color: var(--fg-2); font-size: clamp(18px, 2vw, 23px); }
     main { padding: 56px 0; }
-    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; align-items: start; }
-    .content { display: grid; gap: 28px; }
-    .content h2 { font-size: clamp(28px, 4vw, 48px); }
-    .content h3 { font-size: clamp(22px, 3vw, 30px); line-height: 1.08; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); gap: clamp(28px, 4vw, 48px); align-items: start; }
+    .content { display: grid; gap: clamp(28px, 3vw, 40px); }
     .wp-image { min-height: 320px; border-radius: var(--radius-md); background-image: linear-gradient(160deg, rgba(0,0,0,.12), rgba(0,0,0,.76)), url("https://commons.wikimedia.org/wiki/Special:FilePath/Model_aircraft_flying%2C_Lower_Fields%2C_Napton_-_geograph.org.uk_-_1272769.jpg?width=1200"); background-size: cover; background-position: center; display: flex; align-items: end; padding: 18px; color: var(--fg); font-family: var(--font-mono); font-size: 12px; }
     .story-grid { display: grid; gap: 20px; max-width: 62ch; }
+    .story-grid p { max-width: 58ch; }
+    .story-grid h2, .story-grid h3 { max-width: 16ch; }
     .inline-photo-row { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; }
     .inline-photo-row figure { margin: 0; border-radius: var(--radius-lg); overflow: hidden; position: relative; min-height: 100%; box-shadow: inset 0 0 0 1px var(--border-soft); }
     .inline-photo-row img { width: 100%; height: 100%; min-height: 220px; object-fit: cover; }
     .inline-photo-row figcaption { position: absolute; left: 14px; right: 14px; bottom: 14px; color: var(--fg); font-family: var(--font-mono); font-size: 11px; line-height: 1.35; text-shadow: 0 1px 3px rgba(0,0,0,.85); }
     .callout { padding: 18px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); color: var(--fg-2); }
+    .info-list { display: grid; gap: 0; border-top: 1px solid var(--border-soft); }
+    .info-item { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border-soft); }
+    .info-item strong { color: var(--muted); font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .info-item span { color: var(--fg); }
+    .status-note { display: grid; gap: 8px; padding: 16px 18px; border-radius: var(--radius-lg); background: color-mix(in oklab, var(--surface), transparent 22%); box-shadow: inset 0 0 0 1px var(--border-soft); }
+    .status-note strong { font-size: 16px; line-height: 1.3; }
     .button-row { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn { border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-on); padding: 12px 20px; font-size: 13px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
-    .btn.secondary { background: var(--surface-warm); color: var(--fg); box-shadow: inset 0 0 0 1px var(--border); }
-    .sidebar { display: grid; gap: 0; border-top: 1px solid var(--border-soft); }
-    .sidebar-card { padding: 18px 0; border-radius: 0; background: transparent; box-shadow: none; border-bottom: 1px solid var(--border-soft); }
+    .btn { border: 0; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-on); padding: 12px 20px; font-size: 13px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; min-height: 46px; transition: transform var(--motion-base), background var(--motion-base), color var(--motion-base), box-shadow var(--motion-base); }
+    .btn.secondary { background: transparent; color: var(--fg); box-shadow: inset 0 0 0 1px var(--border); }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+    .sidebar { display: grid; gap: 0; border-top: 1px solid var(--border-soft); border-left: 1px solid var(--border-soft); padding-left: clamp(20px, 3vw, 28px); }
+    .sidebar-card { padding: 18px 0; border-radius: 0; background: transparent; box-shadow: none; border-bottom: 1px solid var(--border-soft); display: grid; gap: 10px; }
     .sidebar-card strong { display: block; margin-bottom: 8px; }
     .share-note { color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
-    .story-module { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border-soft); }
+    .story-module { margin-top: 64px; padding-top: 40px; border-top: 1px solid var(--border-soft); }
     .module-head { display: grid; gap: 16px; max-width: 760px; margin-bottom: 24px; }
     .carousel { border-radius: var(--radius-lg); background: transparent; overflow: visible; }
     .carousel-stage { position: relative; min-height: clamp(280px, 34vw, 420px); background: var(--bg); border-radius: var(--radius-lg); overflow: hidden; box-shadow: inset 0 0 0 1px var(--border-soft); }
@@ -109,40 +121,57 @@
     .carousel-card .carousel-stage { border-radius: 0; box-shadow: none; }
     .carousel-card-body { padding: clamp(24px, 4vw, 44px); display: grid; gap: 16px; }
     .carousel-card-body p { max-width: 720px; }
-    .footer { padding: 32px 0; border-top: 1px solid var(--border-soft); background: color-mix(in oklab, var(--bg), black 72%); color: var(--muted); }
+    .footer { padding: 32px 0; border-top: 1px solid var(--border-soft); background: color-mix(in oklab, var(--bg), black 72%); }
+    .footer-grid { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: 12px; }
+    @media (max-width: 1180px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { border-left: 0; padding-left: 0; }
+    }
+    @media (max-width: 1024px) {
+      .inline-photo-row { grid-template-columns: 1fr; }
+      .info-item { grid-template-columns: 1fr; gap: 6px; }
+    }
     @media (max-width: 860px) {
-      .container { width: min(100% - 32px, 1180px); }
-      .brand-note { display: none; }
+      .container { width: min(100% - calc(var(--gutter-mobile) * 2), var(--container-max)); }
+      .nav { min-height: 96px; }
       .menu-toggle { display: block; flex: 0 0 auto; }
       .nav-links { position: fixed; top: 0; right: 0; width: min(88vw, 390px); height: 100svh; z-index: 70; display: grid; align-content: start; gap: 12px; padding: 118px 20px 20px; background: color-mix(in oklab, var(--bg), black 64%); box-shadow: rgba(0,0,0,.5) 0 8px 24px; transform: translateX(104%); transition: transform 200ms ease; }
       .nav-links.is-open { transform: translateX(0); }
-      .nav-links a { min-height: 56px; display: flex; align-items: center; justify-content: space-between; padding-inline: 20px; background: color-mix(in oklab, var(--surface-warm), white 4%); box-shadow: inset 0 0 0 1px var(--border-soft); }
-      .nav-links a::after { content: "→"; color: var(--muted); }
-      .nav-links a.cta::after { color: var(--accent-on); }
-      .site-search { min-width: 100%; order: -1; margin-bottom: 8px; }
-      .nav-share { width: 100%; height: 54px; border-radius: var(--radius-pill); display: flex; gap: 12px; justify-content: flex-start; padding-inline: 20px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
-      .nav-share::after { content: "Share site"; }
+      .menu-close { position: absolute; top: 26px; right: 16px; display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border: 0; border-radius: 50%; background: color-mix(in oklab, var(--surface-warm), white 4%); color: var(--fg); cursor: pointer; box-shadow: inset 0 0 0 1px var(--border-soft); }
+      .menu-close::before, .menu-close::after { content: ""; position: absolute; width: 18px; height: 2px; border-radius: var(--radius-pill); background: currentColor; }
+      .menu-close::before { transform: rotate(45deg); }
+      .menu-close::after { transform: rotate(-45deg); }
+      .nav-pill { width: 100%; min-height: 56px; display: flex; align-items: center; justify-content: space-between; padding-inline: 20px; background: color-mix(in oklab, var(--surface-warm), white 4%); box-shadow: inset 0 0 0 1px var(--border-soft); }
+      .nav-pill::after { content: ""; width: 0; height: 0; margin-left: 16px; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid currentColor; color: var(--muted); flex: 0 0 auto; align-self: center; opacity: 0.82; }
+      .nav-pill.cta::after { color: var(--accent-on); }
       .menu-scrim { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.58); border: 0; }
       .menu-scrim.is-open { display: block; }
-      .layout { grid-template-columns: 1fr; }
-      .inline-photo-row { grid-template-columns: 1fr; }
       .thumb-row { justify-content: flex-start; }
+    }
+    @media (max-width: 560px) {
+      .page-hero { padding: 72px 0 36px; }
+      .logo-deck { width: 188px; min-height: 82px; }
+      .button-row .btn { width: 100%; justify-content: center; }
+      .sidebar-card .btn { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <header class="header">
+  <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Richmond Area RC home"><span class="logo"><img src="mqyg8qo8-RARC-Logo-1-300x163.jpg" alt="Richmond Area RC logo"></span><span class="brand-note">Central Virginia RC flying club</span></a>
+      <a class="brand" href="mqzy8na2-index.html#top" aria-label="Richmond Area RC home"><span class="logo-deck"><img src="mqyg8qo8-RARC-Logo-1-300x163.jpg" alt="Central Virginia RC Flying Club"></span></a>
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-menu"><span></span><span></span><span></span></button>
       <button class="menu-scrim" type="button" aria-label="Close menu"></button>
       <nav id="primary-menu" class="nav-links" aria-label="Primary">
-        <form class="site-search" role="search" action="/" method="get"><label for="interior-search">Search Richmond Area RC</label><input id="interior-search" name="s" type="search" placeholder="Search the club site"></form>
-        <a href="index.html">Home</a>
-        <a id="events" aria-current="page" href="#content">Events</a>
-        <a href="index.html#directions">Visit</a>
-        <a class="cta" href="index.html#visit">Join</a>
-        <button class="nav-share" type="button" data-share-site aria-label="Share Richmond Area RC"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 12l10-6v12L7 12z"></path><path d="M7 12H3"></path></svg></button>
+        <button class="menu-close" type="button" aria-label="Close menu"></button>
+        <a class="nav-pill" href="mqzy8na2-index.html#top">Home</a>
+        <a class="nav-pill" aria-current="page" href="#story-module">Events</a>
+        <a class="nav-pill" href="mqzy8na2-index.html#directions">Visit</a>
+        <a class="nav-pill cta" href="mqzy8na2-index.html#visit">Join</a>
       </nav>
     </div>
   </header>
@@ -150,82 +179,94 @@
     <div class="container">
       <div class="eyebrow">Field guide</div>
       <h1>Field information for visitors and new members.</h1>
-      <p class="lede">A reusable interior page for directions, field rules, membership details, event notes, and longer club stories.</p>
+      <p class="lede">A reusable interior page for directions, field rules, membership details, event notes, and longer club stories, styled to feel like the same club site as the homepage instead of a separate template.</p>
     </div>
   </section>
   <main id="content">
-      <div class="container layout">
-        <article class="content">
-          <div class="wp-image">CC BY-SA placeholder: model aircraft flying over open fields, Wikimedia Commons / Geograph</div>
-          <div class="story-grid">
-            <h2>Before you visit</h2>
-            <p>Use this page style for practical club information: what visitors should know, how field access works, and where real member photography can support the story.</p>
-            <p>This version opens the article up. Instead of forcing every paragraph into a card, it makes room for plain headings, a few paragraphs, and aligned imagery that can feel native to a club field guide or blog post.</p>
-          </div>
-          <div class="inline-photo-row">
-            <figure>
-              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Radio_controlled_model_aircraft_event_-_geograph.org.uk_-_3992818.jpg?width=1200" alt="Radio controlled aircraft event at a field">
-              <figcaption>CC BY-SA placeholder: radio controlled aircraft event, Wikimedia Commons / Geograph.</figcaption>
-            </figure>
-            <figure>
-              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/In_control%2C_Garvaghy_-_geograph.org.uk_-_1225055.jpg?width=900" alt="RC pilot controlling an aircraft outdoors">
-              <figcaption>CC BY-SA placeholder: RC pilot at the controls, Wikimedia Commons / Geograph.</figcaption>
-            </figure>
-          </div>
-          <div class="callout"><strong>Notice pattern:</strong> weather closures, event changes, and field maintenance updates can use this restrained treatment without becoming another heavy content box.</div>
-          <div class="story-grid">
-            <h3>What to bring</h3>
-            <p>Standard Gutenberg lists can carry AMA information, aircraft readiness, battery charging notes, and guest pilot expectations.</p>
-            <p>For longer stories, this page can alternate between plain text, paired photos, and one deliberate module rather than repeating the same box treatment section after section.</p>
-          </div>
-          <div class="button-row"><a class="btn" href="index.html#visit">Join Richmond Area RC</a><a class="btn secondary" href="index.html">Back to homepage</a></div>
-        </article>
-        <aside class="sidebar" aria-label="Page sidebar">
-          <div class="sidebar-card"><strong>Quick links</strong><p>Directions, membership, events, safety, and contact.</p></div>
-          <div class="sidebar-card"><strong>Photo credit</strong><p>Reserve this line for verified CC attribution or a member photographer credit.</p></div>
-          <div class="sidebar-card"><strong>Share this page</strong><p>Global share is available in the header; local share CTAs can use the same button style.</p><button class="btn" type="button" data-share-site>Share page</button><p class="share-note" aria-live="polite">Ready to share Richmond Area RC.</p></div>
-        </aside>
-      </div>
-      <div class="container story-module" id="story-module">
-        <div class="module-head">
+    <div class="container layout">
+      <article class="content">
+        <div class="wp-image">CC BY-SA placeholder: model aircraft flying over open fields, Wikimedia Commons / Geograph</div>
+        <div class="story-grid">
+          <h2>Before you visit</h2>
+          <p>Use this page style for the practical questions a visitor actually has: where to park, when to arrive, how field access works, and what kind of flying day they are walking into.</p>
+          <p>The article stays open on purpose. Plain headings, a few well-spaced paragraphs, and aligned photography do more here than wrapping every paragraph in another container.</p>
+        </div>
+        <div class="inline-photo-row">
+          <figure>
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Radio_controlled_model_aircraft_event_-_geograph.org.uk_-_3992818.jpg?width=1200" alt="Radio controlled aircraft event at a field">
+            <figcaption>CC BY-SA placeholder: radio controlled aircraft event, Wikimedia Commons / Geograph.</figcaption>
+          </figure>
+          <figure>
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/In_control%2C_Garvaghy_-_geograph.org.uk_-_1225055.jpg?width=900" alt="RC pilot controlling an aircraft outdoors">
+            <figcaption>CC BY-SA placeholder: RC pilot at the controls, Wikimedia Commons / Geograph.</figcaption>
+          </figure>
+        </div>
+        <div class="callout"><strong>Notice pattern:</strong> weather closures, event changes, and field maintenance updates can use this restrained treatment without becoming another heavy content box.</div>
+        <div class="status-note" aria-label="Field update note">
+          <strong>Same-day field status should be simple and honest.</strong>
+          <p>If the runway is soft, the wind is high, or an event start time changes, this lighter note gives the page a believable update state without turning into an alert wall.</p>
+        </div>
+        <div class="story-grid">
+          <h3>What to bring</h3>
+          <p>Standard Gutenberg lists can carry AMA information, aircraft readiness, battery charging notes, and guest pilot expectations.</p>
+          <p>For longer stories, this page can alternate between plain text, paired photos, and one deliberate module rather than repeating the same box treatment section after section.</p>
+        </div>
+        <div class="info-list" aria-label="Visitor checklist">
+          <div class="info-item"><strong>Arrival</strong><span>Plan to arrive a little before the busiest flying window so a member can point out parking, pit area flow, and the flight line.</span></div>
+          <div class="info-item"><strong>Guest flying</strong><span>Use this row for the actual guest-pilot rule, spotter expectation, or intro-flight process once the club confirms it.</span></div>
+          <div class="info-item"><strong>Weather</strong><span>Post the final go or no-go update here, or link out to the current field-status post when a flying day depends on conditions.</span></div>
+        </div>
+        <div class="button-row"><a class="btn" href="mqzy8na2-index.html#visit">Join Richmond Area RC</a><a class="btn secondary" href="mqzy8na2-index.html#top">Back to homepage</a></div>
+      </article>
+      <aside class="sidebar" aria-label="Page sidebar">
+        <div class="sidebar-card"><strong>Quick links</strong><p>Directions, membership, events, safety, and contact.</p></div>
+        <div class="sidebar-card"><strong>Field status</strong><p>Honest placeholder: weather call posted by 7:00 a.m. on scheduled intro mornings.</p></div>
+        <div class="sidebar-card"><strong>Photo credit</strong><p>Reserve this line for verified CC attribution or a member photographer credit.</p></div>
+        <div class="sidebar-card"><strong>Share this page</strong><p>Local share CTAs can live inside the article or sidebar without also needing a global share action in the main navigation.</p><button class="btn" type="button" data-share-site>Share page</button><p class="share-note" aria-live="polite">Ready to share Richmond Area RC.</p></div>
+      </aside>
+    </div>
+    <div class="container story-module" id="story-module">
+      <div class="module-head">
           <div class="eyebrow">Story module</div>
           <h2>Keep the carousel-card pattern here for event recaps, blog features, and interior storytelling.</h2>
           <p>This is the better home for a packaged image-and-copy module: it can sit inside a blog post, event page, or member feature without making the homepage feel overbuilt.</p>
+      </div>
+      <div class="carousel-card">
+        <div class="carousel" data-carousel aria-label="Interior page story carousel">
+          <div class="carousel-stage">
+            <figure class="slide is-active">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Radio_controlled_model_aircraft_event_-_geograph.org.uk_-_3992818.jpg?width=1200" alt="Radio controlled aircraft event at a field">
+              <figcaption class="slide-caption"><strong>Event recap image</strong><span>Use this as a reusable lead image treatment for event summaries, aircraft features, or club blog posts.</span></figcaption>
+            </figure>
+            <figure class="slide">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/In_control%2C_Garvaghy_-_geograph.org.uk_-_1225055.jpg?width=1200" alt="RC pilot controlling an aircraft outdoors">
+              <figcaption class="slide-caption"><strong>Member story image</strong><span>The card supports short image sets without forcing a full gallery treatment onto every interior page.</span></figcaption>
+            </figure>
+            <div class="carousel-buttons">
+              <button class="carousel-btn" type="button" data-carousel-prev aria-label="Previous card image">‹</button>
+              <button class="carousel-btn" type="button" data-carousel-next aria-label="Next card image">›</button>
+            </div>
+          </div>
+          <div class="carousel-controls">
+            <span class="carousel-status" aria-live="polite">Image 1 of 2</span>
+            <div class="thumb-row" aria-label="Choose card image"></div>
+          </div>
         </div>
-        <div class="carousel-card">
-          <div class="carousel" data-carousel aria-label="Interior page story carousel">
-            <div class="carousel-stage">
-              <figure class="slide is-active">
-                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Radio_controlled_model_aircraft_event_-_geograph.org.uk_-_3992818.jpg?width=1200" alt="Radio controlled aircraft event at a field">
-                <figcaption class="slide-caption"><strong>Event recap image</strong><span>Use this as a reusable lead image treatment for event summaries, aircraft features, or club blog posts.</span></figcaption>
-              </figure>
-              <figure class="slide">
-                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/In_control%2C_Garvaghy_-_geograph.org.uk_-_1225055.jpg?width=1200" alt="RC pilot controlling an aircraft outdoors">
-                <figcaption class="slide-caption"><strong>Member story image</strong><span>The card supports short image sets without forcing a full gallery treatment onto every interior page.</span></figcaption>
-              </figure>
-              <div class="carousel-buttons">
-                <button class="carousel-btn" type="button" data-carousel-prev aria-label="Previous card image">‹</button>
-                <button class="carousel-btn" type="button" data-carousel-next aria-label="Next card image">›</button>
-              </div>
-            </div>
-            <div class="carousel-controls">
-              <span class="carousel-status" aria-live="polite">Image 1 of 2</span>
-              <div class="thumb-row" aria-label="Choose card image"></div>
-            </div>
-          </div>
-          <div class="carousel-card-body">
-            <div class="eyebrow">Reusable interior pattern</div>
-            <h3>Carousel first, story second.</h3>
-            <p>Keep this for places where a post genuinely benefits from a guided image sequence: fly-in coverage, a member-built aircraft, field improvements, or a seasonal roundup.</p>
-          </div>
+        <div class="carousel-card-body">
+          <div class="eyebrow">Reusable interior pattern</div>
+          <h3>Carousel first, story second.</h3>
+          <p>Keep this for places where a post genuinely benefits from a guided image sequence: fly-in coverage, a member-built aircraft, field improvements, or a seasonal roundup.</p>
         </div>
       </div>
-    </main>
-  <footer class="footer"><div class="container">Richmond Area RC interior page concept.</div></footer>
+    </div>
+  </main>
+  <footer class="footer"><div class="container footer-grid"><strong>Richmond Area RC</strong><span>Interior field guide and story module concept</span><span>Photography placeholders require final CC attribution before launch.</span></div></footer>
   <script>
     var menuToggle = document.querySelector('.menu-toggle');
     var menu = document.querySelector('#primary-menu');
     var scrim = document.querySelector('.menu-scrim');
+    var menuClose = document.querySelector('.menu-close');
+    var menuTouchStartX = null;
     function setMenu(open) {
       if (!menuToggle || !menu || !scrim) return;
       menuToggle.setAttribute('aria-expanded', String(open));
@@ -233,10 +274,31 @@
       menu.classList.toggle('is-open', open);
       scrim.classList.toggle('is-open', open);
       document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        window.setTimeout(function () {
+          if (menuClose) menuClose.focus({ preventScroll: true });
+        }, 20);
+      }
     }
     if (menuToggle) menuToggle.addEventListener('click', function () { setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'); });
+    if (menuClose) menuClose.addEventListener('click', function () { setMenu(false); });
     if (scrim) scrim.addEventListener('click', function () { setMenu(false); });
-    document.querySelectorAll('a[href^="#"]').forEach(function (link) { link.addEventListener('click', function () { setMenu(false); }); });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && menuToggle && menuToggle.getAttribute('aria-expanded') === 'true') setMenu(false);
+    });
+    if (menu) {
+      menu.addEventListener('touchstart', function (event) {
+        var touch = event.changedTouches && event.changedTouches[0];
+        menuTouchStartX = touch ? touch.clientX : null;
+      }, { passive: true });
+      menu.addEventListener('touchend', function (event) {
+        var touch = event.changedTouches && event.changedTouches[0];
+        if (menuTouchStartX === null || !touch) return;
+        if (touch.clientX - menuTouchStartX > 60) setMenu(false);
+        menuTouchStartX = null;
+      }, { passive: true });
+    }
+    document.querySelectorAll('.nav-links a, a[href^="#"]').forEach(function (link) { link.addEventListener('click', function () { setMenu(false); }); });
     document.querySelectorAll('[data-carousel]').forEach(function (carousel) {
       var slides = Array.prototype.slice.call(carousel.querySelectorAll('.slide'));
       var thumbRow = carousel.querySelector('.thumb-row');
@@ -279,17 +341,28 @@
       thumbs.forEach(function (thumb) { thumb.addEventListener('click', function () { show(Number(thumb.dataset.carouselJump)); }); });
       show(current);
     });
-    document.querySelectorAll('[data-share-site]').forEach(function (shareButton) {
-      shareButton.addEventListener('click', function () {
-        var shareNote = document.querySelector('.share-note');
+    var shareButtons = Array.prototype.slice.call(document.querySelectorAll('[data-share-site]'));
+    if (shareButtons.length) {
+      var shareNote = document.querySelector('.share-note');
+      shareButtons.forEach(function (shareButton) { shareButton.addEventListener('click', function () {
         var shareData = { title: 'Richmond Area RC', text: 'Visit Richmond Area RC and learn more about the club field, aircraft, and member events.', url: window.location.href };
         if (navigator.share) {
-          navigator.share(shareData).then(function () { if (shareNote) shareNote.textContent = 'Share sheet opened.'; }).catch(function () { if (shareNote) shareNote.textContent = 'Sharing was canceled.'; });
+          navigator.share(shareData).then(function () {
+            if (shareNote) shareNote.textContent = 'Share sheet opened.';
+          }).catch(function () {
+            if (shareNote) shareNote.textContent = 'Sharing was canceled.';
+          });
           return;
         }
-        if (navigator.clipboard) navigator.clipboard.writeText(window.location.href).then(function () { if (shareNote) shareNote.textContent = 'Link copied to clipboard.'; });
-      });
-    });
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(window.location.href).then(function () {
+            if (shareNote) shareNote.textContent = 'Link copied to clipboard.';
+          });
+          return;
+        }
+        if (shareNote) shareNote.textContent = 'Copy the page URL from your browser to share it.';
+      }); });
+    }
   </script>
 </body>
 </html>

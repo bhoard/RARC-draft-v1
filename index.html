@@ -88,27 +88,18 @@
     .brand { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
     .logo-deck { width: clamp(188px, 18vw, 262px); min-height: 88px; display: grid; place-items: center; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); background: color-mix(in oklab, var(--bg), black 72%); box-shadow: inset 0 0 0 1px var(--border-soft); }
     .logo-deck img { width: 100%; max-height: 74px; object-fit: contain; }
-    .brand-meta { color: var(--muted); font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; }
     .nav-links { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; justify-content: flex-end; }
-    .nav-pill { border: 0; border-radius: var(--radius-pill); background: var(--surface-warm); color: var(--muted); padding: 10px 16px; font-size: 14px; font-weight: 800; cursor: pointer; transition: background var(--motion-base), color var(--motion-base), transform var(--motion-base); }
+    .nav-pill { border: 0; border-radius: var(--radius-pill); background: var(--surface-warm); color: var(--muted); padding: 10px 16px; font-size: 14px; font-weight: 800; cursor: pointer; transition: background var(--motion-base), color var(--motion-base), transform var(--motion-base), box-shadow var(--motion-base); }
     .nav-pill:hover, .nav-pill[aria-current="page"] { color: var(--fg); background: color-mix(in oklab, var(--surface-warm), white 8%); }
+    .nav-pill:active { transform: translateY(1px); }
     .nav-pill.cta { background: var(--accent); color: var(--accent-on); letter-spacing: 0.08em; text-transform: uppercase; }
-    .nav-share { width: 44px; height: 44px; border: 0; border-radius: 50%; display: inline-grid; place-items: center; background: var(--surface-warm); color: var(--fg); cursor: pointer; box-shadow: inset 0 0 0 1px var(--border-soft); }
-    .nav-share:hover { background: color-mix(in oklab, var(--surface-warm), white 8%); }
-    .nav-share svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
-
     .menu-toggle { display: none; border: 0; border-radius: 50%; width: 48px; height: 48px; background: var(--surface-warm); color: var(--fg); cursor: pointer; box-shadow: inset 0 0 0 1px var(--border-soft); }
     .menu-toggle span { display: block; width: 20px; height: 2px; margin: 4px auto; background: currentColor; border-radius: var(--radius-pill); transition: transform var(--motion-base), opacity var(--motion-base); }
     .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
     .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
     .menu-scrim { display: none; }
-    .site-search { position: relative; min-width: min(24vw, 270px); }
-    .site-search label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-    .site-search input { width: 100%; min-height: 44px; border: 0; border-radius: var(--radius-pill); background: var(--surface-warm); color: var(--fg); padding: 0 16px 0 42px; box-shadow: inset 0 0 0 1px var(--border-soft); }
-    .site-search input::placeholder { color: var(--muted); }
-    .site-search::before { content: ""; position: absolute; left: 17px; top: 50%; width: 12px; height: 12px; border: 2px solid var(--muted); border-radius: 50%; transform: translateY(-58%); pointer-events: none; }
-    .site-search::after { content: ""; position: absolute; left: 29px; top: 27px; width: 8px; height: 2px; border-radius: var(--radius-pill); background: var(--muted); transform: rotate(45deg); pointer-events: none; }
+    .menu-close { display: none; }
 
     .hero { position: relative; min-height: clamp(680px, 92svh, 920px); display: grid; align-items: end; overflow: hidden; }
     .hero-bg-carousel { position: absolute; inset: 0; }
@@ -129,8 +120,9 @@
     .hero-copy .lede { margin-bottom: var(--space-5); }
     .lede { max-width: 740px; color: var(--fg-2); font-size: clamp(18px, 2vw, 24px); line-height: 1.42; }
     .actions { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
-    .btn { border: 0; display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 22px; border-radius: var(--radius-pill); background: var(--surface-warm); color: var(--fg); font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; font-size: 13px; cursor: pointer; transition: transform var(--motion-base), background var(--motion-base), color var(--motion-base); }
+    .btn { border: 0; display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 22px; border-radius: var(--radius-pill); background: var(--surface-warm); color: var(--fg); font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; font-size: 13px; cursor: pointer; transition: transform var(--motion-base), background var(--motion-base), color var(--motion-base), box-shadow var(--motion-base); }
     .btn:hover { transform: translateY(-2px); background: color-mix(in oklab, var(--surface-warm), white 10%); }
+    .btn:active { transform: translateY(0); }
     .btn.primary { background: var(--accent); color: var(--accent-on); }
     .btn.outline { background: transparent; box-shadow: inset 0 0 0 1px var(--border); color: var(--fg); }
     .status-card { border-radius: var(--radius-lg); background: color-mix(in oklab, var(--surface), transparent 10%); box-shadow: rgba(0,0,0,0.5) 0 8px 24px; padding: var(--space-5); display: grid; gap: var(--space-4); backdrop-filter: blur(14px); }
@@ -139,10 +131,11 @@
     .field-row:first-of-type { border-top: 0; padding-top: 0; }
     .field-label { color: var(--muted); font-family: var(--font-mono); font-size: var(--text-sm); text-transform: uppercase; }
     .field-value { color: var(--fg); font-weight: 800; }
-    .hero-controls { position: absolute; right: var(--space-6); bottom: calc(var(--space-12) + 34px); z-index: 3; display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; padding: var(--space-1); border-radius: var(--radius-pill); background: rgba(0,0,0,0.28); box-shadow: inset 0 0 0 1px var(--border-soft); backdrop-filter: blur(10px); }
-    .control-btn { min-width: 38px; min-height: 38px; border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--meta); cursor: pointer; font-weight: 900; }
-    .control-btn.wide { padding: 0 12px; letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px; }
-    .control-btn:hover { background: rgba(255,255,255,0.08); color: var(--fg); }
+    .hero-footer { position: absolute; left: 0; bottom: var(--space-6); margin-top: 0; display: flex; align-items: center; gap: var(--space-4); }
+    .hero-pause { display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 0; background: transparent; color: rgba(255,255,255,0.48); cursor: pointer; }
+    .hero-pause svg { width: 26px; height: 26px; flex: 0 0 auto; }
+    .hero-pause:hover { color: rgba(255,255,255,0.72); }
+    .hero-pause[aria-pressed="true"] { color: rgba(255,255,255,0.8); }
     .carousel-announce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
     section { padding: var(--section-y-desktop) 0; }
@@ -169,12 +162,31 @@
     .meta-row { display: grid; grid-template-columns: 120px 1fr; gap: var(--space-4); align-items: start; }
     .meta-row dt { color: var(--muted); font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.08em; text-transform: uppercase; }
     .meta-row dd { margin: 0; color: var(--fg); }
-    .photo-strip { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-4); align-items: stretch; }
+    .photo-strip { display: grid; grid-template-columns: 1fr; gap: var(--space-4); align-items: stretch; }
     .photo-strip figure { margin: 0; min-height: 100%; border-radius: var(--radius-lg); overflow: hidden; position: relative; box-shadow: inset 0 0 0 1px var(--border-soft); }
-    .photo-strip img { width: 100%; height: 100%; min-height: 260px; object-fit: cover; }
+    .photo-strip img { width: 100%; height: 100%; min-height: clamp(360px, 42vw, 560px); object-fit: cover; }
     .photo-strip figcaption { position: absolute; left: var(--space-4); right: var(--space-4); bottom: var(--space-4); color: var(--fg); font-family: var(--font-mono); font-size: var(--text-xs); line-height: 1.35; text-shadow: 0 1px 3px rgba(0,0,0,0.85); }
     .plain-cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-6); align-items: end; padding: clamp(28px, 5vw, 56px) 0; border-top: 1px solid var(--border-soft); }
     .plain-cta-copy { display: grid; gap: var(--space-4); max-width: 60ch; }
+    .story-layout { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+    .story-intro { display: grid; gap: var(--space-5); max-width: 60ch; }
+    .story-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 36px); }
+    .story-column { display: grid; gap: var(--space-4); }
+    .story-column h3 { font-size: clamp(24px, 2.5vw, 34px); }
+    .story-state { display: grid; gap: var(--space-2); padding: var(--space-4) 0 0; border-top: 1px solid var(--border-soft); max-width: 42ch; }
+    .story-state strong { font-size: var(--text-base); line-height: 1.3; }
+    .story-state p { color: var(--muted); }
+    .story-list { display: grid; gap: 0; border-top: 1px solid var(--border-soft); }
+    .story-item { display: grid; gap: var(--space-2); padding: var(--space-4) 0; border-bottom: 1px solid var(--border-soft); }
+    .story-item strong { font-size: clamp(18px, 1.6vw, 22px); line-height: 1.2; letter-spacing: -0.01em; }
+    .story-meta { color: var(--muted); font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.06em; text-transform: uppercase; }
+    .story-item p { color: var(--meta); }
+    .story-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; padding-top: var(--space-4); }
+    #events .plain-cta { grid-template-columns: 1fr; align-items: start; gap: clamp(24px, 3vw, 40px); }
+    #events .plain-cta-copy { max-width: min(100%, 72rem); }
+    #events .plain-cta-copy h2 { max-width: 16ch; font-size: clamp(34px, 5.2vw, 72px); }
+    #events .story-layout { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); }
+    #events .story-intro { max-width: 34ch; }
     .photo-panel { min-height: 460px; border-radius: var(--radius-lg); overflow: hidden; position: relative; background-image: linear-gradient(160deg, rgba(0,0,0,0.12), rgba(0,0,0,0.72)), url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Spring_flying_at_KILY_club_field%2C_Elim%C3%A4ki_%282475846526%29.jpg/1024px-Spring_flying_at_KILY_club_field%2C_Elim%C3%A4ki_%282475846526%29.jpg"); background-size: cover; background-position: center; box-shadow: inset 0 0 0 1px var(--border-soft); }
     .photo-panel::before { content: "CC BY placeholder: spring flying at a club field, Wikimedia Commons"; position: absolute; left: var(--space-5); bottom: var(--space-5); right: var(--space-5); color: var(--fg); font-family: var(--font-mono); font-size: var(--text-sm); text-shadow: 0 1px 3px rgba(0,0,0,0.85); }
     .list { display: grid; gap: 0; margin-top: var(--space-6); border-top: 1px solid var(--border-soft); }
@@ -211,40 +223,51 @@
     .cta-band p { color: var(--fg-2); max-width: 620px; }
     .utility-section { background: color-mix(in oklab, var(--surface-warm), transparent 28%); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
     .utility-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr); gap: var(--space-5); align-items: stretch; }
-    .map-sim { min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; position: relative; background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)), color-mix(in oklab, var(--surface), white 4%); box-shadow: inset 0 0 0 1px var(--border-soft); padding: clamp(24px, 4vw, 40px); display: grid; gap: var(--space-6); align-content: end; }
+    .map-embed { min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; position: relative; background: color-mix(in oklab, var(--surface), white 4%); box-shadow: inset 0 0 0 1px var(--border-soft); }
+    .map-embed iframe { width: 100%; height: 100%; min-height: 420px; border: 0; filter: grayscale(0.08) contrast(0.96) brightness(0.94); }
+    .map-overlay { position: absolute; left: clamp(16px, 2vw, 24px); right: clamp(16px, 2vw, 24px); bottom: clamp(16px, 2vw, 24px); display: grid; gap: var(--space-3); max-width: 34ch; padding: clamp(16px, 2vw, 22px); background: rgba(9, 9, 9, 0.76); border-radius: var(--radius-lg); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
     .map-kicker { color: var(--muted); font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.08em; text-transform: uppercase; }
     .map-label { display: grid; gap: var(--space-4); max-width: 38ch; }
     .map-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
     .share-card { border-radius: var(--radius-lg); background: transparent; padding: var(--space-6) 0 var(--space-6) var(--space-4); display: grid; gap: var(--space-4); align-content: center; border-left: 1px solid var(--border-soft); }
     .share-card h3 { font-size: clamp(26px, 3vw, 44px); }
     .share-note { color: var(--muted); font-family: var(--font-mono); font-size: var(--text-sm); }
+    .share-card .btn { width: fit-content; }
     .footer { padding: var(--space-8) 0; border-top: 1px solid var(--border-soft); background: color-mix(in oklab, var(--bg), black 72%); }
     .footer-grid { display: flex; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; color: var(--muted); font-size: var(--text-sm); }
     .mobile-menu { display: none; }
 
+    @media (max-width: 1180px) {
+      .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .utility-grid { grid-template-columns: 1fr; }
+      .share-card { padding-left: 0; border-left: 0; border-top: 1px solid var(--border-soft); }
+    }
+
     @media (max-width: 920px) {
       .container { width: min(100% - calc(var(--container-gutter-tablet) * 2), var(--container-max)); }
       .nav { min-height: 96px; }
-      .brand-meta { display: none; }
       .menu-toggle { display: block; flex: 0 0 auto; }
       .nav-links { position: fixed; top: 0; right: 0; width: min(88vw, 390px); height: 100svh; z-index: 70; display: grid; align-content: start; gap: var(--space-3); padding: 118px var(--space-5) var(--space-5); background: color-mix(in oklab, var(--bg), black 64%); box-shadow: rgba(0,0,0,0.5) 0 8px 24px; transform: translateX(104%); transition: transform var(--motion-base); }
       .nav-links.is-open { transform: translateX(0); }
+      .menu-close { position: absolute; top: 26px; right: 16px; display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border: 0; border-radius: 50%; background: color-mix(in oklab, var(--surface-warm), white 4%); color: var(--fg); cursor: pointer; box-shadow: inset 0 0 0 1px var(--border-soft); }
+      .menu-close::before, .menu-close::after { content: ""; position: absolute; width: 18px; height: 2px; border-radius: var(--radius-pill); background: currentColor; }
+      .menu-close::before { transform: rotate(45deg); }
+      .menu-close::after { transform: rotate(-45deg); }
       .nav-pill { width: 100%; min-height: 56px; display: flex; align-items: center; justify-content: space-between; padding-inline: var(--space-5); background: color-mix(in oklab, var(--surface-warm), white 4%); box-shadow: inset 0 0 0 1px var(--border-soft); }
-      .nav-pill::after { content: "→"; color: var(--muted); }
+      .nav-pill::after { content: ""; width: 0; height: 0; margin-left: var(--space-4); border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid currentColor; color: var(--muted); flex: 0 0 auto; align-self: center; opacity: 0.82; }
       .nav-pill.cta::after { color: var(--accent-on); }
-      .nav-share { width: 100%; height: 54px; border-radius: var(--radius-pill); display: flex; gap: var(--space-3); padding-inline: var(--space-5); justify-content: flex-start; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; }
-      .nav-share::after { content: "Share site"; }
-      .site-search { min-width: 100%; order: -1; margin-bottom: var(--space-2); }
       .menu-scrim { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,0.58); border: 0; }
       .menu-scrim.is-open { display: block; }
-      .hero-grid, .split, .utility-grid, .cta-band, .editorial-band, .photo-strip, .plain-cta { grid-template-columns: 1fr; }
+      .hero-grid, .split, .utility-grid, .cta-band, .editorial-band, .photo-strip, .plain-cta, .story-layout, .story-columns { grid-template-columns: 1fr; }
       .hero { min-height: auto; }
-      .hero-grid { padding: 132px 0 52px; }
+      .hero-grid { padding: 132px 0 88px; }
+      .hero-footer { bottom: var(--space-4); }
       .grid-3, .gallery { grid-template-columns: 1fr; }
       .ph-img.large { min-height: 320px; }
       .section-head { display: grid; }
       .thumb-row { justify-content: flex-start; padding-inline: var(--space-1); -webkit-overflow-scrolling: touch; }
       .share-card { padding-left: 0; border-left: 0; border-top: 1px solid var(--border-soft); }
+      .share-card .btn { width: 100%; }
     }
     @media (max-width: 560px) {
       .container { width: min(100% - calc(var(--container-gutter-phone) * 2), var(--container-max)); }
@@ -252,11 +275,19 @@
       .logo-deck { width: 188px; min-height: 82px; }
       .brand { min-width: 0; }
       .hero-credit { left: var(--space-4); right: var(--space-4); bottom: var(--space-4); }
-      .hero-controls { left: var(--space-4); right: auto; bottom: calc(var(--space-12) + 20px); }
-      .actions .btn { width: 100%; }
+      .hero-footer { bottom: var(--space-4); align-items: flex-start; }
+      .actions .btn, .cta-band .btn, .map-actions .btn, .share-card .btn { width: 100%; }
       .field-row { grid-template-columns: 1fr; }
       .meta-row { grid-template-columns: 1fr; }
       .thumb-row img { width: 96px; }
+      .story-actions .btn { width: 100%; }
+      .map-overlay { position: static; max-width: none; border-radius: 0; }
+      .map-embed { display: grid; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
@@ -264,22 +295,17 @@
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="container nav" aria-label="Main navigation">
-      <a class="brand" href="#top" aria-label="Richmond Area RC home">
-        <span class="logo-deck"><img src="mqyg8qo8-RARC-Logo-1-300x163.jpg" alt="Richmond Area RC logo"></span>
-        <span class="brand-meta">Central Virginia RC flying club</span>
+      <a class="brand" href="mqzy8na2-index.html#top" aria-label="Richmond Area RC home">
+        <span class="logo-deck"><img src="mqyg8qo8-RARC-Logo-1-300x163.jpg" alt="Central Virginia RC Flying Club"></span>
       </a>
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-menu"><span></span><span></span><span></span></button>
       <button class="menu-scrim" type="button" aria-label="Close menu"></button>
       <nav id="primary-menu" class="nav-links" aria-label="Primary">
-        <form class="site-search" role="search" action="/" method="get">
-          <label for="site-search">Search Richmond Area RC</label>
-          <input id="site-search" name="s" type="search" placeholder="Search the club site">
-        </form>
-        <a class="nav-pill" aria-current="page" href="#top">Home</a>
+        <button class="menu-close" type="button" aria-label="Close menu"></button>
+        <a class="nav-pill" aria-current="page" href="mqzy8na2-index.html#top">Home</a>
         <a class="nav-pill" href="interior-page.html#events">Events</a>
-        <a class="nav-pill" href="#directions">Visit</a>
-        <a class="nav-pill cta" href="#visit">Join</a>
-        <button class="nav-share" type="button" data-share-site aria-label="Share Richmond Area RC"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 12l10-6v12L7 12z"></path><path d="M7 12H3"></path></svg></button>
+        <a class="nav-pill" href="mqzy8na2-index.html#directions">Visit</a>
+        <a class="nav-pill cta" href="mqzy8na2-index.html#visit">Join</a>
       </nav>
     </div>
   </header>
@@ -297,16 +323,20 @@
       <div class="container hero-grid">
         <div class="hero-copy">
           <div class="eyebrow">Richmond, Virginia radio control aviation</div>
-          <h1>Fly more. Learn more. Find your field.</h1>
-          <p class="lede">A photo-led club website for Richmond Area RC, built around the field, the aircraft, and the people who make a flying day worth showing up for.</p>
+          <h1>Find the field, meet the club, and get flying without the guesswork.</h1>
+          <p class="lede">The homepage should answer the practical questions first: where to go, what people fly, how a first visit works, and when the next good flying day is likely to happen.</p>
           <div class="actions">
             <a class="btn primary" href="#visit">Plan a field visit</a>
             <a class="btn outline" href="#gallery">View field gallery</a>
           </div>
-          <div class="hero-controls" aria-label="Hero image carousel controls">
-            <button class="control-btn" type="button" data-hero-prev aria-label="Previous hero image">‹</button>
-            <button class="control-btn wide" type="button" data-hero-pause aria-pressed="false">Pause</button>
-            <button class="control-btn" type="button" data-hero-next aria-label="Next hero image">›</button>
+          <div class="hero-footer">
+            <button class="hero-pause" type="button" data-hero-pause aria-pressed="false" aria-label="Pause rotating hero field photos" aria-describedby="hero-pause-desc">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9.6" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+                <path d="M9.8 8.9v6.2M14.2 8.9v6.2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path>
+              </svg>
+            </button>
+            <span id="hero-pause-desc" class="sr-only">Pauses or resumes the automatic rotation of the hero field photos.</span>
             <span class="carousel-announce" aria-live="polite">Hero image 1 of 5</span>
           </div>
         </div>
@@ -378,10 +408,6 @@
             <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Model_aircraft_flying%2C_Lower_Fields%2C_Napton_-_geograph.org.uk_-_1272769.jpg?width=1200" alt="Model aircraft flying over open fields">
             <figcaption>CC BY-SA placeholder: model aircraft flying over open fields, Wikimedia Commons / Geograph.</figcaption>
           </figure>
-          <figure>
-            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/In_control%2C_Garvaghy_-_geograph.org.uk_-_1225055.jpg?width=900" alt="RC pilot controlling an aircraft outdoors">
-            <figcaption>CC BY-SA placeholder: RC pilot at the controls, Wikimedia Commons / Geograph.</figcaption>
-          </figure>
         </div>
       </div>
     </section>
@@ -435,12 +461,53 @@
         <div class="plain-cta">
           <div class="plain-cta-copy">
             <div class="eyebrow">Events and stories</div>
-            <h2>Use the homepage to set the scene, then let interior pages carry the deeper stories.</h2>
-            <p>The reusable carousel-card pattern belongs on interior pages where an event recap, member feature, or blog story can breathe. Here, a simpler prompt is enough: show the field, explain the invitation, and route visitors into the content.</p>
+            <h2>This month at the field.</h2>
+            <p>The homepage only needs enough detail to show that the club has a real calendar, real people, and a clear next step for visitors who want more detail.</p>
           </div>
-          <div class="actions">
-            <a class="btn primary" href="interior-page.html#story-module">View story module</a>
-            <a class="btn outline" href="#gallery">See gallery pattern</a>
+          <div class="story-layout">
+            <div class="story-intro">
+              <p>Keep the front page summary practical: what is happening next, whether a newcomer can comfortably show up, and where the fuller recap or event details live.</p>
+              <div class="story-state" aria-label="Field schedule note">
+                <strong>Weather and field-condition updates should post before driving time.</strong>
+                <p>Use this slim note for same-day changes, soft-field closures, or a reminder that guest visits are easiest during scheduled intro mornings.</p>
+              </div>
+              <div class="story-actions">
+                <a class="btn primary" href="interior-page.html#story-module">Read event and story coverage</a>
+                <a class="btn outline" href="interior-page.html#events">See the interior pattern</a>
+              </div>
+            </div>
+            <div class="story-columns">
+              <div class="story-column" aria-label="Upcoming events preview">
+                <h3>Upcoming events</h3>
+                <div class="story-list">
+                  <article class="story-item">
+                    <div class="story-meta">July 13 · Intro flight morning</div>
+                    <strong>New visitors can meet members, walk the flight line, and see trainer setups before noon flying starts.</strong>
+                    <p>A low-pressure first-visit window with parking guidance, flight-line orientation, and informal mentoring for newcomers.</p>
+                  </article>
+                  <article class="story-item">
+                    <div class="story-meta">July 27 · Scale and sport showcase</div>
+                    <strong>Members bring current builds, favorite sport planes, and a few scale models for an easy summer field day.</strong>
+                    <p>Useful as a homepage teaser, with arrival timing, pilot notes, and any rain call living on the interior page.</p>
+                  </article>
+                </div>
+              </div>
+              <div class="story-column" aria-label="Recent stories preview">
+                <h3>Recent stories</h3>
+                <div class="story-list">
+                  <article class="story-item">
+                    <div class="story-meta">Field notes</div>
+                    <strong>How visiting pilots move from parking to pit area without guessing where to check in.</strong>
+                    <p>A practical article that can combine plain text, one or two aligned photos, and the retained carousel-card pattern.</p>
+                  </article>
+                  <article class="story-item">
+                    <div class="story-meta">Member feature</div>
+                    <strong>A short build recap for a favorite electric sport model, with just enough imagery to feel personal.</strong>
+                    <p>Use the interior module for the fuller sequence instead of stacking another full-width homepage widget.</p>
+                  </article>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -451,8 +518,8 @@
         <div class="cta-band">
           <div>
             <div class="eyebrow">Membership pathway</div>
-            <h2>Help a prospective pilot take the next step.</h2>
-            <p>Keep the ask practical: visit the field, ask a question, learn the safety expectations, and meet members before joining.</p>
+            <h2>Make joining feel practical, not formal.</h2>
+            <p>Invite people to visit first, meet members, ask questions at the field, and decide whether the club is a fit before they worry about paperwork.</p>
           </div>
           <a class="btn primary" href="interior-page.html">Preview interior page</a>
         </div>
@@ -466,13 +533,16 @@
               <div class="eyebrow">Directions and sharing</div>
               <h2>Make the field easy to find and easy to share.</h2>
             </div>
-          <p>Keep this section grounded in real utility: address, arrival notes, flying-day context, and one clean handoff into maps or sharing.</p>
+          <p>Give the page a real embedded map, a concise arrival note, and one clean path to directions or sharing.</p>
         </div>
         <div class="utility-grid">
-          <div class="map-sim" role="group" aria-label="Richmond Area RC field directions and arrival notes">
-            <div class="map-kicker">Field access</div>
-            <div class="map-label"><strong>Richmond Area RC field</strong><p>Use this surface for the real field address, gate or parking notes, and a short explanation of where guests should walk before approaching the flight line.</p></div>
-            <div class="map-actions"><button class="btn outline" type="button">Open in Maps</button><a class="btn outline" href="interior-page.html">Field details</a></div>
+          <div class="map-embed" role="group" aria-label="Richmond Area RC field directions and arrival notes">
+            <iframe title="Map showing Richmond Area RC field region" src="https://www.google.com/maps?q=Richmond%20Area%20RC%20Club%20Richmond%20Virginia&z=11&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="map-overlay">
+              <div class="map-kicker">Field access</div>
+              <div class="map-label"><strong>Richmond Area RC field</strong><p>Use the map surface to preview where the club sits, then pair it with a short note about parking, gate access, and where guests should walk before approaching the flight line.</p></div>
+              <div class="map-actions"><a class="btn outline" href="https://maps.google.com/?q=Richmond%20Area%20RC%20Club%20Richmond%20Virginia" target="_blank" rel="noreferrer">Open in Maps</a><a class="btn outline" href="interior-page.html">Field details</a></div>
+            </div>
           </div>
           <aside class="share-card">
             <div class="eyebrow">Member sharing</div>
@@ -499,6 +569,8 @@
     var menuToggle = document.querySelector('.menu-toggle');
     var menu = document.querySelector('#primary-menu');
     var scrim = document.querySelector('.menu-scrim');
+    var menuClose = document.querySelector('.menu-close');
+    var menuTouchStartX = null;
     function setMenu(open) {
       if (!menuToggle || !menu || !scrim) return;
       menuToggle.setAttribute('aria-expanded', String(open));
@@ -506,20 +578,40 @@
       menu.classList.toggle('is-open', open);
       scrim.classList.toggle('is-open', open);
       document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        window.setTimeout(function () {
+          if (menuClose) menuClose.focus({ preventScroll: true });
+        }, 20);
+      }
     }
     if (menuToggle) menuToggle.addEventListener('click', function () { setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'); });
+    if (menuClose) menuClose.addEventListener('click', function () { setMenu(false); });
     if (scrim) scrim.addEventListener('click', function () { setMenu(false); });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && menuToggle && menuToggle.getAttribute('aria-expanded') === 'true') setMenu(false);
+    });
+    if (menu) {
+      menu.addEventListener('touchstart', function (event) {
+        var touch = event.changedTouches && event.changedTouches[0];
+        menuTouchStartX = touch ? touch.clientX : null;
+      }, { passive: true });
+      menu.addEventListener('touchend', function (event) {
+        var touch = event.changedTouches && event.changedTouches[0];
+        if (menuTouchStartX === null || !touch) return;
+        if (touch.clientX - menuTouchStartX > 60) setMenu(false);
+        menuTouchStartX = null;
+      }, { passive: true });
+    }
 
     var heroCarousel = document.querySelector('[data-hero-carousel]');
     if (heroCarousel) {
       var heroSlides = Array.prototype.slice.call(heroCarousel.querySelectorAll('.hero-slide'));
       var heroCredit = heroCarousel.querySelector('.hero-credit');
       var heroStatus = document.querySelector('.carousel-announce');
-      var heroPrev = document.querySelector('[data-hero-prev]');
-      var heroNext = document.querySelector('[data-hero-next]');
       var heroPause = document.querySelector('[data-hero-pause]');
       var heroCurrent = 0;
-      var heroPaused = false;
+      var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var heroPaused = prefersReducedMotion;
       var heroTimer;
       function showHero(index) {
         if (!heroSlides.length) return;
@@ -532,14 +624,16 @@
         window.clearInterval(heroTimer);
         if (!heroPaused && heroSlides.length > 1) heroTimer = window.setInterval(function () { showHero(heroCurrent + 1); }, 6500);
       }
-      if (heroPrev) heroPrev.addEventListener('click', function () { showHero(heroCurrent - 1); queueHero(); });
-      if (heroNext) heroNext.addEventListener('click', function () { showHero(heroCurrent + 1); queueHero(); });
-      if (heroPause) heroPause.addEventListener('click', function () {
+      if (heroPause) {
+        heroPause.setAttribute('aria-pressed', String(heroPaused));
+        heroPause.setAttribute('aria-label', heroPaused ? 'Resume rotating hero field photos' : 'Pause rotating hero field photos');
+        heroPause.addEventListener('click', function () {
         heroPaused = !heroPaused;
-        heroPause.textContent = heroPaused ? 'Play' : 'Pause';
+        heroPause.setAttribute('aria-label', heroPaused ? 'Resume rotating hero field photos' : 'Pause rotating hero field photos');
         heroPause.setAttribute('aria-pressed', String(heroPaused));
         queueHero();
-      });
+        });
+      }
       showHero(0);
       queueHero();
     }
@@ -614,7 +708,9 @@
           navigator.clipboard.writeText(window.location.href).then(function () {
             if (shareNote) shareNote.textContent = 'Link copied to clipboard.';
           });
+          return;
         }
+        if (shareNote) shareNote.textContent = 'Copy the page URL from your browser to share it.';
       }); });
     }
   </script>
