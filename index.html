@@ -233,13 +233,29 @@
     .share-card h3 { font-size: clamp(26px, 3vw, 44px); }
     .share-note { color: var(--muted); font-family: var(--font-mono); font-size: var(--text-sm); }
     .share-card .btn { width: fit-content; }
+    .contact-section { padding-top: 0; }
+    .contact-shell { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.85fr); gap: var(--space-6); align-items: start; padding: clamp(24px, 3vw, 36px); border-radius: var(--radius-lg); background: color-mix(in oklab, var(--surface), transparent 10%); box-shadow: inset 0 0 0 1px var(--border-soft); }
+    .contact-copy { display: grid; gap: var(--space-4); }
+    .contact-copy h2 { margin: 0; }
+    .contact-copy p { margin: 0; color: var(--fg-2); max-width: 44ch; }
+    .contact-plugin-note { color: var(--muted); font-family: var(--font-mono); font-size: var(--text-sm); }
+    .contact-form { display: grid; gap: var(--space-4); }
+    .form-field { display: grid; gap: var(--space-2); }
+    .form-input, .form-textarea { width: 100%; border: 1px solid var(--border-soft); border-radius: var(--radius-md); background: color-mix(in oklab, var(--surface-warm), black 12%); color: var(--fg); padding: 14px 16px; }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+    .form-input:focus, .form-textarea:focus { outline: none; box-shadow: var(--focus-ring); border-color: transparent; }
+    .form-textarea { min-height: 148px; resize: vertical; }
+    .form-actions { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+    .form-meta { color: var(--muted); font-family: var(--font-mono); font-size: var(--text-sm); }
     .footer { padding: var(--space-8) 0; border-top: 1px solid var(--border-soft); background: color-mix(in oklab, var(--bg), black 72%); }
     .footer-grid { display: flex; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; color: var(--muted); font-size: var(--text-sm); }
+    .footer-copy { width: 100%; text-align: center; }
     .mobile-menu { display: none; }
 
     @media (max-width: 1180px) {
       .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .utility-grid { grid-template-columns: 1fr; }
+      .contact-shell { grid-template-columns: 1fr; }
       .share-card { padding-left: 0; border-left: 0; border-top: 1px solid var(--border-soft); }
     }
 
@@ -295,17 +311,17 @@
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="container nav" aria-label="Main navigation">
-      <a class="brand" href="mqzy8na2-index.html#top" aria-label="Richmond Area RC home">
+      <a class="brand" href="index.html#top" aria-label="Richmond Area RC home">
         <span class="logo-deck"><img src="mqyg8qo8-RARC-Logo-1-300x163.jpg" alt="Central Virginia RC Flying Club"></span>
       </a>
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-menu"><span></span><span></span><span></span></button>
       <button class="menu-scrim" type="button" aria-label="Close menu"></button>
       <nav id="primary-menu" class="nav-links" aria-label="Primary">
         <button class="menu-close" type="button" aria-label="Close menu"></button>
-        <a class="nav-pill" aria-current="page" href="mqzy8na2-index.html#top">Home</a>
+        <a class="nav-pill" aria-current="page" href="index.html#top">Home</a>
         <a class="nav-pill" href="interior-page.html#events">Events</a>
-        <a class="nav-pill" href="mqzy8na2-index.html#directions">Visit</a>
-        <a class="nav-pill cta" href="mqzy8na2-index.html#visit">Join</a>
+        <a class="nav-pill" href="index.html#directions">Visit</a>
+        <a class="nav-pill cta" href="index.html#visit">Join</a>
       </nav>
     </div>
   </header>
@@ -555,6 +571,37 @@
         </div>
       </div>
     </section>
+
+    <section id="contact" class="contact-section" data-od-id="contact-form">
+      <div class="container">
+        <div class="contact-shell">
+          <div class="contact-copy">
+            <div class="eyebrow">Contact the club</div>
+            <h2>Keep the first message short and easy.</h2>
+            <p>A simple contact form works better here than a long membership intake. Let visitors ask about field access, intro mornings, guest flying, or current meeting times before they commit to anything else.</p>
+            <p class="contact-plugin-note">WordPress handoff note: replace this prototype form with a free plugin embed such as WPForms Lite or Contact Form 7.</p>
+          </div>
+          <form class="contact-form" action="#" method="post">
+            <label class="form-field">
+              <span class="field-label">Name</span>
+              <input class="form-input" type="text" name="name" placeholder="Your name">
+            </label>
+            <label class="form-field">
+              <span class="field-label">Email</span>
+              <input class="form-input" type="email" name="email" placeholder="you@example.com">
+            </label>
+            <label class="form-field">
+              <span class="field-label">Message</span>
+              <textarea class="form-textarea" name="message" placeholder="Ask about a first visit, field location, flying schedule, or membership."></textarea>
+            </label>
+            <div class="form-actions">
+              <button class="btn primary" type="submit">Send message</button>
+              <span class="form-meta">Ideal plugin setup: name, email, message, and a simple anti-spam check.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
@@ -562,6 +609,7 @@
       <strong>Richmond Area RC</strong>
       <span>Homepage and interior page concept</span>
       <span>Photography placeholders require final CC attribution before launch.</span>
+      <span class="footer-copy">© 2026 Richmond Area Remote Control Club</span>
     </div>
   </footer>
 
