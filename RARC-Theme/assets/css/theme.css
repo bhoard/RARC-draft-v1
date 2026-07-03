@@ -126,7 +126,10 @@ img {
 	color: var(--rarc-fg);
 }
 
-.rarc-site-header .wp-block-navigation-item:last-child > .wp-block-navigation-item__content {
+.rarc-site-header .wp-block-navigation a[href$="#visit"],
+.rarc-site-header .wp-block-navigation a[href$="#contact"],
+.rarc-site-header .wp-block-navigation a[href*="/join"],
+.rarc-site-header .wp-block-navigation a[href*="/membership"] {
 	background: var(--rarc-accent);
 	color: #fff;
 	letter-spacing: 0.08em;

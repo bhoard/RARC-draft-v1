@@ -8,9 +8,40 @@ function rarc_theme_setup() {
 	add_theme_support( 'wp-block-styles' );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'editor-styles' );
+	add_theme_support(
+		'custom-logo',
+		array(
+			'height'      => 163,
+			'width'       => 300,
+			'flex-height' => true,
+			'flex-width'  => true,
+		)
+	);
 	add_editor_style( 'assets/css/editor.css' );
 }
 add_action( 'after_setup_theme', 'rarc_theme_setup' );
+
+function rarc_theme_default_logo_markup() {
+	return sprintf(
+		'<a href="%1$s" class="custom-logo-link" rel="home"><img src="%2$s" class="custom-logo" alt="%3$s" /></a>',
+		esc_url( home_url( '/' ) ),
+		esc_url( get_theme_file_uri( 'assets/images/rarc-logo.jpg' ) ),
+		esc_attr__( 'Richmond Area Remote Control Club', 'rarc-theme' )
+	);
+}
+
+function rarc_theme_render_site_logo_fallback( $block_content, $block ) {
+	if ( empty( $block['blockName'] ) || 'core/site-logo' !== $block['blockName'] ) {
+		return $block_content;
+	}
+
+	if ( has_custom_logo() || ! empty( trim( $block_content ) ) ) {
+		return $block_content;
+	}
+
+	return rarc_theme_default_logo_markup();
+}
+add_filter( 'render_block', 'rarc_theme_render_site_logo_fallback', 10, 2 );
 
 function rarc_theme_assets() {
 	$version = wp_get_theme()->get( 'Version' );
@@ -178,7 +209,7 @@ function rarc_theme_render_card_block( $attributes ) {
 	$markup .= '<div class="rarc-card-body">';
 	$markup .= empty( $attributes['eyebrow'] ) ? '' : '<div class="rarc-eyebrow">' . esc_html( $attributes['eyebrow'] ) . '</div>';
 	$markup .= empty( $attributes['title'] ) ? '' : '<h3>' . esc_html( $attributes['title'] ) . '</h3>';
-	$markup .= empty( $attributes['text'] ) ? '' : '<p>' . esc_html( $attributes['text'] ) . '</p>';
+	$markup .= empty( $attributes['text'] ) ? '' : '<p>' . wp_kses_post( $attributes['text'] ) . '</p>';
 	$markup .= $button;
 	$markup .= '</div></article>';
 
@@ -231,7 +262,7 @@ function rarc_theme_render_carousel_block( $attributes ) {
 					<?php endif; ?>
 				</div>
 				<?php if ( ! empty( $attributes['intro'] ) ) : ?>
-					<p><?php echo esc_html( $attributes['intro'] ); ?></p>
+					<p><?php echo wp_kses_post( $attributes['intro'] ); ?></p>
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>
@@ -259,7 +290,7 @@ function rarc_theme_render_carousel_block( $attributes ) {
 					<h3><?php echo esc_html( $attributes['bodyHeading'] ); ?></h3>
 				<?php endif; ?>
 				<?php if ( ! empty( $attributes['bodyText'] ) ) : ?>
-					<p><?php echo esc_html( $attributes['bodyText'] ); ?></p>
+					<p><?php echo wp_kses_post( $attributes['bodyText'] ); ?></p>
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>
@@ -295,7 +326,7 @@ function rarc_theme_render_hero_block( $attributes ) {
 					<h1><?php echo esc_html( $attributes['heading'] ); ?></h1>
 				<?php endif; ?>
 				<?php if ( ! empty( $attributes['lede'] ) ) : ?>
-					<p class="rarc-lede"><?php echo esc_html( $attributes['lede'] ); ?></p>
+					<p class="rarc-lede"><?php echo wp_kses_post( $attributes['lede'] ); ?></p>
 				<?php endif; ?>
 				<div class="rarc-actions">
 					<?php if ( ! empty( $attributes['primaryLabel'] ) && ! empty( $attributes['primaryUrl'] ) ) : ?>
@@ -326,7 +357,7 @@ function rarc_theme_render_info_row_block( $attributes ) {
 
 	$markup  = '<div class="wp-block-rarc-info-row rarc-info-item">';
 	$markup .= '<p><strong>' . esc_html( $attributes['label'] ?? '' ) . '</strong></p>';
-	$markup .= '<p><span>' . esc_html( $attributes['content'] ?? '' ) . '</span></p>';
+	$markup .= '<p><span>' . wp_kses_post( $attributes['content'] ?? '' ) . '</span></p>';
 	$markup .= '</div>';
 
 	return $markup;
@@ -339,7 +370,7 @@ function rarc_theme_render_sidebar_card_block( $attributes ) {
 
 	$markup  = '<div class="wp-block-rarc-sidebar-card rarc-sidebar-card">';
 	$markup .= '<p><strong>' . esc_html( $attributes['title'] ?? '' ) . '</strong></p>';
-	$markup .= empty( $attributes['text'] ) ? '' : '<p>' . esc_html( $attributes['text'] ) . '</p>';
+	$markup .= empty( $attributes['text'] ) ? '' : '<p>' . wp_kses_post( $attributes['text'] ) . '</p>';
 
 	if ( ! empty( $attributes['buttonText'] ) ) {
 		if ( ! empty( $attributes['isShare'] ) ) {

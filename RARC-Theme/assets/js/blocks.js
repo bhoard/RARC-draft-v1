@@ -6,6 +6,7 @@
 	var MediaUploadCheck = blockEditor.MediaUploadCheck;
 	var InspectorControls = blockEditor.InspectorControls;
 	var RichText = blockEditor.RichText;
+	var PlainText = blockEditor.PlainText;
 	var PanelBody = components.PanelBody;
 	var Button = components.Button;
 	var TextControl = components.TextControl;
@@ -374,13 +375,11 @@
 			return el(
 				'div',
 				blockProps,
-				el( RichText, {
-					tagName: 'p',
+				el( PlainText, {
 					placeholder: __( 'Row label', 'rarc-theme' ),
-					value: attributes.label ? '<strong>' + attributes.label + '</strong>' : '',
-					allowedFormats: [],
+					value: attributes.label,
 					onChange: function ( value ) {
-						setAttributes( { label: value.replace( /<[^>]+>/g, '' ) } );
+						setAttributes( { label: value } );
 					}
 				} ),
 				el( RichText, {
@@ -456,12 +455,10 @@
 				el(
 					'div',
 					blockProps,
-					el( RichText, {
-						tagName: 'p',
+					el( PlainText, {
 						placeholder: __( 'Sidebar title', 'rarc-theme' ),
-						value: attributes.title ? '<strong>' + attributes.title + '</strong>' : '',
-						allowedFormats: [],
-						onChange: function ( value ) { setAttributes( { title: value.replace( /<[^>]+>/g, '' ) } ); }
+						value: attributes.title,
+						onChange: function ( value ) { setAttributes( { title: value } ); }
 					} ),
 					el( RichText, {
 						tagName: 'p',
