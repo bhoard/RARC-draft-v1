@@ -241,6 +241,60 @@ function rarc_theme_get_cta_variant_class( $variant ) {
 	return 'rarc-cta--' . $variant;
 }
 
+function rarc_theme_get_cta_icon_svg( $icon_type ) {
+	$icons = array(
+		'arrow' =>
+			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+		'external' =>
+			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
+		'lock' =>
+			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+		'share' =>
+			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
+	);
+
+	return $icons[ $icon_type ] ?? $icons['arrow'];
+}
+
+function rarc_theme_get_cta_icon_type( $url ) {
+	if ( empty( $url ) ) {
+		return 'arrow';
+	}
+
+	$host = wp_parse_url( $url, PHP_URL_HOST );
+
+	if ( empty( $host ) ) {
+		return 'arrow';
+	}
+
+	$internal_patterns = array(
+		'rarc.club',
+		'richmondarearc',
+		'localhost',
+	);
+
+	$locked_patterns = array(
+		'members.',
+		'login.',
+		'secure.',
+		'portal.',
+	);
+
+	foreach ( $locked_patterns as $pattern ) {
+		if ( str_contains( $host, $pattern ) ) {
+			return 'lock';
+		}
+	}
+
+	foreach ( $internal_patterns as $pattern ) {
+		if ( str_contains( $host, $pattern ) ) {
+			return 'arrow';
+		}
+	}
+
+	return 'external';
+}
+
 function rarc_theme_render_cta( $args = array() ) {
 	$args = wp_parse_args(
 		$args,
@@ -252,6 +306,7 @@ function rarc_theme_render_cta( $args = array() ) {
 			'class_name'  => '',
 			'type'        => 'button',
 			'show_icon'   => false,
+			'icon_type'   => 'auto',
 			'attributes'  => array(),
 		)
 	);
@@ -293,11 +348,18 @@ function rarc_theme_render_cta( $args = array() ) {
 		$parts[] = esc_attr( $name ) . '="' . esc_attr( $value ) . '"';
 	}
 
+	if ( ! empty( $args['show_icon'] ) ) {
+		$icon_type = ( 'auto' === $args['icon_type'] ) ? rarc_theme_get_cta_icon_type( $args['url'] ) : $args['icon_type'];
+		$icon_markup = rarc_theme_get_cta_icon_svg( $icon_type );
+	} else {
+		$icon_markup = '';
+	}
+
 	$markup  = '<' . $tag . ' ' . implode( ' ', $parts ) . '>';
 	$markup .= '<span class="rarc-cta__label">' . esc_html( $args['text'] ) . '</span>';
 
-	if ( ! empty( $args['show_icon'] ) ) {
-		$markup .= '<span class="rarc-cta__icon" aria-hidden="true">&rarr;</span>';
+	if ( ! empty( $icon_markup ) ) {
+		$markup .= '<span class="rarc-cta__icon" aria-hidden="true">' . $icon_markup . '</span>';
 	}
 
 	$markup .= '</' . $tag . '>';
@@ -307,24 +369,46 @@ function rarc_theme_render_cta( $args = array() ) {
 
 function rarc_theme_render_card_block( $attributes ) {
 	$variant = sanitize_html_class( $attributes['variant'] ?? 'image' );
+	$has_link = ! empty( $attributes['linkUrl'] );
+	$link_url = $has_link ? esc_url( $attributes['linkUrl'] ) : '';
+
 	$image = empty( $attributes['imageUrl'] ) ? '' : sprintf(
-		'<div class="rarc-card-media"><img src="%1$s" alt="%2$s" />%3$s</div>',
+		'<div class="rarc-card__image"><img src="%1$s" alt="%2$s" />%3$s</div>',
 		esc_url( $attributes['imageUrl'] ),
 		esc_attr( $attributes['imageAlt'] ?? '' ),
 		empty( $attributes['credit'] ) ? '' : '<span class="rarc-card-credit">' . esc_html( $attributes['credit'] ) . '</span>'
 	);
 
 	if ( empty( $image ) && in_array( $variant, array( 'image', 'story', 'horizontal' ), true ) ) {
-		$image = '<div class="rarc-card-media rarc-card-media--placeholder"><span class="rarc-card-placeholder">Add card image</span></div>';
+		$image = '<div class="rarc-card__image rarc-card__image--placeholder"><span class="rarc-card-placeholder">Add card image</span></div>';
 	}
 
+	$eyebrow = empty( $attributes['eyebrow'] ) ? '' : '<div class="rarc-eyebrow">' . esc_html( $attributes['eyebrow'] ) . '</div>';
+	$meta = empty( $attributes['meta'] ) ? '' : '<div class="rarc-card-meta">' . esc_html( $attributes['meta'] ) . '</div>';
+	$title = empty( $attributes['title'] ) ? '' : '<h3>' . esc_html( $attributes['title'] ) . '</h3>';
+	$subheadline = empty( $attributes['subheadline'] ) ? '' : '<p class="rarc-card-subheadline">' . esc_html( $attributes['subheadline'] ) . '</p>';
+
+	$header_content = trim( $meta . $eyebrow . $title . $subheadline );
+
+	if ( $has_link && ! empty( $header_content ) ) {
+		$header = '<a class="rarc-card__header-link" href="' . $link_url . '">' . $header_content . '</a>';
+	} elseif ( ! empty( $header_content ) ) {
+		$header = '<div class="rarc-card__header">' . $header_content . '</div>';
+	} else {
+		$header = '';
+	}
+
+	$body_text = empty( $attributes['text'] ) ? '' : '<p>' . wp_kses_post( $attributes['text'] ) . '</p>';
+
 	$button = '';
-	if ( ! empty( $attributes['linkText'] ) && ! empty( $attributes['linkUrl'] ) ) {
+	if ( $has_link && ! empty( $attributes['linkText'] ) ) {
 		$button = rarc_theme_render_cta(
 			array(
 				'text'       => $attributes['linkText'],
 				'url'        => $attributes['linkUrl'],
 				'variant'    => $attributes['buttonStyle'] ?? 'primary',
+				'show_icon'  => true,
+				'icon_type'  => 'auto',
 				'class_name' => 'rarc-card-cta',
 			)
 		);
@@ -332,12 +416,9 @@ function rarc_theme_render_card_block( $attributes ) {
 
 	$markup  = '<article class="wp-block-rarc-card rarc-card rarc-card--' . esc_attr( $variant ) . '">';
 	$markup .= $image;
-	$markup .= '<div class="rarc-card-body">';
-	$markup .= empty( $attributes['meta'] ) ? '' : '<div class="rarc-card-meta">' . esc_html( $attributes['meta'] ) . '</div>';
-	$markup .= empty( $attributes['eyebrow'] ) ? '' : '<div class="rarc-eyebrow">' . esc_html( $attributes['eyebrow'] ) . '</div>';
-	$markup .= empty( $attributes['title'] ) ? '' : '<h3>' . esc_html( $attributes['title'] ) . '</h3>';
-	$markup .= empty( $attributes['subheadline'] ) ? '' : '<p class="rarc-card-subheadline">' . esc_html( $attributes['subheadline'] ) . '</p>';
-	$markup .= empty( $attributes['text'] ) ? '' : '<p>' . wp_kses_post( $attributes['text'] ) . '</p>';
+	$markup .= '<div class="rarc-card__content">';
+	$markup .= $header;
+	$markup .= empty( $body_text ) ? '' : $body_text;
 	$markup .= $button;
 	$markup .= '</div></article>';
 
@@ -458,10 +539,10 @@ function rarc_theme_render_hero_block( $attributes ) {
 				<?php endif; ?>
 				<div class="rarc-actions">
 				<?php if ( ! empty( $attributes['primaryLabel'] ) && ! empty( $attributes['primaryUrl'] ) ) : ?>
-					<?php echo rarc_theme_render_cta( array( 'text' => $attributes['primaryLabel'], 'url' => $attributes['primaryUrl'], 'variant' => 'primary', 'class_name' => 'rarc-hero-cta' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php echo rarc_theme_render_cta( array( 'text' => $attributes['primaryLabel'], 'url' => $attributes['primaryUrl'], 'variant' => 'primary', 'show_icon' => true, 'icon_type' => 'auto', 'class_name' => 'rarc-hero-cta' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<?php endif; ?>
 				<?php if ( ! empty( $attributes['secondaryLabel'] ) && ! empty( $attributes['secondaryUrl'] ) ) : ?>
-					<?php echo rarc_theme_render_cta( array( 'text' => $attributes['secondaryLabel'], 'url' => $attributes['secondaryUrl'], 'variant' => 'outline', 'class_name' => 'rarc-hero-cta' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php echo rarc_theme_render_cta( array( 'text' => $attributes['secondaryLabel'], 'url' => $attributes['secondaryUrl'], 'variant' => 'outline', 'show_icon' => true, 'icon_type' => 'auto', 'class_name' => 'rarc-hero-cta' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<?php endif; ?>
 			</div>
 				<div class="rarc-hero-footer">
@@ -518,6 +599,8 @@ function rarc_theme_render_sidebar_card_block( $attributes ) {
 					'text'       => $attributes['buttonText'],
 					'url'        => $attributes['buttonUrl'],
 					'variant'    => 'outline',
+					'show_icon'  => true,
+					'icon_type'  => 'auto',
 					'class_name' => 'rarc-sidebar-cta',
 				)
 			);
@@ -542,24 +625,30 @@ function rarc_theme_render_story_preview_block( $attributes ) {
 	$cta_label = empty( $attributes['ctaLabel'] ) ? __( 'Read story', 'rarc-theme' ) : $attributes['ctaLabel'];
 	$show_image = ! isset( $attributes['showImage'] ) || ! empty( $attributes['showImage'] );
 	$image = '';
+	$date = esc_html( get_the_date( '', $post_id ) );
 
 	if ( $show_image && has_post_thumbnail( $post_id ) ) {
-		$image = '<div class="rarc-card-media">' . get_the_post_thumbnail( $post_id, 'large' ) . '</div>';
+		$image = '<div class="rarc-card__image">' . get_the_post_thumbnail( $post_id, 'large' ) . '</div>';
 	}
+
+	$header = '<a class="rarc-card__header-link" href="' . esc_url( $permalink ) . '">';
+	$header .= '<div class="rarc-card-meta">' . $date . '</div>';
+	$header .= '<h3>' . esc_html( $title ) . '</h3>';
+	$header .= '</a>';
 
 	$markup  = '<article class="wp-block-rarc-story-preview rarc-card rarc-card--story rarc-story-preview">';
 	$markup .= $image;
-	$markup .= '<div class="rarc-card-body">';
-	$markup .= '<div class="rarc-card-meta">' . esc_html( get_the_date( '', $post_id ) ) . '</div>';
-	$markup .= '<h3><a class="rarc-story-preview__title" href="' . esc_url( $permalink ) . '">' . esc_html( $title ) . '</a></h3>';
+	$markup .= '<div class="rarc-card__content">';
+	$markup .= $header;
 	$markup .= empty( $excerpt ) ? '' : '<p>' . esc_html( $excerpt ) . '</p>';
 	$markup .= rarc_theme_render_cta(
 		array(
 			'text'       => $cta_label,
 			'url'        => $permalink,
 			'variant'    => 'inline',
-			'class_name' => 'rarc-story-preview__cta',
+			'icon_type'  => 'auto',
 			'show_icon'  => true,
+			'class_name' => 'rarc-story-preview__cta',
 		)
 	);
 	$markup .= '</div></article>';

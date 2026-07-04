@@ -108,13 +108,13 @@ Implement in this order:
 
 Current status of the plan:
 
-- Stage 1: CTA system: substantially implemented
-- Stage 2: Card family: substantially implemented, with room for further refinement
+- Stage 1: CTA system: complete — SVG icon system with semantic auto-selection, enhanced icon hover motion, icon_type parameter, all branded CTAs use show_icon
+- Stage 2: Card family: complete — __header/__content/__image named regions, clickable header-link, __image--placeholder class, story-preview uses same anatomy
 - Stage 3: Custom block editing UX and placeholders: substantially implemented for current custom blocks
 - Stage 4: Page-section decomposition and section architecture: implemented in active templates and pattern library
-- Stage 5: Template and shell refinement: in progress
-- Stage 6: Archive-like and dynamic readiness: in progress
-- Stage 7: Final fingerprint review: not yet complete
+- Stage 5: Template and shell refinement: substantially complete
+- Stage 6: Archive-like and dynamic readiness: substantially complete
+- Stage 7: Final fingerprint review: pending
 
 The stages still govern the work. They have not been abandoned. Some coding passes crossed stage boundaries because preserving the intended backend model required CTA, card, section, and shell changes to move together.
 

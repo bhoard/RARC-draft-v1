@@ -69,3 +69,19 @@
 	margin-top: 12px;
 	align-items: stretch;
 }
+
+.editor-styles-wrapper .rarc-card__header {
+	outline: 1px dashed rgba(255,255,255,0.06);
+	outline-offset: 4px;
+	padding: 8px;
+	margin-bottom: 4px;
+	border-radius: 4px;
+}
+
+.editor-styles-wrapper .rarc-card__image--placeholder {
+	min-height: 180px;
+	padding: 32px;
+	display: grid;
+	place-items: center;
+	text-align: center;
+}

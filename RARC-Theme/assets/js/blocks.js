@@ -152,7 +152,7 @@
 					blockProps,
 					el(
 						'div',
-						{ className: 'rarc-card-media' },
+						{ className: 'rarc-card__image' },
 						attributes.imageUrl ? el( 'img', { src: attributes.imageUrl, alt: attributes.imageAlt || '' } ) : el( 'div', { className: 'rarc-editor-note' }, __( 'Select a card image.', 'rarc-theme' ) ),
 						attributes.credit ? el( 'span', { className: 'rarc-card-credit' }, attributes.credit ) : null,
 						el(
@@ -171,7 +171,8 @@
 					),
 					el(
 						'div',
-						{ className: 'rarc-card-body' },
+						{ className: 'rarc-card__content' },
+						el( 'div', { className: 'rarc-card__header' },
 						el( RichText, {
 							tagName: 'div',
 							className: 'rarc-eyebrow',
@@ -195,6 +196,7 @@
 							value: attributes.subheadline,
 							onChange: function ( value ) { setAttributes( { subheadline: value } ); }
 						} ),
+						),
 						el( RichText, {
 							tagName: 'p',
 							placeholder: __( 'Card description', 'rarc-theme' ),
@@ -568,12 +570,14 @@
 				el(
 					'article',
 					blockProps,
-					attributes.showImage ? el( 'div', { className: 'rarc-card-media rarc-card-media--placeholder' }, el( 'span', { className: 'rarc-card-placeholder' }, __( 'Featured image from current post', 'rarc-theme' ) ) ) : null,
+					attributes.showImage ? el( 'div', { className: 'rarc-card__image rarc-card__image--placeholder' }, el( 'span', { className: 'rarc-card-placeholder' }, __( 'Featured image from current post', 'rarc-theme' ) ) ) : null,
 					el(
 						'div',
-						{ className: 'rarc-card-body' },
+						{ className: 'rarc-card__content' },
+						el( 'div', { className: 'rarc-card__header' },
 						el( 'div', { className: 'rarc-card-meta' }, __( 'Post date from current entry', 'rarc-theme' ) ),
-						el( 'h3', null, __( 'Post title from current entry', 'rarc-theme' ) ),
+						el( 'h3', null, __( 'Post title from current entry', 'rarc-theme' ) )
+						),
 						el( 'p', null, __( 'Excerpt from current entry will render here on the front end.', 'rarc-theme' ) ),
 						el( 'div', { className: 'rarc-cta rarc-cta--inline rarc-editor-cta' }, el( 'span', { className: 'rarc-cta__label' }, attributes.ctaLabel || __( 'Read story', 'rarc-theme' ) ), el( 'span', { className: 'rarc-cta__icon', 'aria-hidden': 'true' }, '->' ) )
 					)

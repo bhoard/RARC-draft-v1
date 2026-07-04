@@ -633,6 +633,34 @@ The next version of `RARC-Theme` should feel more like a curated publishing syst
 
 If the original reference theme is absent, the same conclusion still holds.
 
+## RARC-Theme CTA Icon Contract
+
+The example-theme used SVG `<use>` references with semantic icon selection based on link destination (internal → arrows, external → external-link, locked → lock). RARC-Theme matches this fingerprint with:
+
+- `rarc_theme_get_cta_icon_svg()` — returns inline SVG markup for icon types: `arrow`, `external`, `lock`, `share`
+- `rarc_theme_get_cta_icon_type()` — auto-detects icon type from URL by checking host patterns
+- `rarc_theme_render_cta()` `icon_type` parameter — accepts `'auto'` (default), `'arrow'`, `'external'`, `'lock'`, `'share'`, or `'none'`
+- SVG icons use `stroke="currentColor"` so they inherit CTA text color
+- Icons render inside `<span class="rarc-cta__icon" aria-hidden="true">`
+- Hover: icon slides right via `translateX(6px)` with cubic-bezier easing, matching example-theme's motion signature
+
+All branded CTAs (hero, card, sidebar, story-preview) use `show_icon => true, icon_type => 'auto'` to get semantic icons. Template-part CTAs (header, footer) and pattern CTAs use inline SVG directly.
+
+## RARC-Theme Card Anatomy Contract
+
+The example-theme used `wp-block-rmc-preview-card` with `__header`, `__content`, `__image` named regions and a clickable header link. RARC-Theme matches this fingerprint with:
+
+- `rarc-card` base wrapper with `rarc-card--{variant}` modifier (`image`, `story`, `info`, `horizontal`)
+- `rarc-card__image` — media region with `rarc-card__image--placeholder` for empty state
+- `rarc-card__content` — content region containing header + body text + CTA
+- `rarc-card__header-link` — clickable `<a>` wrapping eyebrow + meta + title + subheadline (when `linkUrl` is set)
+- `rarc-card-meta` — metadata region (date, category, etc.)
+- `rarc-card-subheadline` — optional subheadline
+- `rarc-card-credit` — image credit overlay
+- `rarc-card-cta` — CTA within card body
+
+The story-preview (`rarc/story-preview`) follows the same anatomy: `rarc-card__image` → `rarc-card__content` → `rarc-card__header-link` (meta + title) → excerpt → CTA.
+
 ## Build Artifacts
 
 When producing a ZIP for WordPress theme upload (`RARC-Theme.zip`), include only the files required by a WordPress theme:

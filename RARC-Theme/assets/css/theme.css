@@ -232,21 +232,21 @@ img {
 	grid-template-rows: 1fr;
 }
 
-.rarc-card-media {
+.rarc-card__image {
 	position: relative;
 	min-height: clamp(210px, 22vw, 300px);
 	background: var(--rarc-surface-warm);
 	overflow: hidden;
 }
 
-.rarc-card-media img {
+.rarc-card__image img {
 	width: 100%;
 	height: 100%;
 	min-height: clamp(210px, 22vw, 300px);
 	object-fit: cover;
 }
 
-.rarc-card-media::after {
+.rarc-card__image::after {
 	content: "";
 	position: absolute;
 	inset: auto 0 0;
@@ -254,10 +254,14 @@ img {
 	background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.82));
 }
 
-.rarc-card-media--placeholder {
+.rarc-card__image--placeholder {
 	display: grid;
 	place-items: center;
 	background: color-mix(in oklab, var(--rarc-surface-warm), white 4%);
+}
+
+.rarc-card__image--placeholder::after {
+	display: none;
 }
 
 .rarc-card-placeholder {
@@ -281,11 +285,35 @@ img {
 	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
 }
 
-.rarc-card-body {
+.rarc-card__content {
 	padding: var(--rarc-space-5);
 	display: grid;
 	gap: var(--rarc-space-3);
 	align-content: start;
+}
+
+.rarc-card__header-link {
+	display: grid;
+	gap: var(--rarc-space-2);
+	color: inherit;
+	text-decoration: none;
+}
+
+.rarc-card__header-link:hover .rarc-eyebrow,
+.rarc-card__header-link:focus-visible .rarc-eyebrow,
+.rarc-card__header-link:hover .rarc-card-meta,
+.rarc-card__header-link:focus-visible .rarc-card-meta {
+	color: var(--rarc-fg);
+}
+
+.rarc-card__header-link:hover h3,
+.rarc-card__header-link:focus-visible h3 {
+	text-decoration: underline;
+}
+
+.rarc-card__header-link .rarc-eyebrow,
+.rarc-card__header-link .rarc-card-meta {
+	transition: color 200ms ease;
 }
 
 .rarc-card-meta,
@@ -307,7 +335,7 @@ img {
 	line-height: 1.35;
 }
 
-.rarc-card--story .rarc-card-body {
+.rarc-card--story .rarc-card__content {
 	gap: var(--rarc-space-2);
 }
 
@@ -329,16 +357,16 @@ img {
 	margin-top: var(--rarc-space-2);
 }
 
-.rarc-card--info .rarc-card-media {
+.rarc-card--info .rarc-card__image {
 	display: none;
 }
 
-.rarc-card--horizontal .rarc-card-media,
-.rarc-card--horizontal .rarc-card-media img {
+.rarc-card--horizontal .rarc-card__image,
+.rarc-card--horizontal .rarc-card__image img {
 	min-height: 100%;
 }
 
-.rarc-card-body h3,
+.rarc-card__content h3,
 .rarc-story-column h3,
 .rarc-sidebar h3,
 .rarc-carousel-card-body h3 {
@@ -690,15 +718,21 @@ img {
 }
 
 .rarc-cta__icon {
-	display: inline-block;
-	font-size: 14px;
+	display: inline-flex;
+	align-items: center;
 	line-height: 1;
-	transition: transform 200ms ease;
+	transition: transform 300ms cubic-bezier(.41,1.24,.62,1.51);
+}
+
+.rarc-cta__icon svg {
+	display: block;
+	width: 14px;
+	height: 14px;
 }
 
 .rarc-cta:hover .rarc-cta__icon,
 .rarc-cta:focus-visible .rarc-cta__icon {
-	transform: translateX(4px);
+	transform: translateX(6px);
 }
 
 .rarc-cta--primary {
