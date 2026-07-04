@@ -49,7 +49,7 @@
 				value: options.value || '',
 				onChange: options.onChange
 			} ),
-			options.showIcon ? el( 'span', { className: 'rarc-cta__icon', 'aria-hidden': 'true' }, '->' ) : null
+			options.showIcon ? el( 'span', { className: 'rarc-cta__icon', 'aria-hidden': 'true', dangerouslySetInnerHTML: { __html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' } } ) : null
 		);
 	}
 
@@ -157,8 +157,8 @@
 					blockProps,
 					el(
 						'div',
-						{ className: 'rarc-card__image' },
-						attributes.imageUrl ? el( 'img', { src: attributes.imageUrl, alt: attributes.imageAlt || '' } ) : el( 'div', { className: 'rarc-editor-note' }, __( 'Select a card image.', 'rarc-theme' ) ),
+						{ className: 'rarc-card__image' + ( attributes.imageUrl ? '' : ' rarc-card__image--placeholder' ) },
+						attributes.imageUrl ? el( 'img', { src: attributes.imageUrl, alt: attributes.imageAlt || '' } ) : el( 'span', { className: 'rarc-card-placeholder' }, __( 'Add card image', 'rarc-theme' ) ),
 						attributes.credit ? el( 'span', { className: 'rarc-card-credit' }, attributes.credit ) : null,
 						el(
 							MediaUploadCheck,
@@ -305,7 +305,7 @@
 					el( RichText, { tagName: 'div', className: 'rarc-eyebrow', placeholder: __( 'Eyebrow', 'rarc-theme' ), value: attributes.eyebrow, onChange: function ( value ) { setAttributes( { eyebrow: value } ); } } ),
 					el( RichText, { tagName: 'h2', placeholder: __( 'Section heading', 'rarc-theme' ), value: attributes.heading, onChange: function ( value ) { setAttributes( { heading: value } ); } } ),
 					el( RichText, { tagName: 'p', placeholder: __( 'Intro text', 'rarc-theme' ), value: attributes.intro, onChange: function ( value ) { setAttributes( { intro: value } ); } } ),
-					slides.length > 0 ? el( 'div', { className: 'rarc-editor-note' }, slides.length + ' ' + __( 'slide(s). Edit in the block sidebar. Frontend preview uses carousel behavior.', 'rarc-theme' ) ) : el( 'div', { className: 'rarc-editor-note' }, __( 'Add slides in the block sidebar.', 'rarc-theme' ) ),
+					slides.length > 0 ? el( 'div', { className: 'rarc-editor-badge' }, slides.length + ' ' + __( 'slide(s). Edit slides in sidebar.', 'rarc-theme' ) ) : el( 'div', { className: 'rarc-editor-badge' }, __( 'Add slides in the block sidebar.', 'rarc-theme' ) ),
 					el( 'div', { className: 'rarc-carousel-stage' }, slides[0] && slides[0].imageUrl ? el( 'img', { src: slides[0].imageUrl, alt: slides[0].alt || '' } ) : null ),
 					attributes.variant === 'card' ? el(
 						Fragment,
@@ -391,8 +391,8 @@
 				el(
 					'section',
 					blockProps,
-					slides[0] && slides[0].imageUrl ? el( 'div', { className: 'rarc-carousel-stage' }, el( 'img', { src: slides[0].imageUrl, alt: '' } ) ) : el( 'div', { className: 'rarc-editor-note' }, __( 'Add hero slides in the block sidebar.', 'rarc-theme' ) ),
-					slides.length > 0 ? el( 'div', { className: 'rarc-editor-note' }, slides.length + __( ' slide(s) configured. Edit in the block sidebar.', 'rarc-theme' ) ) : null,
+					slides[0] && slides[0].imageUrl ? el( 'div', { className: 'rarc-carousel-stage' }, el( 'img', { src: slides[0].imageUrl, alt: '' } ) ) : el( 'div', { className: 'rarc-card__image--placeholder rarc-hero-placeholder' }, el( 'span', { className: 'rarc-card-placeholder' }, __( 'Add hero slide', 'rarc-theme' ) ) ),
+					slides.length > 0 ? el( 'div', { className: 'rarc-editor-badge' }, slides.length + __( ' slide(s). Edit in sidebar.', 'rarc-theme' ) ) : null,
 					el( RichText, { tagName: 'div', className: 'rarc-eyebrow', placeholder: __( 'Eyebrow', 'rarc-theme' ), value: attributes.eyebrow, onChange: function ( value ) { setAttributes( { eyebrow: value } ); } } ),
 					el( RichText, { tagName: 'h1', placeholder: __( 'Hero heading', 'rarc-theme' ), value: attributes.heading, onChange: function ( value ) { setAttributes( { heading: value } ); } } ),
 					el( RichText, { tagName: 'p', className: 'rarc-lede', placeholder: __( 'Hero summary', 'rarc-theme' ), value: attributes.lede, onChange: function ( value ) { setAttributes( { lede: value } ); } } ),
@@ -502,7 +502,7 @@ ctaPreviewField( { variant: 'rarc-cta--primary', placeholder: __( 'Primary CTA l
 				el(
 					'div',
 					blockProps,
-					el( 'div', { className: 'rarc-editor-note' }, attributes.isShare ? __( 'Share Card', 'rarc-theme' ) : __( 'Link Card', 'rarc-theme' ) ),
+					el( 'div', { className: 'rarc-editor-badge' }, attributes.isShare ? __( 'Share Card', 'rarc-theme' ) : __( 'Link Card', 'rarc-theme' ) ),
 					el( PlainText, {
 						placeholder: __( 'Sidebar title', 'rarc-theme' ),
 						value: attributes.title,
@@ -582,7 +582,7 @@ ctaPreviewField( {
 								value: attributes.ctaLabel,
 								onChange: function ( value ) { setAttributes( { ctaLabel: value } ); }
 							} ),
-							el( 'span', { className: 'rarc-cta__icon', 'aria-hidden': 'true' }, '->' )
+							el( 'span', { className: 'rarc-cta__icon', 'aria-hidden': 'true', dangerouslySetInnerHTML: { __html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' } } )
 						)
 					)
 				)

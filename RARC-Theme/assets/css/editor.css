@@ -85,3 +85,27 @@
 	place-items: center;
 	text-align: center;
 }
+
+.editor-styles-wrapper .rarc-card-placeholder {
+	color: #888;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 12px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.editor-styles-wrapper .rarc-editor-badge {
+	display: inline-block;
+	font-size: 10px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	padding: 2px 8px;
+	border-radius: 3px;
+	margin-bottom: 8px;
+	color: #b3b3b3;
+	border: 1px solid rgba(255,255,255,0.1);
+}
+
+.editor-styles-wrapper .rarc-hero-placeholder {
+	min-height: 240px;
+}

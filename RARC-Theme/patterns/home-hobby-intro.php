@@ -6,7 +6,7 @@
  */
 ?>
 <!-- wp:group {"align":"full","anchor":"aircraft","className":"rarc-section","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull rarc-section"><div class="wp-block-group__inner-container"><!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull rarc-section"><!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide"><!-- wp:group {"className":"rarc-section-head"} -->
 <div class="wp-block-group rarc-section-head"><!-- wp:group --><div class="wp-block-group"><!-- wp:paragraph {"className":"rarc-eyebrow"} --><p class="rarc-eyebrow">What members fly</p><!-- /wp:paragraph --><!-- wp:heading {"level":2} --><h2 class="wp-block-heading">One club, several ways into the hobby.</h2><!-- /wp:heading --></div><!-- /wp:group --><!-- wp:paragraph --><p>Three clear entry points introduce the club without forcing visitors through dense rules or unexplained aviation shorthand.</p><!-- /wp:paragraph --></div>
 <!-- /wp:group -->
@@ -18,5 +18,5 @@
 
 <!-- wp:rarc/card {"variant":"image","eyebrow":"Field access","title":"Field community","text":"Member photos, work days, and field notes make the site feel rooted in the Richmond flying community.","imageUrl":"https://commons.wikimedia.org/wiki/Special:FilePath/Spring_flying_at_KILY_club_field%2C_Elim%C3%A4ki_%282475846526%29.jpg?width=900","imageAlt":"RC club flying field with members and aircraft","credit":"CC BY placeholder: spring flying at a club field, Wikimedia Commons."} /--></div>
 <!-- /wp:group --></div>
-<!-- /wp:group --></div></div>
+<!-- /wp:group --></div>
 <!-- /wp:group -->
