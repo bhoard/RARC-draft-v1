@@ -64,14 +64,47 @@ function rarc_theme_assets() {
 add_action( 'wp_enqueue_scripts', 'rarc_theme_assets' );
 
 function rarc_theme_register_pattern_categories() {
-	register_block_pattern_category(
-		'rarc-theme',
-		array(
-			'label' => __( 'RARC Theme', 'rarc-theme' ),
-		)
+	$categories = array(
+		'rarc-theme' => __( 'RARC Theme', 'rarc-theme' ),
+		'rarc-home-sections' => __( 'RARC Home Sections', 'rarc-theme' ),
+		'rarc-interior-sections' => __( 'RARC Interior Sections', 'rarc-theme' ),
+		'rarc-utility-sections' => __( 'RARC Utility Sections', 'rarc-theme' ),
 	);
+
+	foreach ( $categories as $slug => $label ) {
+		register_block_pattern_category(
+			$slug,
+			array(
+				'label' => $label,
+			)
+		);
+	}
 }
 add_action( 'init', 'rarc_theme_register_pattern_categories' );
+
+function rarc_theme_configure_page_templates() {
+	$page_type = get_post_type_object( 'page' );
+
+	if ( ! $page_type ) {
+		return;
+	}
+
+	$page_type->template = array(
+		array(
+			'core/pattern',
+			array(
+				'slug' => 'rarc-theme/interior-page-hero',
+			)
+		),
+		array(
+			'core/pattern',
+			array(
+				'slug' => 'rarc-theme/interior-post-content',
+			)
+		),
+	);
+}
+add_action( 'init', 'rarc_theme_configure_page_templates' );
 
 function rarc_theme_register_blocks() {
 	$version = wp_get_theme()->get( 'Version' );
@@ -91,8 +124,11 @@ function rarc_theme_register_blocks() {
 			'editor_script' => 'rarc-theme-blocks',
 			'render_callback' => 'rarc_theme_render_card_block',
 			'attributes'    => array(
+				'variant'     => array( 'type' => 'string', 'default' => 'image' ),
 				'eyebrow'     => array( 'type' => 'string', 'default' => '' ),
 				'title'       => array( 'type' => 'string', 'default' => '' ),
+				'subheadline' => array( 'type' => 'string', 'default' => '' ),
+				'meta'        => array( 'type' => 'string', 'default' => '' ),
 				'text'        => array( 'type' => 'string', 'default' => '' ),
 				'imageUrl'    => array( 'type' => 'string', 'default' => '' ),
 				'imageAlt'    => array( 'type' => 'string', 'default' => '' ),
@@ -179,14 +215,98 @@ function rarc_theme_register_blocks() {
 			)
 		)
 	);
+
+	register_block_type(
+		'rarc/story-preview',
+		array(
+			'api_version'     => 2,
+			'editor_script'   => 'rarc-theme-blocks',
+			'render_callback' => 'rarc_theme_render_story_preview_block',
+			'attributes'      => array(
+				'ctaLabel'  => array( 'type' => 'string', 'default' => 'Read story' ),
+				'showImage' => array( 'type' => 'boolean', 'default' => true ),
+			)
+		)
+	);
 }
 add_action( 'init', 'rarc_theme_register_blocks' );
 
-function rarc_theme_button_wrapper_class( $style ) {
-	return 'outline' === $style ? 'wp-block-button rarc-card-button is-style-outline' : 'wp-block-button rarc-card-button';
+function rarc_theme_get_cta_variant_class( $variant ) {
+	$allowed = array( 'primary', 'outline', 'inline', 'share' );
+
+	if ( ! in_array( $variant, $allowed, true ) ) {
+		$variant = 'primary';
+	}
+
+	return 'rarc-cta--' . $variant;
+}
+
+function rarc_theme_render_cta( $args = array() ) {
+	$args = wp_parse_args(
+		$args,
+		array(
+			'tag'         => 'a',
+			'text'        => '',
+			'url'         => '',
+			'variant'     => 'primary',
+			'class_name'  => '',
+			'type'        => 'button',
+			'show_icon'   => false,
+			'attributes'  => array(),
+		)
+	);
+
+	if ( '' === trim( $args['text'] ) ) {
+		return '';
+	}
+
+	$tag = 'button' === $args['tag'] ? 'button' : 'a';
+	$attributes = array(
+		'class' => trim( 'rarc-cta ' . rarc_theme_get_cta_variant_class( $args['variant'] ) . ' ' . $args['class_name'] ),
+	);
+
+	if ( 'button' === $tag ) {
+		$attributes['type'] = $args['type'];
+	} else {
+		if ( empty( $args['url'] ) ) {
+			return '';
+		}
+
+		$attributes['href'] = $args['url'];
+	}
+
+	foreach ( $args['attributes'] as $name => $value ) {
+		if ( '' === $value || null === $value ) {
+			continue;
+		}
+
+		$attributes[ $name ] = $value;
+	}
+
+	$parts = array();
+	foreach ( $attributes as $name => $value ) {
+		if ( 'href' === $name ) {
+			$parts[] = 'href="' . esc_url( $value ) . '"';
+			continue;
+		}
+
+		$parts[] = esc_attr( $name ) . '="' . esc_attr( $value ) . '"';
+	}
+
+	$markup  = '<' . $tag . ' ' . implode( ' ', $parts ) . '>';
+	$markup .= '<span class="rarc-cta__label">' . esc_html( $args['text'] ) . '</span>';
+
+	if ( ! empty( $args['show_icon'] ) ) {
+		$markup .= '<span class="rarc-cta__icon" aria-hidden="true">&rarr;</span>';
+	}
+
+	$markup .= '</' . $tag . '>';
+
+	return $markup;
 }
 
 function rarc_theme_render_card_block( $attributes ) {
+	$variant = sanitize_html_class( $attributes['variant'] ?? 'image' );
 	$image = empty( $attributes['imageUrl'] ) ? '' : sprintf(
 		'<div class="rarc-card-media"><img src="%1$s" alt="%2$s" />%3$s</div>',
 		esc_url( $attributes['imageUrl'] ),
@@ -194,21 +314,29 @@ function rarc_theme_render_card_block( $attributes ) {
 		empty( $attributes['credit'] ) ? '' : '<span class="rarc-card-credit">' . esc_html( $attributes['credit'] ) . '</span>'
 	);
 
+	if ( empty( $image ) && in_array( $variant, array( 'image', 'story', 'horizontal' ), true ) ) {
+		$image = '<div class="rarc-card-media rarc-card-media--placeholder"><span class="rarc-card-placeholder">Add card image</span></div>';
+	}
+
 	$button = '';
 	if ( ! empty( $attributes['linkText'] ) && ! empty( $attributes['linkUrl'] ) ) {
-		$button = sprintf(
-			'<div class="%1$s"><a class="wp-block-button__link wp-element-button" href="%2$s">%3$s</a></div>',
-			esc_attr( rarc_theme_button_wrapper_class( $attributes['buttonStyle'] ?? 'primary' ) ),
-			esc_url( $attributes['linkUrl'] ),
-			esc_html( $attributes['linkText'] )
+		$button = rarc_theme_render_cta(
+			array(
+				'text'       => $attributes['linkText'],
+				'url'        => $attributes['linkUrl'],
+				'variant'    => $attributes['buttonStyle'] ?? 'primary',
+				'class_name' => 'rarc-card-cta',
+			)
 		);
 	}
 
-	$markup  = '<article class="wp-block-rarc-card rarc-card">';
+	$markup  = '<article class="wp-block-rarc-card rarc-card rarc-card--' . esc_attr( $variant ) . '">';
 	$markup .= $image;
 	$markup .= '<div class="rarc-card-body">';
+	$markup .= empty( $attributes['meta'] ) ? '' : '<div class="rarc-card-meta">' . esc_html( $attributes['meta'] ) . '</div>';
 	$markup .= empty( $attributes['eyebrow'] ) ? '' : '<div class="rarc-eyebrow">' . esc_html( $attributes['eyebrow'] ) . '</div>';
 	$markup .= empty( $attributes['title'] ) ? '' : '<h3>' . esc_html( $attributes['title'] ) . '</h3>';
+	$markup .= empty( $attributes['subheadline'] ) ? '' : '<p class="rarc-card-subheadline">' . esc_html( $attributes['subheadline'] ) . '</p>';
 	$markup .= empty( $attributes['text'] ) ? '' : '<p>' . wp_kses_post( $attributes['text'] ) . '</p>';
 	$markup .= $button;
 	$markup .= '</div></article>';
@@ -329,13 +457,13 @@ function rarc_theme_render_hero_block( $attributes ) {
 					<p class="rarc-lede"><?php echo wp_kses_post( $attributes['lede'] ); ?></p>
 				<?php endif; ?>
 				<div class="rarc-actions">
-					<?php if ( ! empty( $attributes['primaryLabel'] ) && ! empty( $attributes['primaryUrl'] ) ) : ?>
-						<div class="wp-block-button"><a class="wp-block-button__link" href="<?php echo esc_url( $attributes['primaryUrl'] ); ?>"><?php echo esc_html( $attributes['primaryLabel'] ); ?></a></div>
-					<?php endif; ?>
-					<?php if ( ! empty( $attributes['secondaryLabel'] ) && ! empty( $attributes['secondaryUrl'] ) ) : ?>
-						<div class="wp-block-button is-style-outline"><a class="wp-block-button__link" href="<?php echo esc_url( $attributes['secondaryUrl'] ); ?>"><?php echo esc_html( $attributes['secondaryLabel'] ); ?></a></div>
-					<?php endif; ?>
-				</div>
+				<?php if ( ! empty( $attributes['primaryLabel'] ) && ! empty( $attributes['primaryUrl'] ) ) : ?>
+					<?php echo rarc_theme_render_cta( array( 'text' => $attributes['primaryLabel'], 'url' => $attributes['primaryUrl'], 'variant' => 'primary', 'class_name' => 'rarc-hero-cta' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php endif; ?>
+				<?php if ( ! empty( $attributes['secondaryLabel'] ) && ! empty( $attributes['secondaryUrl'] ) ) : ?>
+					<?php echo rarc_theme_render_cta( array( 'text' => $attributes['secondaryLabel'], 'url' => $attributes['secondaryUrl'], 'variant' => 'outline', 'class_name' => 'rarc-hero-cta' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php endif; ?>
+			</div>
 				<div class="rarc-hero-footer">
 					<button class="rarc-hero-pause" type="button" data-rarc-hero-pause aria-pressed="false" aria-label="<?php esc_attr_e( 'Pause rotating hero field photos', 'rarc-theme' ); ?>" aria-describedby="rarc-hero-pause-desc">
 						<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.6" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path d="M9.8 8.9v6.2M14.2 8.9v6.2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path></svg>
@@ -374,14 +502,67 @@ function rarc_theme_render_sidebar_card_block( $attributes ) {
 
 	if ( ! empty( $attributes['buttonText'] ) ) {
 		if ( ! empty( $attributes['isShare'] ) ) {
-			$markup .= '<button class="wp-block-button__link rarc-share-button" type="button">' . esc_html( $attributes['buttonText'] ) . '</button>';
+			$markup .= rarc_theme_render_cta(
+				array(
+					'tag'        => 'button',
+					'text'       => $attributes['buttonText'],
+					'variant'    => 'share',
+					'class_name' => 'rarc-share-button',
+					'show_icon'  => true,
+				)
+			);
 			$markup .= '<p class="rarc-share-note">' . esc_html( $attributes['shareNote'] ?: __( 'Ready to share Richmond Area RC.', 'rarc-theme' ) ) . '</p>';
 		} elseif ( ! empty( $attributes['buttonUrl'] ) ) {
-			$markup .= '<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' . esc_url( $attributes['buttonUrl'] ) . '">' . esc_html( $attributes['buttonText'] ) . '</a></div>';
+			$markup .= rarc_theme_render_cta(
+				array(
+					'text'       => $attributes['buttonText'],
+					'url'        => $attributes['buttonUrl'],
+					'variant'    => 'outline',
+					'class_name' => 'rarc-sidebar-cta',
+				)
+			);
 		}
 	}
 
 	$markup .= '</div>';
+
+	return $markup;
+}
+
+function rarc_theme_render_story_preview_block( $attributes ) {
+	$post_id = get_the_ID();
+
+	if ( ! $post_id ) {
+		return '';
+	}
+
+	$title = get_the_title( $post_id );
+	$permalink = get_permalink( $post_id );
+	$excerpt = get_the_excerpt( $post_id );
+	$cta_label = empty( $attributes['ctaLabel'] ) ? __( 'Read story', 'rarc-theme' ) : $attributes['ctaLabel'];
+	$show_image = ! isset( $attributes['showImage'] ) || ! empty( $attributes['showImage'] );
+	$image = '';
+
+	if ( $show_image && has_post_thumbnail( $post_id ) ) {
+		$image = '<div class="rarc-card-media">' . get_the_post_thumbnail( $post_id, 'large' ) . '</div>';
+	}
+
+	$markup  = '<article class="wp-block-rarc-story-preview rarc-card rarc-card--story rarc-story-preview">';
+	$markup .= $image;
+	$markup .= '<div class="rarc-card-body">';
+	$markup .= '<div class="rarc-card-meta">' . esc_html( get_the_date( '', $post_id ) ) . '</div>';
+	$markup .= '<h3><a class="rarc-story-preview__title" href="' . esc_url( $permalink ) . '">' . esc_html( $title ) . '</a></h3>';
+	$markup .= empty( $excerpt ) ? '' : '<p>' . esc_html( $excerpt ) . '</p>';
+	$markup .= rarc_theme_render_cta(
+		array(
+			'text'       => $cta_label,
+			'url'        => $permalink,
+			'variant'    => 'inline',
+			'class_name' => 'rarc-story-preview__cta',
+			'show_icon'  => true,
+		)
+	);
+	$markup .= '</div></article>';
 
 	return $markup;
 }

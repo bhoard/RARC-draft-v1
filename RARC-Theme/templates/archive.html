@@ -1,5 +1,27 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:pattern {"slug":"core/query-standard-posts"} /-->
+<!-- wp:group {"tagName":"main","align":"full","className":"rarc-post-shell","layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignfull rarc-post-shell"><div class="wp-block-group__inner-container"><!-- wp:group {"align":"wide","className":"rarc-section-head","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide rarc-section-head"><!-- wp:paragraph {"className":"rarc-eyebrow"} --><p class="rarc-eyebrow">Archive</p><!-- /wp:paragraph -->
+
+<!-- wp:query-title {"type":"archive"} /-->
+
+<!-- wp:paragraph --><p>Stories, field reports, and club features organized by topic and date.</p><!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:query {"queryId":0,"query":{"inherit":true},"layout":{"type":"constrained"}} -->
+<div class="wp-block-query alignwide"><!-- wp:post-template -->
+<!-- wp:rarc/story-preview {"ctaLabel":"Read story","showImage":true} /-->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination -->
+<!-- wp:query-pagination-previous /-->
+
+<!-- wp:query-pagination-numbers /-->
+
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination --></div>
+<!-- /wp:query --></div></main>
+<!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

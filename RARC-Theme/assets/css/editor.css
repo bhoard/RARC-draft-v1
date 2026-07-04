@@ -26,3 +26,46 @@
 	color: #b3b3b3;
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
+
+.editor-styles-wrapper .rarc-editor-cta {
+	width: fit-content;
+	max-width: 100%;
+	margin-top: 12px;
+	margin-bottom: 4px;
+	padding-right: 18px;
+	padding-left: 18px;
+}
+
+.editor-styles-wrapper .rarc-editor-cta .block-editor-plain-text,
+.editor-styles-wrapper .rarc-editor-cta textarea,
+.editor-styles-wrapper .rarc-editor-cta input {
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+	color: inherit;
+	font: inherit;
+	letter-spacing: inherit;
+	line-height: 1;
+	min-height: 0;
+	padding: 0;
+	text-transform: inherit;
+}
+
+.editor-styles-wrapper .rarc-editor-cta .block-editor-plain-text:focus,
+.editor-styles-wrapper .rarc-editor-cta textarea:focus,
+.editor-styles-wrapper .rarc-editor-cta input:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.editor-styles-wrapper .rarc-editor-cta .block-editor-plain-text::placeholder,
+.editor-styles-wrapper .rarc-editor-cta textarea::placeholder,
+.editor-styles-wrapper .rarc-editor-cta input::placeholder {
+	color: rgba(255,255,255,0.76);
+	opacity: 1;
+}
+
+.editor-styles-wrapper .rarc-editor-cta-row {
+	margin-top: 12px;
+	align-items: stretch;
+}

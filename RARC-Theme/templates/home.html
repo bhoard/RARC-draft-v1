@@ -1,15 +1,17 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
 <!-- wp:group {"tagName":"main","align":"full","className":"rarc-post-shell","layout":{"type":"constrained"}} -->
-<main class="wp-block-group alignfull rarc-post-shell"><div class="wp-block-group__inner-container"><!-- wp:query-title {"type":"archive"} /-->
+<main class="wp-block-group alignfull rarc-post-shell"><div class="wp-block-group__inner-container"><!-- wp:group {"align":"wide","className":"rarc-section-head","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide rarc-section-head"><!-- wp:paragraph {"className":"rarc-eyebrow"} --><p class="rarc-eyebrow">Stories</p><!-- /wp:paragraph -->
+
+<!-- wp:query-title {"type":"archive"} /-->
+
+<!-- wp:paragraph --><p>Recent stories, field notes, and member features from the Richmond Area RC Club flying community.</p><!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 
 <!-- wp:query {"queryId":0,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"exclude","inherit":true},"layout":{"type":"constrained"}} -->
-<div class="wp-block-query"><!-- wp:post-template -->
-<!-- wp:group {"style":{"spacing":{"blockGap":"12px","padding":{"top":"24px","bottom":"24px"}}},"border":{"bottom":{"color":"var:preset|color|muted","width":"1px"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="border-bottom-color:var(--wp--preset--color--muted);border-bottom-width:1px;padding-top:24px;padding-bottom:24px"><!-- wp:post-title {"isLink":true} /-->
-
-<!-- wp:post-excerpt /--></div>
-<!-- /wp:group -->
+<div class="wp-block-query alignwide"><!-- wp:post-template -->
+<!-- wp:rarc/story-preview {"ctaLabel":"Read story","showImage":false} /-->
 <!-- /wp:post-template -->
 
 <!-- wp:query-pagination -->
