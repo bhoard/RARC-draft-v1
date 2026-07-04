@@ -144,6 +144,11 @@
 							label: __( 'CTA URL', 'rarc-theme' ),
 							value: attributes.linkUrl,
 							onChange: function ( value ) { setAttributes( { linkUrl: value } ); }
+						} ),
+						el( TextControl, {
+							label: __( 'Image Credit', 'rarc-theme' ),
+							value: attributes.credit,
+							onChange: function ( value ) { setAttributes( { credit: value } ); }
 						} )
 					)
 				),
@@ -203,16 +208,12 @@
 							value: attributes.text,
 							onChange: function ( value ) { setAttributes( { text: value } ); }
 						} ),
-						el( TextControl, {
-							label: __( 'Image Credit', 'rarc-theme' ),
-							value: attributes.credit,
-							onChange: function ( value ) { setAttributes( { credit: value } ); }
-						} ),
-						ctaPreviewField( {
+					ctaPreviewField( {
 							variant: 'outline' === attributes.buttonStyle ? 'rarc-cta--outline' : 'rarc-cta--primary',
 							placeholder: __( 'Card CTA label', 'rarc-theme' ),
 							value: attributes.linkText,
-							onChange: function ( value ) { setAttributes( { linkText: value } ); }
+							onChange: function ( value ) { setAttributes( { linkText: value } ); },
+							showIcon: true
 						} )
 					)
 				)
@@ -304,7 +305,7 @@
 					el( RichText, { tagName: 'div', className: 'rarc-eyebrow', placeholder: __( 'Eyebrow', 'rarc-theme' ), value: attributes.eyebrow, onChange: function ( value ) { setAttributes( { eyebrow: value } ); } } ),
 					el( RichText, { tagName: 'h2', placeholder: __( 'Section heading', 'rarc-theme' ), value: attributes.heading, onChange: function ( value ) { setAttributes( { heading: value } ); } } ),
 					el( RichText, { tagName: 'p', placeholder: __( 'Intro text', 'rarc-theme' ), value: attributes.intro, onChange: function ( value ) { setAttributes( { intro: value } ); } } ),
-					el( 'div', { className: 'rarc-editor-note' }, slides.length ? __( 'Slides edit in the block sidebar. Frontend preview uses carousel behavior.', 'rarc-theme' ) : __( 'Add slides in the block sidebar.', 'rarc-theme' ) ),
+					slides.length > 0 ? el( 'div', { className: 'rarc-editor-note' }, slides.length + ' ' + __( 'slide(s). Edit in the block sidebar. Frontend preview uses carousel behavior.', 'rarc-theme' ) ) : el( 'div', { className: 'rarc-editor-note' }, __( 'Add slides in the block sidebar.', 'rarc-theme' ) ),
 					el( 'div', { className: 'rarc-carousel-stage' }, slides[0] && slides[0].imageUrl ? el( 'img', { src: slides[0].imageUrl, alt: slides[0].alt || '' } ) : null ),
 					attributes.variant === 'card' ? el(
 						Fragment,
@@ -391,14 +392,15 @@
 					'section',
 					blockProps,
 					slides[0] && slides[0].imageUrl ? el( 'div', { className: 'rarc-carousel-stage' }, el( 'img', { src: slides[0].imageUrl, alt: '' } ) ) : el( 'div', { className: 'rarc-editor-note' }, __( 'Add hero slides in the block sidebar.', 'rarc-theme' ) ),
+					slides.length > 0 ? el( 'div', { className: 'rarc-editor-note' }, slides.length + __( ' slide(s) configured. Edit in the block sidebar.', 'rarc-theme' ) ) : null,
 					el( RichText, { tagName: 'div', className: 'rarc-eyebrow', placeholder: __( 'Eyebrow', 'rarc-theme' ), value: attributes.eyebrow, onChange: function ( value ) { setAttributes( { eyebrow: value } ); } } ),
 					el( RichText, { tagName: 'h1', placeholder: __( 'Hero heading', 'rarc-theme' ), value: attributes.heading, onChange: function ( value ) { setAttributes( { heading: value } ); } } ),
 					el( RichText, { tagName: 'p', className: 'rarc-lede', placeholder: __( 'Hero summary', 'rarc-theme' ), value: attributes.lede, onChange: function ( value ) { setAttributes( { lede: value } ); } } ),
 					el(
 						'div',
 						{ className: 'rarc-actions rarc-editor-cta-row' },
-						ctaPreviewField( { variant: 'rarc-cta--primary', placeholder: __( 'Primary CTA label', 'rarc-theme' ), value: attributes.primaryLabel, onChange: function ( value ) { setAttributes( { primaryLabel: value } ); } } ),
-						ctaPreviewField( { variant: 'rarc-cta--outline', placeholder: __( 'Secondary CTA label', 'rarc-theme' ), value: attributes.secondaryLabel, onChange: function ( value ) { setAttributes( { secondaryLabel: value } ); } } )
+ctaPreviewField( { variant: 'rarc-cta--primary', placeholder: __( 'Primary CTA label', 'rarc-theme' ), value: attributes.primaryLabel, onChange: function ( value ) { setAttributes( { primaryLabel: value } ); }, showIcon: true } ),
+						ctaPreviewField( { variant: 'rarc-cta--outline', placeholder: __( 'Secondary CTA label', 'rarc-theme' ), value: attributes.secondaryLabel, onChange: function ( value ) { setAttributes( { secondaryLabel: value } ); }, showIcon: true } )
 					)
 				)
 			);
@@ -500,6 +502,7 @@
 				el(
 					'div',
 					blockProps,
+					el( 'div', { className: 'rarc-editor-note' }, attributes.isShare ? __( 'Share Card', 'rarc-theme' ) : __( 'Link Card', 'rarc-theme' ) ),
 					el( PlainText, {
 						placeholder: __( 'Sidebar title', 'rarc-theme' ),
 						value: attributes.title,
@@ -511,15 +514,14 @@
 						value: attributes.text,
 						onChange: function ( value ) { setAttributes( { text: value } ); }
 					} ),
-					ctaPreviewField( {
+ctaPreviewField( {
 						variant: attributes.isShare ? 'rarc-cta--share' : 'rarc-cta--outline',
 						className: 'rarc-editor-sidebar-cta',
 						placeholder: attributes.isShare ? __( 'Share action label', 'rarc-theme' ) : __( 'Sidebar CTA label', 'rarc-theme' ),
 						value: attributes.buttonText,
 						onChange: function ( value ) { setAttributes( { buttonText: value } ); },
-						showIcon: !! attributes.isShare
-					} ),
-					attributes.buttonText ? el( 'div', { className: 'rarc-editor-note' }, attributes.isShare ? __( 'This card will render a share button on the frontend.', 'rarc-theme' ) : __( 'This card will render a linked button on the frontend.', 'rarc-theme' ) ) : null
+						showIcon: true
+					} )
 				)
 			);
 		},
@@ -551,11 +553,6 @@
 					el(
 						PanelBody,
 						{ title: __( 'Story Preview Settings', 'rarc-theme' ), initialOpen: true },
-						el( TextControl, {
-							label: __( 'CTA Label', 'rarc-theme' ),
-							value: attributes.ctaLabel,
-							onChange: function ( value ) { setAttributes( { ctaLabel: value } ); }
-						} ),
 						el( SelectControl, {
 							label: __( 'Image Display', 'rarc-theme' ),
 							value: attributes.showImage ? 'show' : 'hide',
@@ -579,7 +576,14 @@
 						el( 'h3', null, __( 'Post title from current entry', 'rarc-theme' ) )
 						),
 						el( 'p', null, __( 'Excerpt from current entry will render here on the front end.', 'rarc-theme' ) ),
-						el( 'div', { className: 'rarc-cta rarc-cta--inline rarc-editor-cta' }, el( 'span', { className: 'rarc-cta__label' }, attributes.ctaLabel || __( 'Read story', 'rarc-theme' ) ), el( 'span', { className: 'rarc-cta__icon', 'aria-hidden': 'true' }, '->' ) )
+						el( 'div', { className: 'rarc-cta rarc-cta--inline rarc-editor-cta' },
+							el( PlainText, {
+								placeholder: __( 'CTA label', 'rarc-theme' ),
+								value: attributes.ctaLabel,
+								onChange: function ( value ) { setAttributes( { ctaLabel: value } ); }
+							} ),
+							el( 'span', { className: 'rarc-cta__icon', 'aria-hidden': 'true' }, '->' )
+						)
 					)
 				)
 			);

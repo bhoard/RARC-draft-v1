@@ -110,11 +110,11 @@ Current status of the plan:
 
 - Stage 1: CTA system: complete — SVG icon system with semantic auto-selection, enhanced icon hover motion, icon_type parameter, all branded CTAs use show_icon
 - Stage 2: Card family: complete — __header/__content/__image named regions, clickable header-link, __image--placeholder class, story-preview uses same anatomy
-- Stage 3: Custom block editing UX and placeholders: substantially implemented for current custom blocks
-- Stage 4: Page-section decomposition and section architecture: implemented in active templates and pattern library
-- Stage 5: Template and shell refinement: substantially complete
-- Stage 6: Archive-like and dynamic readiness: substantially complete
-- Stage 7: Final fingerprint review: pending
+- Stage 3: Custom block editing UX and placeholders: complete — credit moved from canvas to inspector, hero and carousel slide counts visible in canvas, sidebar-card badge shows action type, story-preview CTA label editable in-canvas, all editor CTAs show icon preview
+- Stage 4: Page-section decomposition and section architecture: complete — 17 independent patterns, no mega-patterns, templates compose via wp:pattern inserts
+- Stage 5: Template and shell refinement: complete — editorial paragraphs in home/archive, header/footer CTAs use inline SVG, page/single templates cleanly generic by design
+- Stage 6: Archive-like and dynamic readiness: complete — story-preview shares card anatomy, home/archive use rarc/story-preview in query loops
+- Stage 7: Final fingerprint review: complete — all 7 questions answered affirmatively, CTAs show icon preview in editor, card family shares anatomy across static/dynamic contexts, no wp:button references, no mega-patterns
 
 The stages still govern the work. They have not been abandoned. Some coding passes crossed stage boundaries because preserving the intended backend model required CTA, card, section, and shell changes to move together.
 
