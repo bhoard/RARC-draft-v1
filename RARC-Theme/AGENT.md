@@ -632,3 +632,18 @@ Do not use it as a reason to add block sprawl.
 The next version of `RARC-Theme` should feel more like a curated publishing system and less like a collection of independently authored custom blocks.
 
 If the original reference theme is absent, the same conclusion still holds.
+
+## Build Artifacts
+
+When producing a ZIP for WordPress theme upload (`RARC-Theme.zip`), include only the files required by a WordPress theme:
+
+- `assets/`
+- `parts/`
+- `patterns/`
+- `templates/`
+- `functions.php`
+- `screenshot.png`
+- `style.css`
+- `theme.json`
+
+Exclude all non-theme files: documentation (`AGENT.md`, `EXECUTION-PLAN.md`, `IMPLEMENTATION-CHECKLIST.md`), reference implementations (`example-theme/`), source assets, and any other files outside `RARC-Theme/`. The ZIP is a build artifact and should not be committed to the repository.
