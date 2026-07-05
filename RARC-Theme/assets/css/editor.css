@@ -191,3 +191,64 @@ body.block-editor-iframe__body .rarc-sidebar-card,
 .editor-styles-wrapper .rarc-sidebar-card {
 	max-width: 320px;
 }
+
+body.block-editor-iframe__body .rarc-sidebar > .block-list-appender,
+body.block-editor-iframe__body .rarc-sidebar > .wp-block.block-list-appender,
+.editor-styles-wrapper .rarc-sidebar > .block-list-appender,
+.editor-styles-wrapper .rarc-sidebar > .wp-block.block-list-appender {
+	width: 100%;
+	max-width: 320px;
+}
+
+body.block-editor-iframe__body .rarc-sidebar > .block-list-appender .block-editor-button-block-appender,
+body.block-editor-iframe__body .rarc-sidebar > .wp-block.block-list-appender .block-editor-button-block-appender,
+.editor-styles-wrapper .rarc-sidebar > .block-list-appender .block-editor-button-block-appender,
+.editor-styles-wrapper .rarc-sidebar > .wp-block.block-list-appender .block-editor-button-block-appender {
+	width: 100%;
+	min-height: 120px;
+	display: grid;
+	place-items: center;
+	border-radius: 8px;
+	border: 1px dashed rgba(255,255,255,0.18);
+	background: rgba(255,255,255,0.02);
+	color: #b3b3b3;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 12px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 20px;
+}
+
+body.block-editor-iframe__body .rarc-grid-3 > .block-list-appender,
+body.block-editor-iframe__body .rarc-grid-3 > .wp-block.block-list-appender,
+.editor-styles-wrapper .rarc-grid-3 > .block-list-appender,
+.editor-styles-wrapper .rarc-grid-3 > .wp-block.block-list-appender {
+	min-height: 100%;
+}
+
+body.block-editor-iframe__body .rarc-grid-3 > .block-list-appender .block-editor-button-block-appender,
+body.block-editor-iframe__body .rarc-grid-3 > .wp-block.block-list-appender .block-editor-button-block-appender,
+.editor-styles-wrapper .rarc-grid-3 > .block-list-appender .block-editor-button-block-appender,
+.editor-styles-wrapper .rarc-grid-3 > .wp-block.block-list-appender .block-editor-button-block-appender {
+	width: 100%;
+	min-height: 240px;
+	display: grid;
+	place-items: center;
+	border-radius: 8px;
+	border: 1px dashed rgba(255,255,255,0.18);
+	background: rgba(255,255,255,0.02);
+	color: #b3b3b3;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 12px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 24px;
+}
+
+body.block-editor-iframe__body .rarc-grid-3 > .block-list-appender .block-editor-button-block-appender:hover,
+body.block-editor-iframe__body .rarc-grid-3 > .wp-block.block-list-appender .block-editor-button-block-appender:hover,
+.editor-styles-wrapper .rarc-grid-3 > .block-list-appender .block-editor-button-block-appender:hover,
+.editor-styles-wrapper .rarc-grid-3 > .wp-block.block-list-appender .block-editor-button-block-appender:hover {
+	background: rgba(255,255,255,0.04);
+	border-color: rgba(255,255,255,0.28);
+}

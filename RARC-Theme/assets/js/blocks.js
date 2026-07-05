@@ -203,6 +203,19 @@
 							value: attributes.credit,
 							onChange: function ( value ) { setAttributes( { credit: value } ); }
 						} ),
+						el(
+							MediaUploadCheck,
+							null,
+							el( MediaUpload, {
+								onSelect: function ( media ) {
+									setAttributes( { imageUrl: media.url, imageAlt: media.alt || '' } );
+								},
+								allowedTypes: [ 'image' ],
+								render: function ( data ) {
+									return el( Button, { onClick: data.open, variant: 'secondary' }, attributes.imageUrl ? __( 'Replace Image', 'rarc-theme' ) : __( 'Select Image', 'rarc-theme' ) );
+								}
+							} )
+						),
 						actions.map( function ( action, index ) {
 							return el(
 								PanelBody,

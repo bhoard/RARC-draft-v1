@@ -17,7 +17,7 @@
 <!-- /wp:group -->
 
 <!-- wp:buttons {"className":"rarc-actions"} -->
-<div class="wp-block-buttons rarc-actions"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#contact">Ask about upcoming events</a></div><!-- /wp:button -->
+<div class="wp-block-buttons rarc-actions"><!-- wp:button {"className":"is-style-fill"} --><div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="#contact">Ask about upcoming events</a></div><!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} --><div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="#visit">See the membership path</a></div><!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
