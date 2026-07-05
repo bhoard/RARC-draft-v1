@@ -127,6 +127,7 @@ The implementation has learned several practical rules that future passes should
 - when a `core/group` pattern declares a layout, include the expected `is-layout-*` and `wp-block-group-is-layout-*` classes in the wrapper HTML
 - use native WordPress link pickers for CTA destinations in custom block editors
 - keep core/remote pattern sources suppressed so the RARC pattern system remains the main authoring surface
+- after each intentional ZIP build, commit the source state that produced it so version numbers and repository history remain synchronized
 
 ## Workstream 1: CTA System
 

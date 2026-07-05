@@ -307,6 +307,7 @@ The ZIP build process is now part of the theme contract.
 
 - use `build-theme.ps1` to produce `RARC-Theme.zip`
 - each build increments the patch version in `style.css`
+- after each intentional build, make a matching git commit so the repo state, version number, and ZIP artifact history stay aligned
 - the ZIP remains a build artifact and should not be committed
 - documentation changes should keep this workflow accurate so future work does not drift back to ad hoc manual zipping
 
