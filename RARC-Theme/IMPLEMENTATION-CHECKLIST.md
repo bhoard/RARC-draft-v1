@@ -67,6 +67,8 @@ Before shipping any major change, ask:
 - review whether `front-page`, interior pages, and field-guide-like layouts open with useful starter structures
 - add or strengthen pattern locking where layout stability matters
 - keep prose regions open where editorial freedom is appropriate
+- do not seed recursive `post-content` patterns into new page content
+- keep full-width hero treatments in the template shell when the source design behaves like a template-level hero rather than a content block
 
 ### 2. In-canvas guidance
 
@@ -84,6 +86,8 @@ Before shipping any major change, ask:
 - ensure CTA buttons and links preview with realistic padding, casing, and hierarchy
 - ensure section spacing in editor is close enough to support real page composition decisions
 - avoid editor-only fallback visuals that materially misrepresent final output
+- load frontend CSS into the editor explicitly; do not rely on a weak editor-only approximation
+- ensure sidebar-card previews stay visually narrow like a sidebar stack instead of stretching to content width
 
 ## Phase 2: CTA System
 
@@ -131,6 +135,7 @@ For each context, verify:
 - prefer visible in-canvas editing where possible
 - keep inspector controls for variants and secondary options, not as the only place basic authoring happens
 - if a CTA can be optional, ensure the layout still reads correctly when omitted
+- prefer the native WordPress link picker over plain URL text inputs for CTA destinations
 
 ## Phase 3: Card System
 
@@ -202,7 +207,8 @@ Review and strengthen these section types:
 - hero section
 - card grid section
 - editorial text plus image section
-- event/story teaser section
+- event teaser section
+- recent stories section
 - carousel story module section
 - utility section for map/share/contact/directions
 - interior content section with sidebar stack
@@ -220,6 +226,7 @@ For each section, verify:
 - lock section composition where the structure is part of the theme's identity
 - leave text and image content editable
 - only allow freeform inner blocks where open editorial composition is actually desired
+- if a section repeatedly triggers WordPress recovery on insertion, treat that as a serialization bug and fix the pattern source rather than tolerating it
 
 ### 16. Prevent section drift
 
@@ -258,6 +265,20 @@ Use a rendered block when:
 - the component is highly branded
 - optional states need tight control
 - the component repeats across contexts
+
+### 21. Pattern serialization sanity checks
+
+- if a block comment declares `anchor`, ensure the wrapper HTML contains the matching `id`
+- if a `core/group` block declares a layout, ensure the wrapper HTML contains the expected layout classes including block-specific variants such as `wp-block-group-is-layout-*`
+- prefer native blocks over raw `wp:html` in reusable patterns when the structure can be expressed natively
+- verify that every opened wrapper closes correctly; one missing closing wrapper can invalidate the whole section
+- treat WordPress recovery prompts as a defect in source markup, not a normal editing step
+
+### 22. Build discipline
+
+- use `build-theme.ps1` when creating the upload ZIP
+- let the build script increment the patch version in `style.css`
+- keep documentation aligned with the actual build workflow and current versioning policy
 - the editor should edit fields instead of nested structure
 
 This likely applies to:

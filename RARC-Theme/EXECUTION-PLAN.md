@@ -30,18 +30,16 @@ Current strengths:
 - `theme.json` already defines a consistent token base
 - `assets/css/theme.css` already contains much of the intended visual system
 - `assets/css/editor.css` already loads shared styling into the editor
+- the theme now has a scripted ZIP workflow with automatic patch-version bumps
+- page shells now support a true full-width interior page hero model
 
 These strengths are still useful, but they should now be evaluated by one test: do they help the theme behave like the preferred reference implementation?
 
 Current weaknesses to address first:
 
-- CTA behavior is still mostly plain button markup with shared styling layered on top
-- card architecture is still too narrow compared with a fuller preview-card family
-- custom block editing UX still leans too much on inspector fields in some places
-- placeholders exist, but they are not yet systematized as a signature editing aid
-- templates like `home.html`, `page.html`, and `single.html` are more generic than the target implementation style
-- the source HTML layouts are still represented too much as mega-patterns instead of independent backend page sections
-- the current block-theme/FSE-leaning structure risks preserving the wrong thing if it prevents the intended section-based editing model
+- sidebar-card editor preview still needs continued attention so it feels closer to the reference preview-card behavior
+- pattern validation must be treated as an ongoing guardrail whenever new sections are added or split
+- editor fidelity still needs to be verified in WordPress after any structural block change rather than assumed from CSS alone
 
 ## Critical Correction: No Mega-Pattern Authoring
 
@@ -66,7 +64,8 @@ Homepage section inventory from `index.html`:
 - hobby-intro section: heading, supporting text, and three cards
 - first-visit editorial section: eyebrow, heading, text, table-style rows, optional photo
 - field-photos carousel section: eyebrow, heading, paragraph, carousel
-- events-and-stories section
+- upcoming-events section
+- recent-stories section
 - membership CTA section
 - directions/share utility section
 - contact section
@@ -111,12 +110,23 @@ Current status of the plan:
 - Stage 1: CTA system: complete — SVG icon system with semantic auto-selection, enhanced icon hover motion, icon_type parameter, all branded CTAs use show_icon
 - Stage 2: Card family: complete — __header/__content/__image named regions, clickable header-link, __image--placeholder class, story-preview uses same anatomy
 - Stage 3: Custom block editing UX and placeholders: complete — credit moved from canvas to inspector, hero and carousel slide counts visible in canvas, sidebar-card badge shows action type, story-preview CTA label editable in-canvas, all editor CTAs show icon preview
-- Stage 4: Page-section decomposition and section architecture: complete — 17 independent patterns, no mega-patterns, templates compose via wp:pattern inserts
-- Stage 5: Template and shell refinement: complete — editorial paragraphs in home/archive, header/footer CTAs use inline SVG, page/single templates cleanly generic by design
+- Stage 4: Page-section decomposition and section architecture: complete — split section inventory, no homepage mega-patterns, templates compose via theme sections and patterns
+- Stage 5: Template and shell refinement: complete — editorial paragraphs in home/archive, header/footer CTAs use inline SVG, `page.html` now owns the full-width interior hero instead of seeding it into page content
 - Stage 6: Archive-like and dynamic readiness: complete — story-preview shares card anatomy, home/archive use rarc/story-preview in query loops
 - Stage 7: Final fingerprint review: complete — all 7 questions answered affirmatively, CTAs show icon preview in editor, card family shares anatomy across static/dynamic contexts, no wp:button references, no mega-patterns
 
 The stages still govern the work. They have not been abandoned. Some coding passes crossed stage boundaries because preserving the intended backend model required CTA, card, section, and shell changes to move together.
+
+## Additional Current Rules
+
+The implementation has learned several practical rules that future passes should follow immediately:
+
+- do not reintroduce default page-content seeding that inserts `interior-post-content` or other recursive content blocks into new page bodies
+- prefer native blocks over raw `wp:html` inside reusable patterns where possible
+- when a pattern declares `anchor`, include the matching wrapper `id`
+- when a `core/group` pattern declares a layout, include the expected `is-layout-*` and `wp-block-group-is-layout-*` classes in the wrapper HTML
+- use native WordPress link pickers for CTA destinations in custom block editors
+- keep core/remote pattern sources suppressed so the RARC pattern system remains the main authoring surface
 
 ## Workstream 1: CTA System
 

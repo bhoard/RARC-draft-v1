@@ -168,6 +168,13 @@ body.block-editor-iframe__body .rarc-editor-badge,
 	border: 1px solid rgba(255,255,255,0.1);
 }
 
+.components-base-control .rarc-editor-link-preview {
+	margin: 8px 0 0;
+	word-break: break-word;
+	font-size: 12px;
+	color: #757575;
+}
+
 body.block-editor-iframe__body .rarc-hero-placeholder,
 .editor-styles-wrapper .rarc-hero-placeholder {
 	min-height: 240px;

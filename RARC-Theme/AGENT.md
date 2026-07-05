@@ -234,6 +234,82 @@ The future LLM should think in these terms when building `RARC-Theme`:
 
 The goal is not maximum flexibility. The goal is high-confidence authoring.
 
+## Current Architecture Decisions
+
+The theme has now converged on several concrete implementation rules that future work should preserve unless there is a strong reason to change them:
+
+- the page hero for `page.html` belongs in the template shell, not in seeded page content
+- page featured images should feed the interior page hero background when a featured image exists
+- the main page/post content area should allow `alignfull` and `alignwide` sections to escape the prose column
+- default page creation should not insert recursive `post-content` patterns into post content
+- the bundled logo at `assets/images/rarc-logo.jpg` is the seed logo and should be installed as the default custom logo only when no custom logo is already set
+- core and remote WordPress patterns are intentionally suppressed so editors see the RARC pattern system instead of unrelated unstyled patterns
+
+These are not cosmetic details. They are part of the authoring model the client has asked for.
+
+## Pattern Serialization Rules
+
+One of the biggest practical lessons from implementation is that pattern validity depends on matching current WordPress block serialization exactly enough that the editor does not attempt recovery on insertion.
+
+Future work should follow these rules:
+
+- if a block comment declares `anchor`, the wrapper HTML must include the matching `id`
+- if a `core/group` block declares a layout, the wrapper HTML must include the matching layout classes WordPress expects
+- for current WordPress versions that means preserving classes such as `is-layout-constrained`, `is-layout-grid`, `is-layout-flow`, and the block-specific variants like `wp-block-group-is-layout-constrained`
+- pattern markup must be structurally complete; one missing closing wrapper can invalidate the entire parent section
+- avoid treating the recovery prompt as harmless; if WordPress offers recovery, the source pattern should usually be corrected
+
+In practice, the most fragile patterns were the ones with nested `core/group` blocks and hand-authored wrapper HTML. Treat pattern validity as a first-class engineering concern.
+
+## Native Blocks Versus Raw HTML
+
+Another important lesson: use raw `wp:html` blocks sparingly inside reusable patterns.
+
+- raw HTML inside patterns is more likely to be reparsed or normalized differently by the editor
+- when a layout can be expressed using native blocks such as `core/buttons`, `core/button`, `core/group`, `core/image`, or `core/shortcode`, prefer that route
+- use raw HTML only when the markup contract genuinely cannot be expressed well with native blocks or owned rendered blocks
+
+This matters especially for CTA rows, utility actions, and other repeated branded UI.
+
+## Editor Fidelity Implementation Rule
+
+Editor fidelity is not achieved by `add_editor_style()` alone.
+
+The current rule is:
+
+- load the real frontend visual system into block-editor content explicitly
+- layer editor-only overrides on top for canvas affordances, badges, placeholders, and block outlines
+- when the editor DOM differs from the frontend DOM, add targeted editor selectors rather than accepting a low-fidelity approximation
+
+Future work should preserve this bias: if there is a mismatch between frontend and editor, fix the styling path rather than normalizing expectations downward.
+
+## CTA Editing Rule
+
+CTA URLs are now edited with the native WordPress link picker instead of plain text URL fields.
+
+That means future CTA-like fields should prefer native linking controls so editors can:
+
+- search internal WordPress content
+- paste external URLs
+- use named links/anchors where appropriate
+
+Do not regress back to plain URL text fields unless there is a specific technical constraint.
+
+## Sidebar Card Preview Rule
+
+Sidebar cards are not generic full-width cards.
+
+In the editor, they should preview as a narrow sidebar stack rather than stretching across the full content width. This is part of the preview-card fingerprint the client expects from the reference implementation.
+
+## Build And Versioning Workflow
+
+The ZIP build process is now part of the theme contract.
+
+- use `build-theme.ps1` to produce `RARC-Theme.zip`
+- each build increments the patch version in `style.css`
+- the ZIP remains a build artifact and should not be committed
+- documentation changes should keep this workflow accurate so future work does not drift back to ad hoc manual zipping
+
 ## Modular Page Sections
 
 One of the most transferable strengths from the reference implementation is modular section authoring.

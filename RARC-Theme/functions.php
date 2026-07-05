@@ -267,6 +267,11 @@ function rarc_theme_register_blocks() {
 				'linkText'    => array( 'type' => 'string', 'default' => '' ),
 				'linkUrl'     => array( 'type' => 'string', 'default' => '' ),
 				'buttonStyle' => array( 'type' => 'string', 'default' => 'primary' ),
+				'actions'     => array(
+					'type'    => 'array',
+					'default' => array(),
+					'items'   => array( 'type' => 'object' ),
+				),
 			)
 		)
 	);
@@ -502,6 +507,29 @@ function rarc_theme_render_card_block( $attributes ) {
 	$variant = sanitize_html_class( $attributes['variant'] ?? 'image' );
 	$has_link = ! empty( $attributes['linkUrl'] );
 	$link_url = $has_link ? esc_url( $attributes['linkUrl'] ) : '';
+	$actions = array();
+
+	if ( ! empty( $attributes['actions'] ) && is_array( $attributes['actions'] ) ) {
+		foreach ( $attributes['actions'] as $action ) {
+			if ( empty( $action['text'] ) || empty( $action['url'] ) ) {
+				continue;
+			}
+
+			$actions[] = array(
+				'text'    => $action['text'],
+				'url'     => $action['url'],
+				'variant' => $action['variant'] ?? 'primary',
+			);
+		}
+	}
+
+	if ( empty( $actions ) && $has_link && ! empty( $attributes['linkText'] ) ) {
+		$actions[] = array(
+			'text'    => $attributes['linkText'],
+			'url'     => $attributes['linkUrl'],
+			'variant' => $attributes['buttonStyle'] ?? 'primary',
+		);
+	}
 
 	$image = empty( $attributes['imageUrl'] ) ? '' : sprintf(
 		'<div class="rarc-card__image"><img src="%1$s" alt="%2$s" />%3$s</div>',
@@ -532,17 +560,23 @@ function rarc_theme_render_card_block( $attributes ) {
 	$body_text = empty( $attributes['text'] ) ? '' : '<p>' . wp_kses_post( $attributes['text'] ) . '</p>';
 
 	$button = '';
-	if ( $has_link && ! empty( $attributes['linkText'] ) ) {
-		$button = rarc_theme_render_cta(
-			array(
-				'text'       => $attributes['linkText'],
-				'url'        => $attributes['linkUrl'],
-				'variant'    => $attributes['buttonStyle'] ?? 'primary',
-				'show_icon'  => true,
-				'icon_type'  => 'auto',
-				'class_name' => 'rarc-card-cta',
-			)
-		);
+	if ( ! empty( $actions ) ) {
+		$button = '<div class="rarc-card__actions">';
+
+		foreach ( $actions as $action ) {
+			$button .= rarc_theme_render_cta(
+				array(
+					'text'       => $action['text'],
+					'url'        => $action['url'],
+					'variant'    => $action['variant'],
+					'show_icon'  => true,
+					'icon_type'  => 'auto',
+					'class_name' => 'rarc-card-cta',
+				)
+			);
+		}
+
+		$button .= '</div>';
 	}
 
 	$markup  = '<article class="wp-block-rarc-card rarc-card rarc-card--' . esc_attr( $variant ) . '">';
