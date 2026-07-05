@@ -59,11 +59,13 @@ img {
 }
 
 .alignwide {
+	width: min(100% - 48px, 1280px);
 	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.alignfull > .wp-block-group__inner-container,
-.alignfull > .wp-block-cover__inner-container {
+.alignfull > :where(.alignwide, .wp-block-group__inner-container, .wp-block-cover__inner-container) {
 	width: min(100% - 48px, 1280px);
 	margin-left: auto;
 	margin-right: auto;
@@ -934,11 +936,12 @@ img {
 }
 
 .rarc-page-hero {
+	--rarc-page-hero-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Radio_controlled_model_aircraft_event_-_geograph.org.uk_-_3992818.jpg?width=1600");
 	padding: 92px 0 44px;
 	background-size: cover;
 	background-position: center;
 	border-bottom: 1px solid var(--rarc-border-soft);
-	background-image: linear-gradient(130deg, rgba(0,0,0,.92), rgba(0,0,0,.68)), url("https://commons.wikimedia.org/wiki/Special:FilePath/Radio_controlled_model_aircraft_event_-_geograph.org.uk_-_3992818.jpg?width=1600");
+	background-image: linear-gradient(130deg, rgba(0,0,0,.92), rgba(0,0,0,.68)), var(--rarc-page-hero-image);
 }
 
 .rarc-page-hero h1 {
@@ -1046,10 +1049,28 @@ img {
 	padding-bottom: 64px;
 }
 
+.rarc-post-body {
+	display: grid;
+	gap: var(--rarc-space-5);
+}
+
 .rarc-post-shell .wp-block-post-title,
 .rarc-post-shell .wp-block-post-featured-image,
-.rarc-post-shell .wp-block-post-content {
+.rarc-post-shell .wp-block-post-excerpt,
+.rarc-post-shell .wp-block-post-terms {
 	max-width: 840px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.rarc-post-shell .wp-block-post-content {
+	max-width: none;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.rarc-post-shell .wp-block-post-content > :where(:not(.alignwide):not(.alignfull)) {
+	max-width: 62ch;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -1084,8 +1105,8 @@ img {
 }
 
 @media (max-width: 920px) {
-	.alignfull > .wp-block-group__inner-container,
-	.alignfull > .wp-block-cover__inner-container {
+	.alignwide,
+	.alignfull > :where(.alignwide, .wp-block-group__inner-container, .wp-block-cover__inner-container) {
 		width: min(100% - 32px, 1280px);
 	}
 

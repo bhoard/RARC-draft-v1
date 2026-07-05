@@ -8,6 +8,7 @@ function rarc_theme_setup() {
 	add_theme_support( 'wp-block-styles' );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'editor-styles' );
+	remove_theme_support( 'core-block-patterns' );
 	add_theme_support(
 		'custom-logo',
 		array(
@@ -17,9 +18,20 @@ function rarc_theme_setup() {
 			'flex-width'  => true,
 		)
 	);
-	add_editor_style( 'assets/css/editor.css' );
 }
 add_action( 'after_setup_theme', 'rarc_theme_setup' );
+
+add_filter( 'should_load_remote_block_patterns', '__return_false' );
+
+function rarc_theme_get_version() {
+	static $version = null;
+
+	if ( null === $version ) {
+		$version = wp_get_theme()->get( 'Version' );
+	}
+
+	return $version;
+}
 
 function rarc_theme_default_logo_markup() {
 	return sprintf(
@@ -28,6 +40,10 @@ function rarc_theme_default_logo_markup() {
 		esc_url( get_theme_file_uri( 'assets/images/rarc-logo.jpg' ) ),
 		esc_attr__( 'Richmond Area Remote Control Club', 'rarc-theme' )
 	);
+}
+
+function rarc_theme_get_seed_logo_path() {
+	return get_theme_file_path( 'assets/images/rarc-logo.jpg' );
 }
 
 function rarc_theme_render_site_logo_fallback( $block_content, $block ) {
@@ -43,8 +59,102 @@ function rarc_theme_render_site_logo_fallback( $block_content, $block ) {
 }
 add_filter( 'render_block', 'rarc_theme_render_site_logo_fallback', 10, 2 );
 
+function rarc_theme_seed_custom_logo() {
+	if ( get_option( 'rarc_theme_seed_logo_done' ) ) {
+		return;
+	}
+
+	if ( get_theme_mod( 'custom_logo' ) ) {
+		update_option( 'rarc_theme_seed_logo_done', 1, false );
+		return;
+	}
+
+	$source = rarc_theme_get_seed_logo_path();
+
+	if ( ! file_exists( $source ) ) {
+		update_option( 'rarc_theme_seed_logo_done', 1, false );
+		return;
+	}
+
+	$attachment_id = (int) get_option( 'rarc_theme_seed_logo_attachment_id' );
+
+	if ( $attachment_id && ! get_post( $attachment_id ) ) {
+		$attachment_id = 0;
+	}
+
+	if ( ! $attachment_id ) {
+		$file_bits = file_get_contents( $source );
+
+		if ( false !== $file_bits ) {
+			$upload = wp_upload_bits( basename( $source ), null, $file_bits );
+
+			if ( empty( $upload['error'] ) ) {
+				$filetype = wp_check_filetype( $upload['file'] );
+				$attachment_id = wp_insert_attachment(
+					array(
+						'post_mime_type' => $filetype['type'],
+						'post_title'     => __( 'RARC Seed Logo', 'rarc-theme' ),
+						'post_content'   => '',
+						'post_status'    => 'inherit',
+					),
+					$upload['file']
+				);
+
+				if ( ! is_wp_error( $attachment_id ) ) {
+					require_once ABSPATH . 'wp-admin/includes/image.php';
+					$metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
+					wp_update_attachment_metadata( $attachment_id, $metadata );
+					update_option( 'rarc_theme_seed_logo_attachment_id', $attachment_id, false );
+				} else {
+					$attachment_id = 0;
+				}
+			}
+		}
+	}
+
+	if ( $attachment_id ) {
+		set_theme_mod( 'custom_logo', $attachment_id );
+	}
+
+	update_option( 'rarc_theme_seed_logo_done', 1, false );
+}
+add_action( 'admin_init', 'rarc_theme_seed_custom_logo' );
+
+function rarc_theme_render_page_hero_background( $block_content, $block ) {
+	if ( empty( $block['blockName'] ) || 'core/group' !== $block['blockName'] ) {
+		return $block_content;
+	}
+
+	if ( empty( $block['attrs']['className'] ) || false === strpos( $block['attrs']['className'], 'rarc-page-hero' ) ) {
+		return $block_content;
+	}
+
+	$post_id = ! empty( $block['context']['postId'] ) ? (int) $block['context']['postId'] : get_the_ID();
+
+	if ( ! $post_id || ! has_post_thumbnail( $post_id ) ) {
+		return $block_content;
+	}
+
+	$image_url = get_the_post_thumbnail_url( $post_id, 'full' );
+
+	if ( ! $image_url ) {
+		return $block_content;
+	}
+
+	$style = '--rarc-page-hero-image:url(' . esc_url_raw( $image_url ) . ')';
+
+	if ( preg_match( '/\sstyle="([^"]*)"/', $block_content, $matches ) ) {
+		$existing = rtrim( $matches[1], '; ' );
+		$replacement = ' style="' . esc_attr( $existing . ';' . $style ) . '"';
+		return preg_replace( '/\sstyle="([^"]*)"/', $replacement, $block_content, 1 );
+	}
+
+	return preg_replace( '/^<div\b/', '<div style="' . esc_attr( $style ) . '"', $block_content, 1 );
+}
+add_filter( 'render_block', 'rarc_theme_render_page_hero_background', 11, 2 );
+
 function rarc_theme_assets() {
-	$version = wp_get_theme()->get( 'Version' );
+	$version = rarc_theme_get_version();
 
 	wp_enqueue_style(
 		'rarc-theme-styles',
@@ -62,6 +172,33 @@ function rarc_theme_assets() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'rarc_theme_assets' );
+
+function rarc_theme_editor_assets() {
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	if ( function_exists( 'wp_should_load_block_editor_scripts_and_styles' ) && ! wp_should_load_block_editor_scripts_and_styles() ) {
+		return;
+	}
+
+	$version = rarc_theme_get_version();
+
+	wp_enqueue_style(
+		'rarc-theme-editor-content',
+		get_theme_file_uri( 'assets/css/theme.css' ),
+		array(),
+		$version
+	);
+
+	wp_enqueue_style(
+		'rarc-theme-editor-styles',
+		get_theme_file_uri( 'assets/css/editor.css' ),
+		array( 'rarc-theme-editor-content' ),
+		$version
+	);
+}
+add_action( 'enqueue_block_assets', 'rarc_theme_editor_assets' );
 
 function rarc_theme_register_pattern_categories() {
 	$categories = array(
@@ -107,7 +244,7 @@ function rarc_theme_configure_page_templates() {
 add_action( 'init', 'rarc_theme_configure_page_templates' );
 
 function rarc_theme_register_blocks() {
-	$version = wp_get_theme()->get( 'Version' );
+	$version = rarc_theme_get_version();
 
 	wp_register_script(
 		'rarc-theme-blocks',
