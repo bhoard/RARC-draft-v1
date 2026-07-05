@@ -233,12 +233,6 @@ function rarc_theme_configure_page_templates() {
 				'slug' => 'rarc-theme/interior-page-hero',
 			)
 		),
-		array(
-			'core/pattern',
-			array(
-				'slug' => 'rarc-theme/interior-post-content',
-			)
-		),
 	);
 }
 add_action( 'init', 'rarc_theme_configure_page_templates' );
