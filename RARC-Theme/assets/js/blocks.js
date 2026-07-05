@@ -168,7 +168,7 @@
 			var addTileCount = 0 === childCount ? 3 : ( 0 === ( childCount % 3 ) ? 1 : 3 - ( childCount % 3 ) );
 
 			function insertCard() {
-				blockEditorStore.insertBlocks( createBlock( 'rarc/card', { variant: 'image' } ), undefined, props.clientId );
+				blockEditorStore.insertBlocks( createBlock( 'rarc/card', { variant: 'image' } ), childCount, props.clientId );
 			}
 
 			return el(
