@@ -99,6 +99,46 @@
 		} );
 	}
 
+	function normalizeHeroActions( attributes ) {
+		var actions = Array.isArray( attributes.actions ) ? attributes.actions.filter( function ( action ) {
+			return action && 'object' === typeof action;
+		} ) : [];
+
+		if ( actions.length ) {
+			return actions;
+		}
+
+		actions = [];
+
+		if ( attributes.primaryLabel || attributes.primaryUrl ) {
+			actions.push( {
+				text: attributes.primaryLabel || '',
+				url: attributes.primaryUrl || '',
+				variant: 'primary'
+			} );
+		}
+
+		if ( attributes.secondaryLabel || attributes.secondaryUrl ) {
+			actions.push( {
+				text: attributes.secondaryLabel || '',
+				url: attributes.secondaryUrl || '',
+				variant: 'outline'
+			} );
+		}
+
+		return actions;
+	}
+
+	function setHeroActions( setAttributes, actions ) {
+		setAttributes( {
+			actions: actions,
+			primaryLabel: actions[0] ? actions[0].text || '' : '',
+			primaryUrl: actions[0] ? actions[0].url || '' : '',
+			secondaryLabel: actions[1] ? actions[1].text || '' : '',
+			secondaryUrl: actions[1] ? actions[1].url || '' : ''
+		} );
+	}
+
 	function ctaPreviewField( options ) {
 		return el(
 			'div',
@@ -496,6 +536,7 @@
 			primaryUrl: { type: 'string', default: '' },
 			secondaryLabel: { type: 'string', default: '' },
 			secondaryUrl: { type: 'string', default: '' },
+			actions: { type: 'array', default: [] },
 			slides: { type: 'array', default: [] }
 		},
 		edit: function ( props ) {
@@ -503,6 +544,7 @@
 			var setAttributes = props.setAttributes;
 			var blockProps = useBlockProps( { className: 'rarc-hero' } );
 			var slides = attributes.slides || [];
+			var actions = normalizeHeroActions( attributes );
 
 			return el(
 				Fragment,
@@ -513,8 +555,42 @@
 					el(
 						PanelBody,
 						{ title: __( 'Hero CTA Links', 'rarc-theme' ), initialOpen: true },
-						linkPickerField( { label: __( 'Primary CTA Link', 'rarc-theme' ), value: attributes.primaryUrl, onChange: function ( value ) { setAttributes( { primaryUrl: value } ); } } ),
-						linkPickerField( { label: __( 'Secondary CTA Link', 'rarc-theme' ), value: attributes.secondaryUrl, onChange: function ( value ) { setAttributes( { secondaryUrl: value } ); } } )
+						actions.map( function ( action, index ) {
+							return el(
+								PanelBody,
+								{ key: 'hero-action-' + index, title: __( 'Hero CTA', 'rarc-theme' ) + ' ' + ( index + 1 ), initialOpen: 0 === index },
+								el( SelectControl, {
+									label: __( 'Button Style', 'rarc-theme' ),
+									value: action.variant || 'primary',
+									options: [
+										{ label: __( 'Primary', 'rarc-theme' ), value: 'primary' },
+										{ label: __( 'Outline', 'rarc-theme' ), value: 'outline' }
+									],
+									onChange: function ( value ) {
+										setHeroActions( setAttributes, updateCardAction( actions, index, 'variant', value ) );
+									}
+								} ),
+								linkPickerField( {
+									label: __( 'CTA Link', 'rarc-theme' ),
+									value: action.url || '',
+									onChange: function ( value ) {
+										setHeroActions( setAttributes, updateCardAction( actions, index, 'url', value ) );
+									}
+								} ),
+								el( Button, {
+									isDestructive: true,
+									onClick: function () {
+										setHeroActions( setAttributes, removeCardAction( actions, index ) );
+									}
+								}, __( 'Remove CTA', 'rarc-theme' ) )
+							);
+						} ),
+						el( Button, {
+							variant: 'secondary',
+							onClick: function () {
+								setHeroActions( setAttributes, addCardAction( actions ) );
+							}
+						}, __( 'Add CTA', 'rarc-theme' ) )
 					),
 					slideEditor( slides, setAttributes, function ( slide, index ) {
 						return el(
@@ -560,8 +636,22 @@
 					el(
 						'div',
 						{ className: 'rarc-actions rarc-editor-cta-row' },
-ctaPreviewField( { variant: 'rarc-cta--primary', placeholder: __( 'Primary CTA label', 'rarc-theme' ), value: attributes.primaryLabel, onChange: function ( value ) { setAttributes( { primaryLabel: value } ); }, showIcon: true } ),
-						ctaPreviewField( { variant: 'rarc-cta--outline', placeholder: __( 'Secondary CTA label', 'rarc-theme' ), value: attributes.secondaryLabel, onChange: function ( value ) { setAttributes( { secondaryLabel: value } ); }, showIcon: true } )
+						actions.length ? actions.map( function ( action, index ) {
+							return ctaPreviewField( {
+								key: 'hero-cta-preview-' + index,
+								variant: 'outline' === ( action.variant || 'primary' ) ? 'rarc-cta--outline' : 'rarc-cta--primary',
+								placeholder: __( 'Hero CTA label', 'rarc-theme' ),
+								value: action.text || '',
+								onChange: function ( value ) { setHeroActions( setAttributes, updateCardAction( actions, index, 'text', value ) ); },
+								showIcon: true,
+								className: 'rarc-hero-cta'
+							} );
+						} ) : el( Button, {
+							variant: 'secondary',
+							onClick: function () {
+								setHeroActions( setAttributes, addCardAction( actions ) );
+							}
+						}, __( 'Add CTA', 'rarc-theme' ) )
 					)
 				)
 			);

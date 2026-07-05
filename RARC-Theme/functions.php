@@ -321,6 +321,11 @@ function rarc_theme_register_blocks() {
 				'primaryUrl'     => array( 'type' => 'string', 'default' => '' ),
 				'secondaryLabel' => array( 'type' => 'string', 'default' => '' ),
 				'secondaryUrl'   => array( 'type' => 'string', 'default' => '' ),
+				'actions'        => array(
+					'type'    => 'array',
+					'default' => array(),
+					'items'   => array( 'type' => 'object' ),
+				),
 				'slides'         => array(
 					'type'    => 'array',
 					'default' => array(),
@@ -687,6 +692,40 @@ function rarc_theme_render_hero_block( $attributes ) {
 		return '';
 	}
 
+	$actions = array();
+
+	if ( ! empty( $attributes['actions'] ) && is_array( $attributes['actions'] ) ) {
+		foreach ( $attributes['actions'] as $action ) {
+			if ( empty( $action['text'] ) || empty( $action['url'] ) ) {
+				continue;
+			}
+
+			$actions[] = array(
+				'text'    => $action['text'],
+				'url'     => $action['url'],
+				'variant' => $action['variant'] ?? 'primary',
+			);
+		}
+	}
+
+	if ( empty( $actions ) ) {
+		if ( ! empty( $attributes['primaryLabel'] ) && ! empty( $attributes['primaryUrl'] ) ) {
+			$actions[] = array(
+				'text'    => $attributes['primaryLabel'],
+				'url'     => $attributes['primaryUrl'],
+				'variant' => 'primary',
+			);
+		}
+
+		if ( ! empty( $attributes['secondaryLabel'] ) && ! empty( $attributes['secondaryUrl'] ) ) {
+			$actions[] = array(
+				'text'    => $attributes['secondaryLabel'],
+				'url'     => $attributes['secondaryUrl'],
+				'variant' => 'outline',
+			);
+		}
+	}
+
 	$anchor = empty( $attributes['anchor'] ) ? '' : ' id="' . esc_attr( sanitize_title( $attributes['anchor'] ) ) . '"';
 
 	ob_start();
@@ -710,14 +749,13 @@ function rarc_theme_render_hero_block( $attributes ) {
 				<?php if ( ! empty( $attributes['lede'] ) ) : ?>
 					<p class="rarc-lede"><?php echo wp_kses_post( $attributes['lede'] ); ?></p>
 				<?php endif; ?>
+				<?php if ( ! empty( $actions ) ) : ?>
 				<div class="rarc-actions">
-				<?php if ( ! empty( $attributes['primaryLabel'] ) && ! empty( $attributes['primaryUrl'] ) ) : ?>
-					<?php echo rarc_theme_render_cta( array( 'text' => $attributes['primaryLabel'], 'url' => $attributes['primaryUrl'], 'variant' => 'primary', 'show_icon' => true, 'icon_type' => 'auto', 'class_name' => 'rarc-hero-cta' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php foreach ( $actions as $action ) : ?>
+						<?php echo rarc_theme_render_cta( array( 'text' => $action['text'], 'url' => $action['url'], 'variant' => $action['variant'], 'show_icon' => true, 'icon_type' => 'auto', 'class_name' => 'rarc-hero-cta' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php endforeach; ?>
+				</div>
 				<?php endif; ?>
-				<?php if ( ! empty( $attributes['secondaryLabel'] ) && ! empty( $attributes['secondaryUrl'] ) ) : ?>
-					<?php echo rarc_theme_render_cta( array( 'text' => $attributes['secondaryLabel'], 'url' => $attributes['secondaryUrl'], 'variant' => 'outline', 'show_icon' => true, 'icon_type' => 'auto', 'class_name' => 'rarc-hero-cta' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				<?php endif; ?>
-			</div>
 				<div class="rarc-hero-footer">
 					<button class="rarc-hero-pause" type="button" data-rarc-hero-pause aria-pressed="false" aria-label="<?php esc_attr_e( 'Pause rotating hero field photos', 'rarc-theme' ); ?>" aria-describedby="rarc-hero-pause-desc">
 						<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.6" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path d="M9.8 8.9v6.2M14.2 8.9v6.2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path></svg>
