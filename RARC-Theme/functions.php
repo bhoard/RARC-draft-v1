@@ -243,9 +243,17 @@ function rarc_theme_register_blocks() {
 	wp_register_script(
 		'rarc-theme-blocks',
 		get_theme_file_uri( 'assets/js/blocks.js' ),
-		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-element', 'wp-i18n' ),
+		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-data', 'wp-element', 'wp-i18n' ),
 		$version,
 		true
+	);
+
+	register_block_type(
+		'rarc/card-grid',
+		array(
+			'api_version'   => 2,
+			'editor_script' => 'rarc-theme-blocks',
+		)
 	);
 
 	register_block_type(

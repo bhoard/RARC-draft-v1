@@ -252,3 +252,27 @@ body.block-editor-iframe__body .rarc-grid-3 > .wp-block.block-list-appender .blo
 	background: rgba(255,255,255,0.04);
 	border-color: rgba(255,255,255,0.28);
 }
+
+body.block-editor-iframe__body .rarc-card-grid-appender,
+.editor-styles-wrapper .rarc-card-grid-appender {
+	width: 100%;
+	min-height: 240px;
+	display: grid;
+	place-items: center;
+	border-radius: 8px;
+	border: 1px dashed rgba(255,255,255,0.18);
+	background: rgba(255,255,255,0.02);
+	color: #b3b3b3;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 12px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 24px;
+}
+
+body.block-editor-iframe__body .rarc-card-grid-appender:hover,
+.editor-styles-wrapper .rarc-card-grid-appender:hover {
+	background: rgba(255,255,255,0.04);
+	border-color: rgba(255,255,255,0.28);
+	color: #fff;
+}

@@ -1,13 +1,17 @@
-( function ( blocks, element, blockEditor, components, i18n ) {
+( function ( blocks, element, blockEditor, components, data, i18n ) {
 	var el = element.createElement;
 	var Fragment = element.Fragment;
+	var createBlock = blocks.createBlock;
 	var useBlockProps = blockEditor.useBlockProps;
+	var InnerBlocks = blockEditor.InnerBlocks;
 	var MediaUpload = blockEditor.MediaUpload;
 	var MediaUploadCheck = blockEditor.MediaUploadCheck;
 	var InspectorControls = blockEditor.InspectorControls;
 	var RichText = blockEditor.RichText;
 	var PlainText = blockEditor.PlainText;
 	var URLInputButton = blockEditor.URLInputButton;
+	var useDispatch = data.useDispatch;
+	var useSelect = data.useSelect;
 	var PanelBody = components.PanelBody;
 	var Button = components.Button;
 	var TextControl = components.TextControl;
@@ -149,6 +153,48 @@
 			);
 		} );
 	}
+
+	blocks.registerBlockType( 'rarc/card-grid', {
+		apiVersion: 2,
+		title: __( 'RARC Card Grid', 'rarc-theme' ),
+		icon: 'screenoptions',
+		category: 'design',
+		edit: function ( props ) {
+			var blockProps = useBlockProps( { className: 'rarc-grid-3' } );
+			var childCount = useSelect( function ( select ) {
+				return select( 'core/block-editor' ).getBlockCount( props.clientId );
+			}, [ props.clientId ] );
+			var blockEditorStore = useDispatch( 'core/block-editor' );
+			var addTileCount = 0 === childCount ? 3 : ( 0 === ( childCount % 3 ) ? 1 : 3 - ( childCount % 3 ) );
+
+			function insertCard() {
+				blockEditorStore.insertBlocks( createBlock( 'rarc/card', { variant: 'image' } ), undefined, props.clientId );
+			}
+
+			return el(
+				'div',
+				blockProps,
+				el( InnerBlocks, {
+					allowedBlocks: [ 'rarc/card' ],
+					renderAppender: false
+				} ),
+				Array.from( { length: addTileCount } ).map( function ( _, index ) {
+					return el( Button, {
+						key: 'card-grid-appender-' + index,
+						className: 'rarc-card-grid-appender',
+						onClick: insertCard
+					}, __( 'Add Card', 'rarc-theme' ) );
+				} )
+			);
+		},
+		save: function () {
+			return el(
+				'div',
+				blockEditor.useBlockProps.save( { className: 'rarc-grid-3' } ),
+				el( InnerBlocks.Content )
+			);
+		}
+	} );
 
 	blocks.registerBlockType( 'rarc/card', {
 		apiVersion: 2,
@@ -707,4 +753,4 @@ ctaPreviewField( {
 			return null;
 		}
 	} );
-} )( window.wp.blocks, window.wp.element, window.wp.blockEditor, window.wp.components, window.wp.i18n );
+} )( window.wp.blocks, window.wp.element, window.wp.blockEditor, window.wp.components, window.wp.data, window.wp.i18n );
