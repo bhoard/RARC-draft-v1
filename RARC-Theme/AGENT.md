@@ -238,8 +238,11 @@ The goal is not maximum flexibility. The goal is high-confidence authoring.
 
 The theme has now converged on several concrete implementation rules that future work should preserve unless there is a strong reason to change them:
 
-- the page hero for `page.html` belongs in the template shell, not in seeded page content
+- the homepage and interior-page hero systems must remain editable in page content, not hardcoded as uneditable template-shell markup
+- the assigned front page uses the `home-hero` block markup as its first content block
+- non-front pages use the `interior-page-hero` block markup as their first content block
 - page featured images should feed the interior page hero background when a featured image exists
+- the home hero carousel must render and preview as a full-width hero, not as a constrained image card
 - the main page/post content area should allow `alignfull` and `alignwide` sections to escape the prose column
 - default page creation should not insert recursive `post-content` patterns into post content
 - the bundled logo at `assets/images/rarc-logo.jpg` is the seed logo and should be installed as the default custom logo only when no custom logo is already set
@@ -283,6 +286,12 @@ The current rule is:
 
 Future work should preserve this bias: if there is a mismatch between frontend and editor, fix the styling path rather than normalizing expectations downward.
 
+This is especially important for heroes:
+
+- the interior page hero must preview as a full-width hero when it is the first content block
+- the home hero carousel must preview using hero-specific markup and sizing, not a generic image/card placeholder
+- if the editor preview uses a simplified structure that changes scale, alignment, or text layering, it is the wrong structure
+
 ## CTA Editing Rule
 
 CTA URLs are now edited with the native WordPress link picker instead of plain text URL fields.
@@ -300,6 +309,25 @@ Do not regress back to plain URL text fields unless there is a specific technica
 Sidebar cards are not generic full-width cards.
 
 In the editor, they should preview as a narrow sidebar stack rather than stretching across the full content width. This is part of the preview-card fingerprint the client expects from the reference implementation.
+
+## Custom Container Block Rule
+
+When WordPress core containers do not provide a strong enough editing affordance, it is acceptable to introduce a light custom container block instead of forcing editors to rely on subtle native inserters.
+
+Current example:
+
+- `rarc/card-grid` exists because the hobby-intro card area needed visible in-grid add-card tiles and more predictable editor behavior than a plain `core/group` grid provided
+
+Future work should use this sparingly, but not avoid it when the editing model clearly benefits.
+
+## Homepage Editing Rule
+
+The homepage is not a static hardcoded template composition.
+
+- `front-page.html` should render the assigned page's content
+- the assigned front page should stay editable like any other page
+- the difference is only the hero choice: homepage gets `home-hero`, other pages get `interior-page-hero`
+- the first hero block should be synchronized to match that rule, but the block markup must stay editable in the page editor
 
 ## Build And Versioning Workflow
 

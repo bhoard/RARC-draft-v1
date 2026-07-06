@@ -31,7 +31,7 @@ Current strengths:
 - `assets/css/theme.css` already contains much of the intended visual system
 - `assets/css/editor.css` already loads shared styling into the editor
 - the theme now has a scripted ZIP workflow with automatic patch-version bumps
-- page shells now support a true full-width interior page hero model
+- the page-content workflow now distinguishes homepage and interior heroes while keeping both editable
 
 These strengths are still useful, but they should now be evaluated by one test: do they help the theme behave like the preferred reference implementation?
 
@@ -40,6 +40,7 @@ Current weaknesses to address first:
 - sidebar-card editor preview still needs continued attention so it feels closer to the reference preview-card behavior
 - pattern validation must be treated as an ongoing guardrail whenever new sections are added or split
 - editor fidelity still needs to be verified in WordPress after any structural block change rather than assumed from CSS alone
+- homepage editing flow still needs periodic regression checks because it depends on explicit front-page vs interior-hero synchronization
 
 ## Critical Correction: No Mega-Pattern Authoring
 
@@ -111,7 +112,7 @@ Current status of the plan:
 - Stage 2: Card family: complete — __header/__content/__image named regions, clickable header-link, __image--placeholder class, story-preview uses same anatomy
 - Stage 3: Custom block editing UX and placeholders: complete — credit moved from canvas to inspector, hero and carousel slide counts visible in canvas, sidebar-card badge shows action type, story-preview CTA label editable in-canvas, all editor CTAs show icon preview
 - Stage 4: Page-section decomposition and section architecture: complete — split section inventory, no homepage mega-patterns, templates compose via theme sections and patterns
-- Stage 5: Template and shell refinement: complete — editorial paragraphs in home/archive, header/footer CTAs use inline SVG, `page.html` now owns the full-width interior hero instead of seeding it into page content
+- Stage 5: Template and shell refinement: complete — editorial paragraphs in home/archive, header/footer CTAs use inline SVG, full-width hero behavior works inside editable page content through explicit hero seeding and breakout rules
 - Stage 6: Archive-like and dynamic readiness: complete — story-preview shares card anatomy, home/archive use rarc/story-preview in query loops
 - Stage 7: Final fingerprint review: complete — all 7 questions answered affirmatively, CTAs show icon preview in editor, card family shares anatomy across static/dynamic contexts, no wp:button references, no mega-patterns
 
@@ -128,6 +129,9 @@ The implementation has learned several practical rules that future passes should
 - use native WordPress link pickers for CTA destinations in custom block editors
 - keep core/remote pattern sources suppressed so the RARC pattern system remains the main authoring surface
 - after each intentional ZIP build, commit the source state that produced it so version numbers and repository history remain synchronized
+- if the page is the assigned front page, its first hero block must be `home-hero`; otherwise its first hero block must be `interior-page-hero`
+- those hero systems must remain editable block markup in page content, not hardcoded non-editable template output
+- when a repeated card area needs visible add-item tiles, use the dedicated `rarc/card-grid` block rather than relying on subtle core-grid inserters
 
 ## Workstream 1: CTA System
 

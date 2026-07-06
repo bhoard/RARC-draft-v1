@@ -68,7 +68,8 @@ Before shipping any major change, ask:
 - add or strengthen pattern locking where layout stability matters
 - keep prose regions open where editorial freedom is appropriate
 - do not seed recursive `post-content` patterns into new page content
-- keep full-width hero treatments in the template shell when the source design behaves like a template-level hero rather than a content block
+- when homepage/interior hero systems need to stay editable, seed real block markup into page content rather than uneditable template-shell stand-ins
+- enforce the homepage vs interior hero choice explicitly: front page gets `home-hero`, other pages get `interior-page-hero`
 
 ### 2. In-canvas guidance
 
@@ -88,6 +89,7 @@ Before shipping any major change, ask:
 - avoid editor-only fallback visuals that materially misrepresent final output
 - load frontend CSS into the editor explicitly; do not rely on a weak editor-only approximation
 - ensure sidebar-card previews stay visually narrow like a sidebar stack instead of stretching to content width
+- ensure hero previews use hero-specific structures in the editor, not generic image placeholders that change scale or alignment
 
 ## Phase 2: CTA System
 
@@ -184,6 +186,7 @@ The exact regions can vary by card type, but the system should be deliberate and
 - expose variant selection cleanly
 - avoid requiring nested arbitrary blocks to complete a card
 - avoid requiring editors to manually rebuild card rhythm
+- if a repeated grid needs clearer add-item behavior than core containers provide, use a light custom container block such as `rarc/card-grid`
 
 ### 12. Support reuse across contexts
 
@@ -248,6 +251,7 @@ For each section, verify:
 - review `front-page.html`, `page.html`, `single.html`, and any field-guide templates
 - ensure defaults support the modular section philosophy
 - avoid templates that dump editors into low-structure layouts unless that is deliberate
+- the front page should render editable page content, not a fixed stack of hardcoded theme sections
 
 ### 19. Interior content strategy
 
