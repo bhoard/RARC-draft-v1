@@ -180,6 +180,43 @@ body.block-editor-iframe__body .rarc-hero-placeholder,
 	min-height: 240px;
 }
 
+body.block-editor-iframe__body .wp-block-rarc-hero-carousel,
+.editor-styles-wrapper .wp-block-rarc-hero-carousel {
+	padding: 0;
+	min-height: clamp(500px, calc(100svh - 112px), 680px);
+	width: 100%;
+	max-width: none;
+}
+
+body.block-editor-iframe__body .wp-block[data-type="rarc/hero-carousel"],
+.editor-styles-wrapper .wp-block[data-type="rarc/hero-carousel"] {
+	max-width: none;
+}
+
+body.block-editor-iframe__body .rarc-editor-hero-bg,
+.editor-styles-wrapper .rarc-editor-hero-bg {
+	position: absolute;
+	inset: 0;
+}
+
+body.block-editor-iframe__body .rarc-editor-hero-grid,
+.editor-styles-wrapper .rarc-editor-hero-grid {
+	position: relative;
+	z-index: 1;
+	padding-left: 24px;
+	padding-right: 24px;
+}
+
+body.block-editor-iframe__body .rarc-editor-hero-badge,
+.editor-styles-wrapper .rarc-editor-hero-badge {
+	position: absolute;
+	left: 24px;
+	top: 24px;
+	z-index: 2;
+	background: rgba(0,0,0,0.45);
+	backdrop-filter: blur(4px);
+}
+
 body.block-editor-iframe__body .rarc-sidebar,
 .editor-styles-wrapper .rarc-sidebar {
 	max-width: 320px;

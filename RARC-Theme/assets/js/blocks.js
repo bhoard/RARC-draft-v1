@@ -628,30 +628,47 @@
 				el(
 					'section',
 					blockProps,
-					slides[0] && slides[0].imageUrl ? el( 'div', { className: 'rarc-carousel-stage' }, el( 'img', { src: slides[0].imageUrl, alt: '' } ) ) : el( 'div', { className: 'rarc-card__image--placeholder rarc-hero-placeholder' }, el( 'span', { className: 'rarc-card-placeholder' }, __( 'Add hero slide', 'rarc-theme' ) ) ),
-					slides.length > 0 ? el( 'div', { className: 'rarc-editor-badge' }, slides.length + __( ' slide(s). Edit in sidebar.', 'rarc-theme' ) ) : null,
-					el( RichText, { tagName: 'div', className: 'rarc-eyebrow', placeholder: __( 'Eyebrow', 'rarc-theme' ), value: attributes.eyebrow, onChange: function ( value ) { setAttributes( { eyebrow: value } ); } } ),
-					el( RichText, { tagName: 'h1', placeholder: __( 'Hero heading', 'rarc-theme' ), value: attributes.heading, onChange: function ( value ) { setAttributes( { heading: value } ); } } ),
-					el( RichText, { tagName: 'p', className: 'rarc-lede', placeholder: __( 'Hero summary', 'rarc-theme' ), value: attributes.lede, onChange: function ( value ) { setAttributes( { lede: value } ); } } ),
+					slides.length > 0 ? el(
+						Fragment,
+						null,
+						el(
+							'div',
+							{ className: 'rarc-hero-bg rarc-editor-hero-bg' },
+							el( 'div', { className: 'rarc-hero-slide is-active', style: { '--hero-image': 'url(' + slides[0].imageUrl + ')' } } ),
+							el( 'div', { className: 'rarc-hero-credit' }, slides[0].credit || __( 'Add slide credit in the block sidebar.', 'rarc-theme' ) ),
+							el( 'div', { className: 'rarc-editor-badge rarc-editor-hero-badge' }, slides.length + __( ' slide(s). Edit in sidebar.', 'rarc-theme' ) )
+						) 
+						) : el( 'div', { className: 'rarc-card__image--placeholder rarc-hero-placeholder' }, el( 'span', { className: 'rarc-card-placeholder' }, __( 'Add hero slide', 'rarc-theme' ) ) ),
 					el(
 						'div',
-						{ className: 'rarc-actions rarc-editor-cta-row' },
-						actions.length ? actions.map( function ( action, index ) {
-							return ctaPreviewField( {
-								key: 'hero-cta-preview-' + index,
-								variant: 'outline' === ( action.variant || 'primary' ) ? 'rarc-cta--outline' : 'rarc-cta--primary',
-								placeholder: __( 'Hero CTA label', 'rarc-theme' ),
-								value: action.text || '',
-								onChange: function ( value ) { setHeroActions( setAttributes, updateCardAction( actions, index, 'text', value ) ); },
-								showIcon: true,
-								className: 'rarc-hero-cta'
-							} );
-						} ) : el( Button, {
-							variant: 'secondary',
-							onClick: function () {
-								setHeroActions( setAttributes, addCardAction( actions ) );
-							}
-						}, __( 'Add CTA', 'rarc-theme' ) )
+						{ className: 'wp-block-group alignwide rarc-hero-grid rarc-editor-hero-grid' },
+						el(
+							'div',
+							{ className: 'rarc-hero-copy' },
+							el( RichText, { tagName: 'div', className: 'rarc-eyebrow', placeholder: __( 'Eyebrow', 'rarc-theme' ), value: attributes.eyebrow, onChange: function ( value ) { setAttributes( { eyebrow: value } ); } } ),
+							el( RichText, { tagName: 'h1', placeholder: __( 'Hero heading', 'rarc-theme' ), value: attributes.heading, onChange: function ( value ) { setAttributes( { heading: value } ); } } ),
+							el( RichText, { tagName: 'p', className: 'rarc-lede', placeholder: __( 'Hero summary', 'rarc-theme' ), value: attributes.lede, onChange: function ( value ) { setAttributes( { lede: value } ); } } ),
+							el(
+								'div',
+								{ className: 'rarc-actions rarc-editor-cta-row' },
+								actions.length ? actions.map( function ( action, index ) {
+									return ctaPreviewField( {
+										key: 'hero-cta-preview-' + index,
+										variant: 'outline' === ( action.variant || 'primary' ) ? 'rarc-cta--outline' : 'rarc-cta--primary',
+										placeholder: __( 'Hero CTA label', 'rarc-theme' ),
+										value: action.text || '',
+										onChange: function ( value ) { setHeroActions( setAttributes, updateCardAction( actions, index, 'text', value ) ); },
+										showIcon: true,
+										className: 'rarc-hero-cta'
+									} );
+								} ) : el( Button, {
+									variant: 'secondary',
+									onClick: function () {
+										setHeroActions( setAttributes, addCardAction( actions ) );
+									}
+								}, __( 'Add CTA', 'rarc-theme' ) )
+							)
+						)
 					)
 				)
 			);
