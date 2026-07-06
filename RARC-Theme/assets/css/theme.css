@@ -1088,6 +1088,10 @@ img {
 	margin-top: calc(-1 * var(--rarc-post-shell-space));
 }
 
+.rarc-post-shell .wp-block-post-content > .wp-block-rarc-hero-carousel.rarc-hero:first-child {
+	margin-top: calc(-1 * var(--rarc-post-shell-space));
+}
+
 .rarc-post-shell .wp-block-post-content.has-global-padding > .alignfull,
 .rarc-post-shell .wp-block-post-content > .alignfull.has-global-padding {
 	padding-left: 0;
