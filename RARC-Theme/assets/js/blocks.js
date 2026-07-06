@@ -542,7 +542,7 @@
 		edit: function ( props ) {
 			var attributes = props.attributes;
 			var setAttributes = props.setAttributes;
-			var blockProps = useBlockProps( { className: 'rarc-hero' } );
+			var blockProps = useBlockProps( { className: 'rarc-hero align' + ( attributes.align || 'full' ) } );
 			var slides = attributes.slides || [];
 			var actions = normalizeHeroActions( attributes );
 

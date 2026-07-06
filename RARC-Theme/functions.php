@@ -373,7 +373,11 @@ function rarc_theme_register_blocks() {
 			'api_version'   => 2,
 			'editor_script' => 'rarc-theme-blocks',
 			'render_callback' => 'rarc_theme_render_hero_block',
+			'supports'      => array(
+				'align' => array( 'full' ),
+			),
 			'attributes'    => array(
+				'align'          => array( 'type' => 'string', 'default' => 'full' ),
 				'anchor'         => array( 'type' => 'string', 'default' => 'top' ),
 				'eyebrow'        => array( 'type' => 'string', 'default' => '' ),
 				'heading'        => array( 'type' => 'string', 'default' => '' ),
@@ -788,10 +792,11 @@ function rarc_theme_render_hero_block( $attributes ) {
 	}
 
 	$anchor = empty( $attributes['anchor'] ) ? '' : ' id="' . esc_attr( sanitize_title( $attributes['anchor'] ) ) . '"';
+	$align  = empty( $attributes['align'] ) ? 'alignfull' : 'align' . sanitize_html_class( $attributes['align'] );
 
 	ob_start();
 	?>
-	<section class="wp-block-rarc-hero-carousel rarc-hero"<?php echo $anchor; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> data-rarc-hero>
+	<section class="wp-block-rarc-hero-carousel rarc-hero <?php echo esc_attr( $align ); ?>"<?php echo $anchor; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> data-rarc-hero>
 		<div class="rarc-hero-bg" data-rarc-hero-carousel aria-label="<?php esc_attr_e( 'Featured RC aircraft photography', 'rarc-theme' ); ?>">
 			<?php foreach ( $slides as $index => $slide ) : ?>
 				<?php if ( empty( $slide['imageUrl'] ) ) { continue; } ?>
