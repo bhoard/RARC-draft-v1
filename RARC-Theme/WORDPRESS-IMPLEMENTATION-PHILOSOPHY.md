@@ -321,6 +321,14 @@ Rules:
 - the ZIP is a build artifact and should not be committed
 - after each intentional build, commit the matching source state so repo history and version numbers stay aligned
 
+Cross-platform lesson:
+
+- local Windows builds can still produce a ZIP that remote Linux-based WordPress hosting rejects
+- the most common failure mode is not theme PHP or templates, but archive structure
+- the upload ZIP must include a top-level `RARC-Theme/` folder
+- the ZIP entry names must use forward slashes, for example `RARC-Theme/style.css`
+- if remote install reports missing `style.css` or missing templates, inspect the archive layout before debugging the theme code itself
+
 ## What Future LLMs Should Preserve
 
 If you are a future LLM working in this repo, preserve these behaviors unless the user explicitly wants to change them:

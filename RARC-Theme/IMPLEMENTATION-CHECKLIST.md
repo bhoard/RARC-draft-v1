@@ -284,6 +284,7 @@ Use a rendered block when:
 - let the build script increment the patch version in `style.css`
 - after an intentional build, create a normal git commit for the source changes that produced that build
 - keep documentation aligned with the actual build workflow and current versioning policy
+- verify that the ZIP contains a top-level `RARC-Theme/` directory and normalized forward-slash entry paths before assuming a remote install failure is a theme-code issue
 - the editor should edit fields instead of nested structure
 
 This likely applies to:

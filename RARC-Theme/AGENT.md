@@ -339,6 +339,13 @@ The ZIP build process is now part of the theme contract.
 - the ZIP remains a build artifact and should not be committed
 - documentation changes should keep this workflow accurate so future work does not drift back to ad hoc manual zipping
 
+Cross-platform packaging rule:
+
+- local development may happen on Windows while the real WordPress host is Linux-based
+- the upload ZIP must contain a top-level `RARC-Theme/` folder
+- ZIP entry names must use normalized forward-slash paths such as `RARC-Theme/style.css`, not Windows-style backslash entry paths
+- if a package installs locally but fails remote upload with missing `style.css` or missing template errors, inspect the ZIP structure and entry naming first
+
 ## Modular Page Sections
 
 One of the most transferable strengths from the reference implementation is modular section authoring.
