@@ -29,6 +29,9 @@ $nextVersion = "$major.$minor.$patch"
 $updatedStyle = [System.Text.RegularExpressions.Regex]::Replace($styleContent, '(?m)^Version:\s*\d+\.\d+\.\d+\s*$', "Version: $nextVersion", 1)
 [System.IO.File]::WriteAllText($stylePath, $updatedStyle, (New-Object System.Text.UTF8Encoding($false)))
 
+Add-Type -AssemblyName System.IO.Compression
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+
 $zipFullPath = Join-Path -Path $PSScriptRoot -ChildPath $ZipPath
 if (Test-Path -LiteralPath $zipFullPath) {
 	Remove-Item -LiteralPath $zipFullPath -Force
@@ -60,9 +63,16 @@ foreach ($relativePath in $pathsToZip) {
 	Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
 }
 
-Push-Location -LiteralPath $stagingRoot
-Compress-Archive -Path $ThemeDir -DestinationPath $zipFullPath -CompressionLevel Optimal
-Pop-Location
+$zipStream = [System.IO.File]::Open($zipFullPath, [System.IO.FileMode]::Create)
+$archive = New-Object System.IO.Compression.ZipArchive($zipStream, [System.IO.Compression.ZipArchiveMode]::Create, $false)
+
+Get-ChildItem -LiteralPath $stagingThemeRoot -Recurse -File | ForEach-Object {
+	$entryName = $_.FullName.Substring($stagingRoot.Length + 1).Replace('\', '/')
+	[System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($archive, $_.FullName, $entryName, [System.IO.Compression.CompressionLevel]::Optimal) | Out-Null
+}
+
+$archive.Dispose()
+$zipStream.Dispose()
 
 Remove-Item -LiteralPath $stagingRoot -Recurse -Force
 
