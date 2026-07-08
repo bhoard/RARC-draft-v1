@@ -34,18 +34,37 @@ if (Test-Path -LiteralPath $zipFullPath) {
 	Remove-Item -LiteralPath $zipFullPath -Force
 }
 
+$stagingRoot = Join-Path -Path $PSScriptRoot -ChildPath ".build-theme-staging"
+$stagingThemeRoot = Join-Path -Path $stagingRoot -ChildPath $ThemeDir
+
+if (Test-Path -LiteralPath $stagingRoot) {
+	Remove-Item -LiteralPath $stagingRoot -Recurse -Force
+}
+
+New-Item -ItemType Directory -Path $stagingThemeRoot | Out-Null
+
 $pathsToZip = @(
-	Join-Path -Path $themeRoot -ChildPath "assets"
-	Join-Path -Path $themeRoot -ChildPath "parts"
-	Join-Path -Path $themeRoot -ChildPath "patterns"
-	Join-Path -Path $themeRoot -ChildPath "templates"
-	Join-Path -Path $themeRoot -ChildPath "functions.php"
-	Join-Path -Path $themeRoot -ChildPath "screenshot.png"
-	Join-Path -Path $themeRoot -ChildPath "style.css"
-	Join-Path -Path $themeRoot -ChildPath "theme.json"
+	"assets"
+	"parts"
+	"patterns"
+	"templates"
+	"functions.php"
+	"screenshot.png"
+	"style.css"
+	"theme.json"
 )
 
-Compress-Archive -Path $pathsToZip -DestinationPath $zipFullPath -CompressionLevel Optimal
+foreach ($relativePath in $pathsToZip) {
+	$sourcePath = Join-Path -Path $themeRoot -ChildPath $relativePath
+	$destinationPath = Join-Path -Path $stagingThemeRoot -ChildPath $relativePath
+	Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
+}
+
+Push-Location -LiteralPath $stagingRoot
+Compress-Archive -Path $ThemeDir -DestinationPath $zipFullPath -CompressionLevel Optimal
+Pop-Location
+
+Remove-Item -LiteralPath $stagingRoot -Recurse -Force
 
 "Built $zipFullPath"
 "Theme version: $nextVersion"
