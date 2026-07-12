@@ -164,6 +164,22 @@
 		);
 	}
 
+	function updateInfoRow( rows, index, key, value ) {
+		return rows.map( function ( row, rowIndex ) {
+			var next = {};
+
+			Object.keys( row || {} ).forEach( function ( rowKey ) {
+				next[ rowKey ] = row[ rowKey ];
+			} );
+
+			if ( rowIndex === index ) {
+				next[ key ] = value;
+			}
+
+			return next;
+		} );
+	}
+
 	function slideEditor( slides, setAttributes, imageFields ) {
 		return slides.map( function ( slide, index ) {
 			return el(
@@ -670,6 +686,71 @@
 							)
 						)
 					)
+				)
+			);
+		},
+		save: function () {
+			return null;
+		}
+	} );
+
+	blocks.registerBlockType( 'rarc/info-list', {
+		apiVersion: 2,
+		title: __( 'RARC Info List', 'rarc-theme' ),
+		icon: 'editor-ul',
+		category: 'design',
+		attributes: {
+			rows: { type: 'array', default: [] }
+		},
+		edit: function ( props ) {
+			var attributes = props.attributes;
+			var setAttributes = props.setAttributes;
+			var rows = attributes.rows || [];
+			var blockProps = useBlockProps( { className: 'rarc-info-list' } );
+
+			function addRow() {
+				setAttributes( {
+					rows: rows.concat( [ {
+						label: __( 'New row', 'rarc-theme' ),
+						content: __( 'Add row details here.', 'rarc-theme' )
+					} ] )
+				} );
+			}
+
+			function removeLastRow() {
+				setAttributes( { rows: rows.slice( 0, Math.max( rows.length - 1, 0 ) ) } );
+			}
+
+			return el(
+				'div',
+				blockProps,
+				rows.map( function ( row, index ) {
+					return el(
+						'div',
+						{ key: index, className: 'rarc-info-item' },
+						el( PlainText, {
+							className: 'rarc-info-label',
+							placeholder: __( 'Row label', 'rarc-theme' ),
+							value: row.label || '',
+							onChange: function ( value ) {
+								setAttributes( { rows: updateInfoRow( rows, index, 'label', value ) } );
+							}
+						} ),
+						el( RichText, {
+							tagName: 'p',
+							placeholder: __( 'Row content', 'rarc-theme' ),
+							value: row.content || '',
+							onChange: function ( value ) {
+								setAttributes( { rows: updateInfoRow( rows, index, 'content', value ) } );
+							}
+						} )
+					);
+				} ),
+				el(
+					'div',
+					{ className: 'rarc-info-list-controls' },
+					el( Button, { variant: 'secondary', onClick: addRow }, __( 'Add row', 'rarc-theme' ) ),
+					el( Button, { variant: 'secondary', onClick: removeLastRow, disabled: rows.length < 1 }, __( 'Remove last row', 'rarc-theme' ) )
 				)
 			);
 		},

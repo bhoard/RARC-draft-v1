@@ -1125,6 +1125,13 @@ img {
 	display: grid;
 }
 
+.rarc-info-list-controls {
+	display: flex;
+	gap: 12px;
+	padding-top: 16px;
+	flex-wrap: wrap;
+}
+
 .rarc-info-item {
 	display: grid;
 	grid-template-columns: 130px 1fr;

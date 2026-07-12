@@ -499,6 +499,22 @@ function rarc_theme_register_blocks() {
 	);
 
 	register_block_type(
+		'rarc/info-list',
+		array(
+			'api_version'   => 2,
+			'editor_script' => 'rarc-theme-blocks',
+			'render_callback' => 'rarc_theme_render_info_list_block',
+			'attributes'    => array(
+				'rows' => array(
+					'type'    => 'array',
+					'default' => array(),
+					'items'   => array( 'type' => 'object' ),
+				),
+			)
+		)
+	);
+
+	register_block_type(
 		'rarc/info-row',
 		array(
 			'api_version'   => 2,
@@ -932,6 +948,34 @@ function rarc_theme_render_hero_block( $attributes ) {
 	</section>
 	<?php
 	return ob_get_clean();
+}
+
+function rarc_theme_render_info_list_block( $attributes ) {
+	$rows = ! empty( $attributes['rows'] ) && is_array( $attributes['rows'] ) ? $attributes['rows'] : array();
+
+	if ( empty( $rows ) ) {
+		return '';
+	}
+
+	$markup = '<div class="wp-block-rarc-info-list alignwide rarc-info-list">';
+
+	foreach ( $rows as $row ) {
+		$label = $row['label'] ?? '';
+		$content = $row['content'] ?? '';
+
+		if ( '' === trim( $label ) && '' === trim( wp_strip_all_tags( $content ) ) ) {
+			continue;
+		}
+
+		$markup .= '<div class="rarc-info-item">';
+		$markup .= '<p><strong>' . esc_html( $label ) . '</strong></p>';
+		$markup .= '<p><span>' . wp_kses_post( $content ) . '</span></p>';
+		$markup .= '</div>';
+	}
+
+	$markup .= '</div>';
+
+	return $markup;
 }
 
 function rarc_theme_render_info_row_block( $attributes ) {
