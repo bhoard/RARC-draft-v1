@@ -90,6 +90,7 @@ Before shipping any major change, ask:
 - load frontend CSS into the editor explicitly; do not rely on a weak editor-only approximation
 - ensure sidebar-card previews stay visually narrow like a sidebar stack instead of stretching to content width
 - ensure hero previews use hero-specific structures in the editor, not generic image placeholders that change scale or alignment
+- keep repeated carousel slide controls consistent: slide fields, image replacement, add, and remove controls belong in the inspector/sidebar while the canvas shows a representative active-slide preview
 
 ## Phase 2: CTA System
 

@@ -510,7 +510,7 @@ img {
 }
 
 .rarc-carousel-card .rarc-carousel-stage {
-	min-height: clamp(280px, 34vw, 420px);
+	min-height: clamp(360px, 42vw, 560px);
 	border-radius: 0;
 	box-shadow: none;
 }

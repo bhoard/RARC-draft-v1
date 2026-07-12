@@ -530,35 +530,12 @@ body.block-editor-iframe__body .rarc-card-grid-appender:hover,
 	color: #fff;
 }
 
-body.block-editor-iframe__body .rarc-carousel-slide-editor-list,
-.editor-styles-wrapper .rarc-carousel-slide-editor-list {
-	display: grid;
-	gap: 16px;
-}
-
-body.block-editor-iframe__body .rarc-carousel-slide-editor,
-.editor-styles-wrapper .rarc-carousel-slide-editor {
-	display: grid;
-	gap: 12px;
-	padding: 16px;
-	border: 1px dashed rgba(255,255,255,0.18);
-	border-radius: 8px;
-	background: rgba(255,255,255,0.03);
-}
-
-body.block-editor-iframe__body .rarc-carousel-slide-editor img,
-.editor-styles-wrapper .rarc-carousel-slide-editor img {
-	width: 100%;
-	max-height: 280px;
-	object-fit: cover;
-	border-radius: 8px;
-}
-
-body.block-editor-iframe__body .rarc-carousel-slide-editor-actions,
-.editor-styles-wrapper .rarc-carousel-slide-editor-actions {
-	display: flex;
-	gap: 12px;
-	flex-wrap: wrap;
+body.block-editor-iframe__body .rarc-editor-carousel-badge,
+.editor-styles-wrapper .rarc-editor-carousel-badge {
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	z-index: 3;
 }
 
 @media (max-width: 1180px) {

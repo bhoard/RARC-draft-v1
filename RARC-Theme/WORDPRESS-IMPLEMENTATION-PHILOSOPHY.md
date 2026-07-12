@@ -104,6 +104,14 @@ Current custom blocks exist for exactly this reason:
 - `rarc/sidebar-card`
 - `rarc/story-preview`
 
+## Consistent Editing Patterns
+
+When two components solve the same authoring problem, they should use the same interaction model unless there is a clear reason not to.
+
+For carousel-style components, slide management is a repeated-data task. Keep slide fields, image selection, add, and remove controls in the inspector/sidebar, and keep the canvas focused on a faithful representative preview of the active slide. Do not make one carousel expose all slides as stacked in-canvas cards while another uses sidebar slide panels.
+
+This consistency matters because editors learn one pattern and reuse it across the site.
+
 ## Why `rarc/card-grid` Exists
 
 `rarc/card-grid` is a good example of the overall philosophy.
