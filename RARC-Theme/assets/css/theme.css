@@ -1216,6 +1216,20 @@ img {
 	margin-right: auto;
 }
 
+.rarc-post-shell .rarc-page-hero .wp-block-post-title,
+.rarc-post-shell .rarc-page-hero .wp-block-post-excerpt {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.rarc-post-shell .rarc-page-hero .wp-block-post-title {
+	max-width: 850px;
+}
+
+.rarc-post-shell .rarc-page-hero .wp-block-post-excerpt {
+	max-width: 720px;
+}
+
 .rarc-post-shell .wp-block-post-content {
 	max-width: none;
 	margin-left: 0;

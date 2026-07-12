@@ -364,6 +364,24 @@ body.block-editor-iframe__body .rarc-page-hero-copy .rarc-lede,
 	max-width: 720px;
 }
 
+body.block-editor-iframe__body .rarc-page-hero-copy .wp-block-post-title,
+body.block-editor-iframe__body .rarc-page-hero-copy .wp-block-post-excerpt,
+.editor-styles-wrapper .rarc-page-hero-copy .wp-block-post-title,
+.editor-styles-wrapper .rarc-page-hero-copy .wp-block-post-excerpt {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+body.block-editor-iframe__body .rarc-page-hero-copy .wp-block-post-title,
+.editor-styles-wrapper .rarc-page-hero-copy .wp-block-post-title {
+	max-width: 850px;
+}
+
+body.block-editor-iframe__body .rarc-page-hero-copy .wp-block-post-excerpt,
+.editor-styles-wrapper .rarc-page-hero-copy .wp-block-post-excerpt {
+	max-width: 720px;
+}
+
 body.block-editor-iframe__body .rarc-layout .rarc-prose,
 body.block-editor-iframe__body .rarc-interior-main-column .rarc-prose,
 .editor-styles-wrapper .rarc-layout .rarc-prose,
