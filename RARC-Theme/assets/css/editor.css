@@ -65,8 +65,10 @@ body.block-editor-iframe__body .rarc-module-head h2,
 
 body.block-editor-iframe__body .rarc-layout .rarc-prose h3,
 body.block-editor-iframe__body .rarc-module-head h3,
+body.block-editor-iframe__body .rarc-interior-main-column .rarc-prose h3,
 .editor-styles-wrapper .rarc-layout .rarc-prose h3,
-.editor-styles-wrapper .rarc-module-head h3 {
+.editor-styles-wrapper .rarc-module-head h3,
+.editor-styles-wrapper .rarc-interior-main-column .rarc-prose h3 {
 	font-size: clamp(22px, 3vw, 30px);
 	line-height: 1.08;
 }
@@ -261,6 +263,19 @@ body.block-editor-iframe__body .rarc-content-stack > .rarc-button-row.alignwide,
 .editor-styles-wrapper .rarc-content-stack > .rarc-prose.alignwide,
 .editor-styles-wrapper .rarc-content-stack > .rarc-info-list.alignwide,
 .editor-styles-wrapper .rarc-content-stack > .rarc-button-row.alignwide {
+	width: 100%;
+	max-width: 62ch;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+body.block-editor-iframe__body .rarc-interior-main-column,
+.editor-styles-wrapper .rarc-interior-main-column {
+	justify-items: start;
+}
+
+body.block-editor-iframe__body .rarc-interior-main-column > *,
+.editor-styles-wrapper .rarc-interior-main-column > * {
 	width: 100%;
 	max-width: 62ch;
 	margin-left: 0;
