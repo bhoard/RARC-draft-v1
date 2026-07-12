@@ -33,6 +33,10 @@ function rarc_theme_get_version() {
 	return $version;
 }
 
+function rarc_theme_fonts_url() {
+	return 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800;900&display=swap';
+}
+
 function rarc_theme_default_logo_markup() {
 	return sprintf(
 		'<a href="%1$s" class="custom-logo-link" rel="home"><img src="%2$s" class="custom-logo" alt="%3$s" /></a>',
@@ -157,9 +161,16 @@ function rarc_theme_assets() {
 	$version = rarc_theme_get_version();
 
 	wp_enqueue_style(
+		'rarc-theme-fonts',
+		rarc_theme_fonts_url(),
+		array(),
+		null
+	);
+
+	wp_enqueue_style(
 		'rarc-theme-styles',
 		get_theme_file_uri( 'assets/css/theme.css' ),
-		array(),
+		array( 'rarc-theme-fonts' ),
 		$version
 	);
 
@@ -185,9 +196,16 @@ function rarc_theme_editor_assets() {
 	$version = rarc_theme_get_version();
 
 	wp_enqueue_style(
+		'rarc-theme-fonts',
+		rarc_theme_fonts_url(),
+		array(),
+		null
+	);
+
+	wp_enqueue_style(
 		'rarc-theme-editor-content',
 		get_theme_file_uri( 'assets/css/theme.css' ),
-		array(),
+		array( 'rarc-theme-fonts' ),
 		$version
 	);
 
