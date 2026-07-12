@@ -320,6 +320,8 @@ body.block-editor-iframe__body .rarc-page-hero-copy,
 	max-width: 1280px;
 	margin-left: auto;
 	margin-right: auto;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 	text-align: left;
 }
 

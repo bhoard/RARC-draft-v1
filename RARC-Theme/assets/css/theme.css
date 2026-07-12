@@ -976,6 +976,8 @@ img {
 .rarc-page-hero {
 	--rarc-page-hero-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Radio_controlled_model_aircraft_event_-_geograph.org.uk_-_3992818.jpg?width=1600");
 	padding: 92px 0 44px;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 	background-size: cover;
 	background-position: center;
 	border-bottom: 1px solid var(--rarc-border-soft);
@@ -993,6 +995,8 @@ img {
 	max-width: 1280px;
 	margin-left: auto;
 	margin-right: auto;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 	text-align: left;
 }
 
