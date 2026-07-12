@@ -695,12 +695,10 @@
 			return el(
 				'div',
 				blockProps,
-				el( RichText, {
-					tagName: 'p',
+				el( PlainText, {
 					className: 'rarc-info-label',
 					placeholder: __( 'Row label', 'rarc-theme' ),
 					value: attributes.label,
-					allowedFormats: [],
 					onChange: function ( value ) {
 						setAttributes( { label: value } );
 					}
@@ -775,6 +773,7 @@
 					blockProps,
 					el( 'div', { className: 'rarc-editor-badge' }, attributes.isShare ? __( 'Share Card', 'rarc-theme' ) : __( 'Link Card', 'rarc-theme' ) ),
 					el( PlainText, {
+						className: 'rarc-sidebar-title',
 						placeholder: __( 'Sidebar title', 'rarc-theme' ),
 						value: attributes.title,
 						onChange: function ( value ) { setAttributes( { title: value } ); }

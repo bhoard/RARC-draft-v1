@@ -7,7 +7,7 @@
 ?>
 <!-- wp:group {"align":"wide","className":"rarc-layout","layout":{"type":"grid"}} -->
 <div class="wp-block-group alignwide rarc-layout is-layout-grid wp-block-group-is-layout-grid"><!-- wp:group {"className":"rarc-content-stack"} -->
-<div class="wp-block-group rarc-content-stack is-layout-flow wp-block-group-is-layout-flow"><!-- wp:html --><div class="rarc-feature-image">CC BY-SA placeholder: model aircraft flying over open fields, Wikimedia Commons / Geograph</div><!-- /wp:html -->
+<div class="wp-block-group rarc-content-stack is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph {"className":"rarc-feature-image"} --><p class="rarc-feature-image">CC BY-SA placeholder: model aircraft flying over open fields, Wikimedia Commons / Geograph</p><!-- /wp:paragraph -->
 
 <!-- wp:group {"className":"rarc-prose"} --><div class="wp-block-group rarc-prose is-layout-flow wp-block-group-is-layout-flow"><!-- wp:heading {"level":2} --><h2 class="wp-block-heading">Before you visit</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Use this page style for the practical questions a visitor actually has: where to park, when to arrive, how field access works, and what kind of flying day they are walking into.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>The article stays open on purpose. Plain headings, a few well-spaced paragraphs, and aligned photography do more here than wrapping every paragraph in another container.</p><!-- /wp:paragraph --></div><!-- /wp:group -->
 

@@ -118,9 +118,13 @@ body.block-editor-iframe__body .rarc-editor-cta,
 }
 
 body.block-editor-iframe__body .rarc-editor-cta .block-editor-plain-text,
+body.block-editor-iframe__body .rarc-info-label,
+body.block-editor-iframe__body .rarc-sidebar-title,
 body.block-editor-iframe__body .rarc-editor-cta textarea,
 body.block-editor-iframe__body .rarc-editor-cta input,
 .editor-styles-wrapper .rarc-editor-cta .block-editor-plain-text,
+.editor-styles-wrapper .rarc-info-label,
+.editor-styles-wrapper .rarc-sidebar-title,
 .editor-styles-wrapper .rarc-editor-cta textarea,
 .editor-styles-wrapper .rarc-editor-cta input {
 	background: transparent;
@@ -136,9 +140,13 @@ body.block-editor-iframe__body .rarc-editor-cta input,
 }
 
 body.block-editor-iframe__body .rarc-editor-cta .block-editor-plain-text:focus,
+body.block-editor-iframe__body .rarc-info-label:focus,
+body.block-editor-iframe__body .rarc-sidebar-title:focus,
 body.block-editor-iframe__body .rarc-editor-cta textarea:focus,
 body.block-editor-iframe__body .rarc-editor-cta input:focus,
 .editor-styles-wrapper .rarc-editor-cta .block-editor-plain-text:focus,
+.editor-styles-wrapper .rarc-info-label:focus,
+.editor-styles-wrapper .rarc-sidebar-title:focus,
 .editor-styles-wrapper .rarc-editor-cta textarea:focus,
 .editor-styles-wrapper .rarc-editor-cta input:focus {
 	outline: none;
@@ -146,9 +154,13 @@ body.block-editor-iframe__body .rarc-editor-cta input:focus,
 }
 
 body.block-editor-iframe__body .rarc-editor-cta .block-editor-plain-text::placeholder,
+body.block-editor-iframe__body .rarc-info-label::placeholder,
+body.block-editor-iframe__body .rarc-sidebar-title::placeholder,
 body.block-editor-iframe__body .rarc-editor-cta textarea::placeholder,
 body.block-editor-iframe__body .rarc-editor-cta input::placeholder,
 .editor-styles-wrapper .rarc-editor-cta .block-editor-plain-text::placeholder,
+.editor-styles-wrapper .rarc-info-label::placeholder,
+.editor-styles-wrapper .rarc-sidebar-title::placeholder,
 .editor-styles-wrapper .rarc-editor-cta textarea::placeholder,
 .editor-styles-wrapper .rarc-editor-cta input::placeholder {
 	color: rgba(255,255,255,0.76);
