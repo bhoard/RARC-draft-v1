@@ -695,9 +695,11 @@
 			return el(
 				'div',
 				blockProps,
-				el( PlainText, {
+				el( RichText, {
+					tagName: 'strong',
 					placeholder: __( 'Row label', 'rarc-theme' ),
 					value: attributes.label,
+					allowedFormats: [],
 					onChange: function ( value ) {
 						setAttributes( { label: value } );
 					}
