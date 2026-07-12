@@ -316,7 +316,23 @@ body.block-editor-iframe__body .rarc-interior-main-column > *,
 
 body.block-editor-iframe__body .rarc-page-hero-copy,
 .editor-styles-wrapper .rarc-page-hero-copy {
+	width: min(100% - 48px, 1280px);
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
 	text-align: left;
+}
+
+body.block-editor-iframe__body .rarc-page-hero-copy > * + *,
+.editor-styles-wrapper .rarc-page-hero-copy > * + * {
+	margin-block-start: 0;
+}
+
+body.block-editor-iframe__body .rarc-page-hero-copy h1,
+body.block-editor-iframe__body .rarc-page-hero-copy .wp-block-post-title,
+.editor-styles-wrapper .rarc-page-hero-copy h1,
+.editor-styles-wrapper .rarc-page-hero-copy .wp-block-post-title {
+	margin-top: 14px;
 }
 
 body.block-editor-iframe__body .rarc-page-hero-copy > *,
@@ -343,6 +359,7 @@ body.block-editor-iframe__body .rarc-page-hero-copy .rarc-lede,
 .editor-styles-wrapper .rarc-page-hero-copy .rarc-lede {
 	margin-top: 18px;
 	font-size: clamp(18px, 2vw, 23px);
+	max-width: 720px;
 }
 
 body.block-editor-iframe__body .rarc-layout .rarc-prose,

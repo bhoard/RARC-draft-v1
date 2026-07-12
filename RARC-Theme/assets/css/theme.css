@@ -989,6 +989,10 @@ img {
 }
 
 .rarc-page-hero-copy {
+	width: min(100% - 48px, 1280px);
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
 	text-align: left;
 }
 
@@ -996,6 +1000,15 @@ img {
 .rarc-page-hero-copy .rarc-lede > * {
 	margin-left: 0;
 	margin-right: 0;
+}
+
+.rarc-page-hero-copy > * + * {
+	margin-block-start: 0;
+}
+
+.rarc-page-hero-copy h1,
+.rarc-page-hero-copy .wp-block-post-title {
+	margin-top: 14px;
 }
 
 .rarc-page-hero-copy .rarc-lede > * {
@@ -1006,6 +1019,7 @@ img {
 .rarc-page-hero-copy .rarc-lede {
 	margin-top: 18px;
 	font-size: clamp(18px, 2vw, 23px);
+	max-width: 720px;
 }
 
 .rarc-layout .rarc-prose h2,
