@@ -461,6 +461,55 @@
 			var blockProps = useBlockProps( { className: 'rarc-carousel-block' } );
 			var slides = attributes.slides || [];
 
+			function carouselSlideCanvasEditor( slide, index ) {
+				return el(
+					'div',
+					{ key: 'carousel-slide-editor-' + index, className: 'rarc-carousel-slide-editor' },
+					el( 'div', { className: 'rarc-editor-badge' }, __( 'Slide', 'rarc-theme' ) + ' ' + ( index + 1 ) ),
+					slide.imageUrl ? el( 'img', { src: slide.imageUrl, alt: slide.alt || '' } ) : el( 'div', { className: 'rarc-card__image--placeholder' }, el( 'span', { className: 'rarc-card-placeholder' }, __( 'Select slide image', 'rarc-theme' ) ) ),
+					el( RichText, {
+						tagName: 'strong',
+						placeholder: __( 'Slide title', 'rarc-theme' ),
+						value: slide.title || '',
+						onChange: function ( value ) {
+							setAttributes( { slides: updateSlide( slides, index, 'title', value ) } );
+						}
+					} ),
+					el( RichText, {
+						tagName: 'p',
+						placeholder: __( 'Slide caption', 'rarc-theme' ),
+						value: slide.caption || '',
+						onChange: function ( value ) {
+							setAttributes( { slides: updateSlide( slides, index, 'caption', value ) } );
+						}
+					} ),
+					el(
+						'div',
+						{ className: 'rarc-carousel-slide-editor-actions' },
+						el(
+							MediaUploadCheck,
+							null,
+							el( MediaUpload, {
+								onSelect: function ( media ) {
+									var nextSlides = updateSlide( updateSlide( slides, index, 'imageUrl', media.url ), index, 'alt', media.alt || '' );
+									setAttributes( { slides: nextSlides } );
+								},
+								allowedTypes: [ 'image' ],
+								render: function ( data ) {
+									return el( Button, { onClick: data.open, variant: 'secondary' }, slide.imageUrl ? __( 'Replace image', 'rarc-theme' ) : __( 'Select image', 'rarc-theme' ) );
+								}
+							} )
+						),
+						el( Button, {
+							isDestructive: true,
+							onClick: function () {
+								setAttributes( { slides: removeSlide( slides, index ) } );
+							}
+						}, __( 'Remove slide', 'rarc-theme' ) )
+					)
+				);
+			}
+
 			return el(
 				Fragment,
 				null,
@@ -522,8 +571,14 @@
 					el( RichText, { tagName: 'div', className: 'rarc-eyebrow', placeholder: __( 'Eyebrow', 'rarc-theme' ), value: attributes.eyebrow, onChange: function ( value ) { setAttributes( { eyebrow: value } ); } } ),
 					el( RichText, { tagName: 'h2', placeholder: __( 'Section heading', 'rarc-theme' ), value: attributes.heading, onChange: function ( value ) { setAttributes( { heading: value } ); } } ),
 					el( RichText, { tagName: 'p', placeholder: __( 'Intro text', 'rarc-theme' ), value: attributes.intro, onChange: function ( value ) { setAttributes( { intro: value } ); } } ),
-					slides.length > 0 ? el( 'div', { className: 'rarc-editor-badge' }, slides.length + ' ' + __( 'slide(s). Edit slides in sidebar.', 'rarc-theme' ) ) : el( 'div', { className: 'rarc-editor-badge' }, __( 'Add slides in the block sidebar.', 'rarc-theme' ) ),
-					el( 'div', { className: 'rarc-carousel-stage' }, slides[0] && slides[0].imageUrl ? el( 'img', { src: slides[0].imageUrl, alt: slides[0].alt || '' } ) : null ),
+					el( 'div', { className: 'rarc-editor-badge' }, slides.length ? slides.length + ' ' + __( 'editable slide(s)', 'rarc-theme' ) : __( 'No slides yet.', 'rarc-theme' ) ),
+					el( 'div', { className: 'rarc-carousel-slide-editor-list' }, slides.map( carouselSlideCanvasEditor ) ),
+					el( Button, {
+						variant: 'primary',
+						onClick: function () {
+							setAttributes( { slides: addSlide( slides, { imageUrl: '', alt: '', title: '', caption: '' } ) } );
+						}
+					}, __( 'Add slide', 'rarc-theme' ) ),
 					attributes.variant === 'card' ? el(
 						Fragment,
 						null,
