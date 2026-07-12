@@ -389,6 +389,24 @@ body.block-editor-iframe__body .rarc-interior-main-column .rarc-prose,
 	gap: 20px;
 }
 
+body.block-editor-iframe__body .rarc-story-module,
+.editor-styles-wrapper .rarc-story-module {
+	margin-top: 64px;
+	padding-top: 40px;
+}
+
+body.block-editor-iframe__body .rarc-module-head,
+.editor-styles-wrapper .rarc-module-head {
+	gap: 16px;
+	margin-bottom: 24px;
+}
+
+body.block-editor-iframe__body .rarc-module-head > *,
+.editor-styles-wrapper .rarc-module-head > * {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
 body.block-editor-iframe__body .rarc-layout .rarc-prose p,
 body.block-editor-iframe__body .rarc-interior-main-column .rarc-prose p,
 .editor-styles-wrapper .rarc-layout .rarc-prose p,
