@@ -107,6 +107,26 @@ body.block-editor-iframe__body .rarc-editor-note,
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
+.rarc-editor-panel-button {
+	margin-top: 8px;
+}
+
+body.block-editor-iframe__body .rarc-info-list-controls,
+.editor-styles-wrapper .rarc-info-list-controls {
+	margin-top: 16px;
+	padding: 14px;
+	border: 1px dashed rgba(255,255,255,0.22);
+	border-radius: 8px;
+	background: rgba(255,255,255,0.04);
+	align-items: center;
+}
+
+body.block-editor-iframe__body .rarc-info-list-controls .rarc-editor-note,
+.editor-styles-wrapper .rarc-info-list-controls .rarc-editor-note {
+	width: 100%;
+	margin: 0 0 4px;
+}
+
 body.block-editor-iframe__body .rarc-editor-cta,
 .editor-styles-wrapper .rarc-editor-cta {
 	width: fit-content;
