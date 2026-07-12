@@ -18,7 +18,21 @@
 <!-- wp:group {"className":"rarc-status-note"} --><div class="wp-block-group rarc-status-note is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph --><p><strong>Same-day field status should be simple and honest.</strong></p><!-- /wp:paragraph --><!-- wp:paragraph --><p>If the runway is soft, the wind is high, or an event start time changes, this lighter note gives the page a believable update state without turning into an alert wall.</p><!-- /wp:paragraph --></div><!-- /wp:group --></div>
 
 <!-- /wp:group --><!-- wp:group {"className":"rarc-sidebar"} -->
-<div class="wp-block-group rarc-sidebar is-layout-flow wp-block-group-is-layout-flow"><!-- wp:rarc/sidebar-card {"title":"Quick links","text":"Directions, membership, events, safety, and contact."} /--><!-- wp:rarc/sidebar-card {"title":"Field status","text":"Honest placeholder: weather call posted by 7:00 a.m. on scheduled intro mornings."} /--><!-- wp:rarc/sidebar-card {"title":"Photo credit","text":"Reserve this line for verified CC attribution or a member photographer credit."} /--><!-- wp:rarc/sidebar-card {"title":"Share this page","text":"Local share CTAs can live inside the article or sidebar without also needing a global share action in the main navigation.","buttonText":"Share page","isShare":true,"shareNote":"Ready to share Richmond Area RC."} /--></div>
+<div class="wp-block-group rarc-sidebar is-layout-flow wp-block-group-is-layout-flow"><!-- wp:group {"className":"rarc-sidebar-card"} -->
+<div class="wp-block-group rarc-sidebar-card is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph --><p><strong>Quick links</strong></p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Directions, membership, events, safety, and contact.</p><!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"rarc-sidebar-card"} -->
+<div class="wp-block-group rarc-sidebar-card is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph --><p><strong>Field status</strong></p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Honest placeholder: weather call posted by 7:00 a.m. on scheduled intro mornings.</p><!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"rarc-sidebar-card"} -->
+<div class="wp-block-group rarc-sidebar-card is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph --><p><strong>Photo credit</strong></p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Reserve this line for verified CC attribution or a member photographer credit.</p><!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"rarc-sidebar-card"} -->
+<div class="wp-block-group rarc-sidebar-card is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph --><p><strong>Share this page</strong></p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Local share CTAs can live inside the article or sidebar without also needing a global share action in the main navigation.</p><!-- /wp:paragraph --><!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button {"className":"rarc-share-button"} --><div class="wp-block-button rarc-share-button"><a class="wp-block-button__link wp-element-button">Share page</a></div><!-- /wp:button --></div><!-- /wp:buttons --><!-- wp:paragraph {"className":"rarc-share-note"} --><p class="rarc-share-note">Ready to share Richmond Area RC.</p><!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
 
 <!-- /wp:group --></div>
 <!-- /wp:group -->
