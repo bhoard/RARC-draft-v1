@@ -442,6 +442,7 @@ img {
 
 .rarc-meta-row strong,
 .rarc-info-item strong,
+.rarc-info-label,
 .rarc-story-meta,
 .rarc-field-label {
 	color: var(--rarc-muted);

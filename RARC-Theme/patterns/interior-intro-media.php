@@ -5,8 +5,8 @@
  * Categories: rarc-theme, rarc-interior-sections
  */
 ?>
-<!-- wp:group {"align":"wide","className":"rarc-layout","templateLock":"insert","layout":{"type":"grid"}} -->
-<div class="wp-block-group alignwide rarc-layout is-layout-grid wp-block-group-is-layout-grid"><!-- wp:group {"className":"rarc-content-stack","templateLock":"insert"} -->
+<!-- wp:group {"align":"wide","className":"rarc-layout","layout":{"type":"grid"}} -->
+<div class="wp-block-group alignwide rarc-layout is-layout-grid wp-block-group-is-layout-grid"><!-- wp:group {"className":"rarc-content-stack"} -->
 <div class="wp-block-group rarc-content-stack is-layout-flow wp-block-group-is-layout-flow"><!-- wp:html --><div class="rarc-feature-image">CC BY-SA placeholder: model aircraft flying over open fields, Wikimedia Commons / Geograph</div><!-- /wp:html -->
 
 <!-- wp:group {"className":"rarc-prose"} --><div class="wp-block-group rarc-prose is-layout-flow wp-block-group-is-layout-flow"><!-- wp:heading {"level":2} --><h2 class="wp-block-heading">Before you visit</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Use this page style for the practical questions a visitor actually has: where to park, when to arrive, how field access works, and what kind of flying day they are walking into.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>The article stays open on purpose. Plain headings, a few well-spaced paragraphs, and aligned photography do more here than wrapping every paragraph in another container.</p><!-- /wp:paragraph --></div><!-- /wp:group -->
@@ -17,7 +17,7 @@
 
 <!-- wp:group {"className":"rarc-status-note"} --><div class="wp-block-group rarc-status-note is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph --><p><strong>Same-day field status should be simple and honest.</strong></p><!-- /wp:paragraph --><!-- wp:paragraph --><p>If the runway is soft, the wind is high, or an event start time changes, this lighter note gives the page a believable update state without turning into an alert wall.</p><!-- /wp:paragraph --></div><!-- /wp:group --></div>
 
-<!-- /wp:group --><!-- wp:group {"className":"rarc-sidebar","templateLock":"insert"} -->
+<!-- /wp:group --><!-- wp:group {"className":"rarc-sidebar"} -->
 <div class="wp-block-group rarc-sidebar is-layout-flow wp-block-group-is-layout-flow"><!-- wp:rarc/sidebar-card {"title":"Quick links","text":"Directions, membership, events, safety, and contact."} /--><!-- wp:rarc/sidebar-card {"title":"Field status","text":"Honest placeholder: weather call posted by 7:00 a.m. on scheduled intro mornings."} /--><!-- wp:rarc/sidebar-card {"title":"Photo credit","text":"Reserve this line for verified CC attribution or a member photographer credit."} /--><!-- wp:rarc/sidebar-card {"title":"Share this page","text":"Local share CTAs can live inside the article or sidebar without also needing a global share action in the main navigation.","buttonText":"Share page","isShare":true,"shareNote":"Ready to share Richmond Area RC."} /--></div>
 
 <!-- /wp:group --></div>

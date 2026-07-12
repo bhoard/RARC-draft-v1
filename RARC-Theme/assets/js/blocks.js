@@ -696,7 +696,8 @@
 				'div',
 				blockProps,
 				el( RichText, {
-					tagName: 'strong',
+					tagName: 'p',
+					className: 'rarc-info-label',
 					placeholder: __( 'Row label', 'rarc-theme' ),
 					value: attributes.label,
 					allowedFormats: [],
