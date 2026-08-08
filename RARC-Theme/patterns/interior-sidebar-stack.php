@@ -3,6 +3,7 @@
  * Title: Interior Sidebar Stack Section
  * Slug: rarc-theme/interior-sidebar-stack
  * Categories: rarc-theme, rarc-interior-sections, rarc-utility-sections
+ * Inserter: no
  */
 ?>
 <!-- wp:group {"align":"wide","className":"rarc-sidebar"} -->
