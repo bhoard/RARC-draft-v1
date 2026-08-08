@@ -30,6 +30,22 @@ body.block-editor-iframe__body .alignfull,
 	max-width: none;
 }
 
+body.block-editor-iframe__body .wp-block-post-content > .alignfull,
+.editor-styles-wrapper .wp-block-post-content > .alignfull {
+	width: 100vw;
+	max-width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+}
+
+body.block-editor-iframe__body .wp-block-post-content.has-global-padding > .alignfull,
+body.block-editor-iframe__body .wp-block-post-content > .alignfull.has-global-padding,
+.editor-styles-wrapper .wp-block-post-content.has-global-padding > .alignfull,
+.editor-styles-wrapper .wp-block-post-content > .alignfull.has-global-padding {
+	padding-left: 0;
+	padding-right: 0;
+}
+
 body.block-editor-iframe__body :where(h1, h2, h3, h4, h5, h6),
 .editor-styles-wrapper :where(h1, h2, h3, h4, h5, h6) {
 	font-family: var(--wp--preset--font-family--manrope, Manrope, "Helvetica Neue", Helvetica, Arial, sans-serif);
