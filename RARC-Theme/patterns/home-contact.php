@@ -2,7 +2,7 @@
 /**
  * Title: Home Contact Section
  * Slug: rarc-theme/home-contact
- * Categories: rarc-theme, rarc-home-sections, rarc-utility-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"full","anchor":"contact","className":"rarc-section rarc-contact-section","layout":{"type":"constrained"}} -->

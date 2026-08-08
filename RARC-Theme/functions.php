@@ -225,9 +225,6 @@ add_action( 'enqueue_block_assets', 'rarc_theme_editor_assets' );
 function rarc_theme_register_pattern_categories() {
 	$categories = array(
 		'rarc-theme' => __( 'RARC Theme', 'rarc-theme' ),
-		'rarc-home-sections' => __( 'RARC Home Sections', 'rarc-theme' ),
-		'rarc-interior-sections' => __( 'RARC Interior Sections', 'rarc-theme' ),
-		'rarc-utility-sections' => __( 'RARC Utility Sections', 'rarc-theme' ),
 	);
 
 	foreach ( $categories as $slug => $label ) {

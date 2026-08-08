@@ -2,7 +2,7 @@
 /**
  * Title: Home First Visit Section
  * Slug: rarc-theme/home-first-visit
- * Categories: rarc-theme, rarc-home-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"full","anchor":"gallery","className":"rarc-section","layout":{"type":"constrained"}} -->

@@ -2,7 +2,7 @@
 /**
  * Title: Home Field Photos Section
  * Slug: rarc-theme/home-field-photos
- * Categories: rarc-theme, rarc-home-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"full","anchor":"events","className":"rarc-section","layout":{"type":"constrained"}} -->

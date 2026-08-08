@@ -2,7 +2,7 @@
 /**
  * Title: Home Directions And Share Section
  * Slug: rarc-theme/home-directions-share
- * Categories: rarc-theme, rarc-home-sections, rarc-utility-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"full","anchor":"directions","className":"rarc-section rarc-utility-section","layout":{"type":"constrained"}} -->

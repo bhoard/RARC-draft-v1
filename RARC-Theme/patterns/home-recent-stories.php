@@ -2,7 +2,7 @@
 /**
  * Title: Home Recent Stories Section
  * Slug: rarc-theme/home-recent-stories
- * Categories: rarc-theme, rarc-home-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"full","className":"rarc-section","layout":{"type":"constrained"}} -->
