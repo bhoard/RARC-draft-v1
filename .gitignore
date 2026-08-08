@@ -1,7 +1,28 @@
 
+# Local secrets and environment
+.env
+.env.*
+!.env.example
+wp-config.php
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_dsa
+
+# Local database exports
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+
 # Build artifacts
 RARC-Theme.zip
 # Reference implementation
 example-theme/
 # Downloaded source
 wordpress-theme-main.zip
+
+# Local tooling
+.od-skills/
