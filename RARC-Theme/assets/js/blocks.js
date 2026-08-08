@@ -164,6 +164,22 @@
 		);
 	}
 
+	function updateInfoRow( rows, index, key, value ) {
+		return rows.map( function ( row, rowIndex ) {
+			var next = {};
+
+			Object.keys( row || {} ).forEach( function ( rowKey ) {
+				next[ rowKey ] = row[ rowKey ];
+			} );
+
+			if ( rowIndex === index ) {
+				next[ key ] = value;
+			}
+
+			return next;
+		} );
+	}
+
 	function slideEditor( slides, setAttributes, imageFields ) {
 		return slides.map( function ( slide, index ) {
 			return el(
@@ -506,8 +522,26 @@
 					el( RichText, { tagName: 'div', className: 'rarc-eyebrow', placeholder: __( 'Eyebrow', 'rarc-theme' ), value: attributes.eyebrow, onChange: function ( value ) { setAttributes( { eyebrow: value } ); } } ),
 					el( RichText, { tagName: 'h2', placeholder: __( 'Section heading', 'rarc-theme' ), value: attributes.heading, onChange: function ( value ) { setAttributes( { heading: value } ); } } ),
 					el( RichText, { tagName: 'p', placeholder: __( 'Intro text', 'rarc-theme' ), value: attributes.intro, onChange: function ( value ) { setAttributes( { intro: value } ); } } ),
-					slides.length > 0 ? el( 'div', { className: 'rarc-editor-badge' }, slides.length + ' ' + __( 'slide(s). Edit slides in sidebar.', 'rarc-theme' ) ) : el( 'div', { className: 'rarc-editor-badge' }, __( 'Add slides in the block sidebar.', 'rarc-theme' ) ),
-					el( 'div', { className: 'rarc-carousel-stage' }, slides[0] && slides[0].imageUrl ? el( 'img', { src: slides[0].imageUrl, alt: slides[0].alt || '' } ) : null ),
+					slides.length > 0 ? el(
+						'div',
+						{ className: 'rarc-carousel ' + ( 'card' === attributes.variant ? 'rarc-carousel-card' : '' ) },
+						el(
+							'div',
+							{ className: 'rarc-carousel-stage' },
+							el(
+								'figure',
+								{ className: 'rarc-slide is-active' },
+								slides[0].imageUrl ? el( 'img', { src: slides[0].imageUrl, alt: slides[0].alt || '' } ) : el( 'div', { className: 'rarc-card__image--placeholder' }, el( 'span', { className: 'rarc-card-placeholder' }, __( 'Add slide image in sidebar.', 'rarc-theme' ) ) ),
+								el(
+									'figcaption',
+									{ className: 'rarc-slide-caption' },
+									el( 'strong', null, slides[0].title || __( 'Slide title', 'rarc-theme' ) ),
+									slides[0].caption ? el( 'span', null, slides[0].caption ) : null
+								)
+							),
+							el( 'div', { className: 'rarc-editor-badge rarc-editor-carousel-badge' }, slides.length + __( ' slide(s). Edit in sidebar.', 'rarc-theme' ) )
+						)
+					) : el( 'div', { className: 'rarc-card__image--placeholder' }, el( 'span', { className: 'rarc-card-placeholder' }, __( 'Add carousel slide in sidebar.', 'rarc-theme' ) ) ),
 					attributes.variant === 'card' ? el(
 						Fragment,
 						null,
@@ -678,6 +712,86 @@
 		}
 	} );
 
+	blocks.registerBlockType( 'rarc/info-list', {
+		apiVersion: 2,
+		title: __( 'RARC Info List', 'rarc-theme' ),
+		icon: 'editor-ul',
+		category: 'design',
+		attributes: {
+			rows: { type: 'array', default: [] }
+		},
+		edit: function ( props ) {
+			var attributes = props.attributes;
+			var setAttributes = props.setAttributes;
+			var rows = attributes.rows || [];
+			var blockProps = useBlockProps( { className: 'rarc-info-list' } );
+
+			function addRow() {
+				setAttributes( {
+					rows: rows.concat( [ {
+						label: __( 'New row', 'rarc-theme' ),
+						content: __( 'Add row details here.', 'rarc-theme' )
+					} ] )
+				} );
+			}
+
+			function removeLastRow() {
+				setAttributes( { rows: rows.slice( 0, Math.max( rows.length - 1, 0 ) ) } );
+			}
+
+			return el(
+				Fragment,
+				null,
+				el(
+					InspectorControls,
+					null,
+					el(
+						PanelBody,
+						{ title: __( 'Info List Rows', 'rarc-theme' ), initialOpen: true },
+						el( Button, { variant: 'primary', onClick: addRow }, __( 'Add row to bottom', 'rarc-theme' ) ),
+						el( Button, { variant: 'secondary', onClick: removeLastRow, disabled: rows.length < 1, className: 'rarc-editor-panel-button' }, __( 'Remove last row', 'rarc-theme' ) )
+					)
+				),
+				el(
+					'div',
+					blockProps,
+					rows.map( function ( row, index ) {
+						return el(
+							'div',
+							{ key: index, className: 'rarc-info-item' },
+							el( PlainText, {
+								className: 'rarc-info-label',
+								placeholder: __( 'Row label', 'rarc-theme' ),
+								value: row.label || '',
+								onChange: function ( value ) {
+									setAttributes( { rows: updateInfoRow( rows, index, 'label', value ) } );
+								}
+							} ),
+							el( RichText, {
+								tagName: 'p',
+								placeholder: __( 'Row content', 'rarc-theme' ),
+								value: row.content || '',
+								onChange: function ( value ) {
+									setAttributes( { rows: updateInfoRow( rows, index, 'content', value ) } );
+								}
+							} )
+						);
+					} ),
+					el(
+						'div',
+						{ className: 'rarc-info-list-controls' },
+						el( 'span', { className: 'rarc-editor-note' }, __( 'Info list rows', 'rarc-theme' ) ),
+						el( Button, { variant: 'primary', onClick: addRow }, __( 'Add row to bottom', 'rarc-theme' ) ),
+						el( Button, { variant: 'secondary', onClick: removeLastRow, disabled: rows.length < 1 }, __( 'Remove last row', 'rarc-theme' ) )
+					)
+				)
+			);
+		},
+		save: function () {
+			return null;
+		}
+	} );
+
 	blocks.registerBlockType( 'rarc/info-row', {
 		apiVersion: 2,
 		title: __( 'RARC Info Row', 'rarc-theme' ),
@@ -696,6 +810,7 @@
 				'div',
 				blockProps,
 				el( PlainText, {
+					className: 'rarc-info-label',
 					placeholder: __( 'Row label', 'rarc-theme' ),
 					value: attributes.label,
 					onChange: function ( value ) {
@@ -772,6 +887,7 @@
 					blockProps,
 					el( 'div', { className: 'rarc-editor-badge' }, attributes.isShare ? __( 'Share Card', 'rarc-theme' ) : __( 'Link Card', 'rarc-theme' ) ),
 					el( PlainText, {
+						className: 'rarc-sidebar-title',
 						placeholder: __( 'Sidebar title', 'rarc-theme' ),
 						value: attributes.title,
 						onChange: function ( value ) { setAttributes( { title: value } ); }

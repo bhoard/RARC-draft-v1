@@ -132,6 +132,7 @@ The implementation has learned several practical rules that future passes should
 - if the page is the assigned front page, its first hero block must be `home-hero`; otherwise its first hero block must be `interior-page-hero`
 - those hero systems must remain editable block markup in page content, not hardcoded non-editable template output
 - when a repeated card area needs visible add-item tiles, use the dedicated `rarc/card-grid` block rather than relying on subtle core-grid inserters
+- when a carousel block manages repeated slides, match the established home hero carousel editing model: inspector/sidebar slide controls with a single representative canvas preview
 - because local development is on Windows and deployment is likely Linux-based hosting, the build script must preserve Linux-safe ZIP paths and a top-level theme folder for remote installs
 
 ## Workstream 1: CTA System

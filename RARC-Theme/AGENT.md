@@ -243,6 +243,7 @@ The theme has now converged on several concrete implementation rules that future
 - non-front pages use the `interior-page-hero` block markup as their first content block
 - page featured images should feed the interior page hero background when a featured image exists
 - the home hero carousel must render and preview as a full-width hero, not as a constrained image card
+- carousel slide-management UX should stay consistent across carousel components: use the sidebar for slide fields/add/remove controls and keep the canvas focused on a faithful active-slide preview
 - the main page/post content area should allow `alignfull` and `alignwide` sections to escape the prose column
 - default page creation should not insert recursive `post-content` patterns into post content
 - the bundled logo at `assets/images/rarc-logo.jpg` is the seed logo and should be installed as the default custom logo only when no custom logo is already set
