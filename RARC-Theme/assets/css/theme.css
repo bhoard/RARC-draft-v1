@@ -139,6 +139,9 @@ img {
 	object-fit: contain;
 }
 
+.rarc-primary-nav .wp-block-navigation-item__content,
+.rarc-primary-nav .wp-block-navigation__responsive-container-close,
+.rarc-primary-nav .wp-block-navigation__responsive-container-open,
 .rarc-site-header .wp-block-navigation-item__content,
 .rarc-site-header .wp-block-navigation__responsive-container-close,
 .rarc-site-header .wp-block-navigation__responsive-container-open {
@@ -151,12 +154,18 @@ img {
 	transition: background 200ms ease, color 200ms ease, transform 200ms ease;
 }
 
+.rarc-primary-nav .wp-block-navigation-item__content:hover,
+.rarc-primary-nav .current-menu-item > .wp-block-navigation-item__content,
 .rarc-site-header .wp-block-navigation-item__content:hover,
 .rarc-site-header .current-menu-item > .wp-block-navigation-item__content {
 	background: color-mix(in oklab, var(--rarc-surface-warm), white 8%);
 	color: var(--rarc-fg);
 }
 
+.rarc-primary-nav a[href$="#visit"],
+.rarc-primary-nav a[href$="#contact"],
+.rarc-primary-nav a[href*="/join"],
+.rarc-primary-nav a[href*="/membership"],
 .rarc-site-header .wp-block-navigation a[href$="#visit"],
 .rarc-site-header .wp-block-navigation a[href$="#contact"],
 .rarc-site-header .wp-block-navigation a[href*="/join"],
