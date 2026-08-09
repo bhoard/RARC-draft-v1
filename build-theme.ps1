@@ -1,6 +1,6 @@
 param(
 	[string]$ThemeDir = "RARC-Theme",
-	[string]$ZipPath = "RARC-Theme.zip"
+	[string]$ZipPath = ""
 )
 
 $themeRoot = Join-Path -Path $PSScriptRoot -ChildPath $ThemeDir
@@ -29,12 +29,20 @@ $nextVersion = "$major.$minor.$patch"
 $updatedStyle = [System.Text.RegularExpressions.Regex]::Replace($styleContent, '(?m)^Version:\s*\d+\.\d+\.\d+\s*$', "Version: $nextVersion", 1)
 [System.IO.File]::WriteAllText($stylePath, $updatedStyle, (New-Object System.Text.UTF8Encoding($false)))
 
+if (-not $ZipPath) {
+	$ZipPath = "$ThemeDir-$nextVersion.zip"
+}
+
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 $zipFullPath = Join-Path -Path $PSScriptRoot -ChildPath $ZipPath
-if (Test-Path -LiteralPath $zipFullPath) {
-	Remove-Item -LiteralPath $zipFullPath -Force
+$latestZipFullPath = Join-Path -Path $PSScriptRoot -ChildPath "$ThemeDir.zip"
+
+foreach ($existingZipPath in @($zipFullPath, $latestZipFullPath, (Join-Path -Path $PSScriptRoot -ChildPath "rarc-theme.zip"))) {
+	if (Test-Path -LiteralPath $existingZipPath) {
+		Remove-Item -LiteralPath $existingZipPath -Force
+	}
 }
 
 $stagingRoot = Join-Path -Path $PSScriptRoot -ChildPath ".build-theme-staging"
@@ -73,6 +81,11 @@ foreach ($relativePath in $pathsToZip) {
 $zipStream = [System.IO.File]::Open($zipFullPath, [System.IO.FileMode]::Create)
 $archive = New-Object System.IO.Compression.ZipArchive($zipStream, [System.IO.Compression.ZipArchiveMode]::Create, $false)
 
+Get-ChildItem -LiteralPath $stagingRoot -Recurse -Directory | ForEach-Object {
+	$entryName = $_.FullName.Substring($stagingRoot.Length + 1).Replace('\', '/') + '/'
+	$archive.CreateEntry($entryName) | Out-Null
+}
+
 Get-ChildItem -LiteralPath $stagingRoot -Recurse -File | ForEach-Object {
 	$entryName = $_.FullName.Substring($stagingRoot.Length + 1).Replace('\', '/')
 	[System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($archive, $_.FullName, $entryName, [System.IO.Compression.CompressionLevel]::Optimal) | Out-Null
@@ -90,27 +103,64 @@ $requiredEntries = @(
 	"$ThemeDir/templates/index.html"
 )
 
-$verifyStream = [System.IO.File]::OpenRead($zipFullPath)
-$verifyArchive = New-Object System.IO.Compression.ZipArchive($verifyStream, [System.IO.Compression.ZipArchiveMode]::Read, $false)
-$entryNames = @($verifyArchive.Entries | ForEach-Object { $_.FullName })
+function Test-RarcThemeZip($PathToVerify) {
+	$verifyStream = [System.IO.File]::OpenRead($PathToVerify)
+	$verifyArchive = New-Object System.IO.Compression.ZipArchive($verifyStream, [System.IO.Compression.ZipArchiveMode]::Read, $false)
+	$entryNames = @($verifyArchive.Entries | ForEach-Object { $_.FullName })
 
-foreach ($requiredEntry in $requiredEntries) {
-	if ($entryNames -notcontains $requiredEntry) {
+	foreach ($requiredEntry in $requiredEntries) {
+		if ($entryNames -notcontains $requiredEntry) {
+			$verifyArchive.Dispose()
+			$verifyStream.Dispose()
+			throw "Invalid WordPress theme ZIP: missing $requiredEntry"
+		}
+	}
+
+	if ($entryNames -contains "style.css") {
 		$verifyArchive.Dispose()
 		$verifyStream.Dispose()
-		throw "Invalid WordPress theme ZIP: missing $requiredEntry"
+		throw "Invalid WordPress theme ZIP: style.css is at ZIP root instead of $ThemeDir/style.css"
+	}
+
+	$verifyArchive.Dispose()
+	$verifyStream.Dispose()
+
+	$extractRoot = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath "rarc-theme-zip-test-$([guid]::NewGuid())"
+	New-Item -ItemType Directory -Path $extractRoot | Out-Null
+
+	try {
+		[System.IO.Compression.ZipFile]::ExtractToDirectory($PathToVerify, $extractRoot)
+		$extractedStylePath = Join-Path -Path $extractRoot -ChildPath "$ThemeDir\style.css"
+		$extractedIndexPath = Join-Path -Path $extractRoot -ChildPath "$ThemeDir\templates\index.html"
+
+		if (-not (Test-Path -LiteralPath $extractedStylePath)) {
+			throw "Invalid WordPress theme ZIP after extraction: missing $ThemeDir\style.css"
+		}
+
+		if (-not (Test-Path -LiteralPath $extractedIndexPath)) {
+			throw "Invalid WordPress theme ZIP after extraction: missing $ThemeDir\templates\index.html"
+		}
+
+		$extractedStyleContent = [System.IO.File]::ReadAllText($extractedStylePath)
+
+		if ($extractedStyleContent -notmatch '(?m)^Theme Name:\s*.+' -or $extractedStyleContent -notmatch '(?m)^Version:\s*.+' ) {
+			throw "Invalid WordPress theme ZIP after extraction: style.css is missing required theme headers"
+		}
+	} finally {
+		if (Test-Path -LiteralPath $extractRoot) {
+			Remove-Item -LiteralPath $extractRoot -Recurse -Force
+		}
 	}
 }
 
-if ($entryNames -contains "style.css") {
-	$verifyArchive.Dispose()
-	$verifyStream.Dispose()
-	throw "Invalid WordPress theme ZIP: style.css is at ZIP root instead of $ThemeDir/style.css"
-}
+Test-RarcThemeZip $zipFullPath
+Copy-Item -LiteralPath $zipFullPath -Destination $latestZipFullPath -Force
+Test-RarcThemeZip $latestZipFullPath
 
-$verifyArchive.Dispose()
-$verifyStream.Dispose()
+$hash = (Get-FileHash -LiteralPath $zipFullPath -Algorithm SHA256).Hash
 
 "Built $zipFullPath"
+"Also refreshed $latestZipFullPath"
 "Theme version: $nextVersion"
 "Verified WordPress theme ZIP entries: $($requiredEntries -join ', ')"
+"SHA256: $hash"
