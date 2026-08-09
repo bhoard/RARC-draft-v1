@@ -1,5 +1,6 @@
 param(
 	[string]$ThemeDir = "RARC-Theme",
+	[string]$PackageDir = "rarc-theme",
 	[string]$ZipPath = ""
 )
 
@@ -53,7 +54,7 @@ if (Test-Path -LiteralPath $stagingRoot) {
 
 New-Item -ItemType Directory -Path $stagingRoot | Out-Null
 
-$stagedThemeRoot = Join-Path -Path $stagingRoot -ChildPath $ThemeDir
+$stagedThemeRoot = Join-Path -Path $stagingRoot -ChildPath $PackageDir
 New-Item -ItemType Directory -Path $stagedThemeRoot | Out-Null
 
 $pathsToZip = @(
@@ -97,10 +98,10 @@ $zipStream.Dispose()
 Remove-Item -LiteralPath $stagingRoot -Recurse -Force
 
 $requiredEntries = @(
-	"$ThemeDir/style.css",
-	"$ThemeDir/functions.php",
-	"$ThemeDir/theme.json",
-	"$ThemeDir/templates/index.html"
+	"$PackageDir/style.css",
+	"$PackageDir/functions.php",
+	"$PackageDir/theme.json",
+	"$PackageDir/templates/index.html"
 )
 
 function Test-RarcThemeZip($PathToVerify) {
@@ -119,7 +120,7 @@ function Test-RarcThemeZip($PathToVerify) {
 	if ($entryNames -contains "style.css") {
 		$verifyArchive.Dispose()
 		$verifyStream.Dispose()
-		throw "Invalid WordPress theme ZIP: style.css is at ZIP root instead of $ThemeDir/style.css"
+		throw "Invalid WordPress theme ZIP: style.css is at ZIP root instead of $PackageDir/style.css"
 	}
 
 	$verifyArchive.Dispose()
@@ -130,15 +131,15 @@ function Test-RarcThemeZip($PathToVerify) {
 
 	try {
 		[System.IO.Compression.ZipFile]::ExtractToDirectory($PathToVerify, $extractRoot)
-		$extractedStylePath = Join-Path -Path $extractRoot -ChildPath "$ThemeDir\style.css"
-		$extractedIndexPath = Join-Path -Path $extractRoot -ChildPath "$ThemeDir\templates\index.html"
+		$extractedStylePath = Join-Path -Path $extractRoot -ChildPath "$PackageDir\style.css"
+		$extractedIndexPath = Join-Path -Path $extractRoot -ChildPath "$PackageDir\templates\index.html"
 
 		if (-not (Test-Path -LiteralPath $extractedStylePath)) {
-			throw "Invalid WordPress theme ZIP after extraction: missing $ThemeDir\style.css"
+			throw "Invalid WordPress theme ZIP after extraction: missing $PackageDir\style.css"
 		}
 
 		if (-not (Test-Path -LiteralPath $extractedIndexPath)) {
-			throw "Invalid WordPress theme ZIP after extraction: missing $ThemeDir\templates\index.html"
+			throw "Invalid WordPress theme ZIP after extraction: missing $PackageDir\templates\index.html"
 		}
 
 		$extractedStyleContent = [System.IO.File]::ReadAllText($extractedStylePath)
@@ -162,5 +163,6 @@ $hash = (Get-FileHash -LiteralPath $zipFullPath -Algorithm SHA256).Hash
 "Built $zipFullPath"
 "Also refreshed $latestZipFullPath"
 "Theme version: $nextVersion"
+"Package folder: $PackageDir"
 "Verified WordPress theme ZIP entries: $($requiredEntries -join ', ')"
 "SHA256: $hash"
