@@ -2,7 +2,7 @@
 /**
  * Title: Interior Intro Media Section
  * Slug: rarc-theme/interior-intro-media
- * Categories: rarc-theme, rarc-interior-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"wide","className":"rarc-layout","layout":{"type":"grid"}} -->

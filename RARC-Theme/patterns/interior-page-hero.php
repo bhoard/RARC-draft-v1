@@ -2,7 +2,7 @@
 /**
  * Title: Interior Page Hero Section
  * Slug: rarc-theme/interior-page-hero
- * Categories: rarc-theme, rarc-interior-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"full","className":"rarc-page-hero"} -->

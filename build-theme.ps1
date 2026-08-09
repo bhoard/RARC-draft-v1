@@ -1,6 +1,6 @@
 param(
 	[string]$ThemeDir = "RARC-Theme",
-	[string]$ZipPath = "RARC-Theme.zip"
+	[string]$ZipPath = "rarc-theme.zip"
 )
 
 $themeRoot = Join-Path -Path $PSScriptRoot -ChildPath $ThemeDir
@@ -38,13 +38,12 @@ if (Test-Path -LiteralPath $zipFullPath) {
 }
 
 $stagingRoot = Join-Path -Path $PSScriptRoot -ChildPath ".build-theme-staging"
-$stagingThemeRoot = Join-Path -Path $stagingRoot -ChildPath $ThemeDir
 
 if (Test-Path -LiteralPath $stagingRoot) {
 	Remove-Item -LiteralPath $stagingRoot -Recurse -Force
 }
 
-New-Item -ItemType Directory -Path $stagingThemeRoot | Out-Null
+New-Item -ItemType Directory -Path $stagingRoot | Out-Null
 
 $pathsToZip = @(
 	"assets"
@@ -59,14 +58,14 @@ $pathsToZip = @(
 
 foreach ($relativePath in $pathsToZip) {
 	$sourcePath = Join-Path -Path $themeRoot -ChildPath $relativePath
-	$destinationPath = Join-Path -Path $stagingThemeRoot -ChildPath $relativePath
+	$destinationPath = Join-Path -Path $stagingRoot -ChildPath $relativePath
 	Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
 }
 
 $zipStream = [System.IO.File]::Open($zipFullPath, [System.IO.FileMode]::Create)
 $archive = New-Object System.IO.Compression.ZipArchive($zipStream, [System.IO.Compression.ZipArchiveMode]::Create, $false)
 
-Get-ChildItem -LiteralPath $stagingThemeRoot -Recurse -File | ForEach-Object {
+Get-ChildItem -LiteralPath $stagingRoot -Recurse -File | ForEach-Object {
 	$entryName = $_.FullName.Substring($stagingRoot.Length + 1).Replace('\', '/')
 	[System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($archive, $_.FullName, $entryName, [System.IO.Compression.CompressionLevel]::Optimal) | Out-Null
 }

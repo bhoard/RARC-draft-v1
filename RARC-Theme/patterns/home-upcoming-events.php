@@ -2,7 +2,7 @@
 /**
  * Title: Home Upcoming Events Section
  * Slug: rarc-theme/home-upcoming-events
- * Categories: rarc-theme, rarc-home-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"full","className":"rarc-section","layout":{"type":"constrained"}} -->

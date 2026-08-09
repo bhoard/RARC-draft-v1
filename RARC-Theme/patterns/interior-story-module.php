@@ -2,7 +2,7 @@
 /**
  * Title: Interior Story Module Section
  * Slug: rarc-theme/interior-story-module
- * Categories: rarc-theme, rarc-interior-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"wide","className":"rarc-story-module"} -->

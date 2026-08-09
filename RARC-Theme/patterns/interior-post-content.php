@@ -2,7 +2,7 @@
 /**
  * Title: Interior Post Content Section
  * Slug: rarc-theme/interior-post-content
- * Categories: rarc-theme, rarc-interior-sections
+ * Categories: rarc-theme
  * Inserter: no
  */
 ?>

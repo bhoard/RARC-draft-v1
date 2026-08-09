@@ -2,7 +2,7 @@
 /**
  * Title: Home Membership CTA Section
  * Slug: rarc-theme/home-membership-cta
- * Categories: rarc-theme, rarc-home-sections, rarc-utility-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"full","anchor":"visit","className":"rarc-section","layout":{"type":"constrained"}} -->

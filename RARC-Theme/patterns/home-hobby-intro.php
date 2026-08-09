@@ -2,7 +2,7 @@
 /**
  * Title: Home Hobby Intro Section
  * Slug: rarc-theme/home-hobby-intro
- * Categories: rarc-theme, rarc-home-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"full","anchor":"aircraft","className":"rarc-section","layout":{"type":"constrained"}} -->

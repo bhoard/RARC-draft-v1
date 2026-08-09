@@ -2,7 +2,7 @@
 /**
  * Title: Interior Sidebar Stack Section
  * Slug: rarc-theme/interior-sidebar-stack
- * Categories: rarc-theme, rarc-interior-sections, rarc-utility-sections
+ * Categories: rarc-theme
  * Inserter: no
  */
 ?>

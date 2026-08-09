@@ -334,7 +334,7 @@ The homepage is not a static hardcoded template composition.
 
 The ZIP build process is now part of the theme contract.
 
-- use `build-theme.ps1` to produce `RARC-Theme.zip`
+- use `build-theme.ps1` to produce `rarc-theme.zip`
 - each build increments the patch version in `style.css`
 - after each intentional build, make a matching git commit so the repo state, version number, and ZIP artifact history stay aligned
 - the ZIP remains a build artifact and should not be committed
@@ -343,8 +343,8 @@ The ZIP build process is now part of the theme contract.
 Cross-platform packaging rule:
 
 - local development may happen on Windows while the real WordPress host is Linux-based
-- the upload ZIP must contain a top-level `RARC-Theme/` folder
-- ZIP entry names must use normalized forward-slash paths such as `RARC-Theme/style.css`, not Windows-style backslash entry paths
+- the upload ZIP must contain `style.css`, `functions.php`, `theme.json`, and theme folders at the ZIP root
+- ZIP entry names must use normalized forward-slash paths such as `assets/css/theme.css`, not Windows-style backslash entry paths
 - if a package installs locally but fails remote upload with missing `style.css` or missing template errors, inspect the ZIP structure and entry naming first
 
 ## Modular Page Sections
@@ -776,7 +776,7 @@ The story-preview (`rarc/story-preview`) follows the same anatomy: `rarc-card__i
 
 ## Build Artifacts
 
-When producing a ZIP for WordPress theme upload (`RARC-Theme.zip`), include only the files required by a WordPress theme:
+When producing a ZIP for WordPress theme upload (`rarc-theme.zip`), include only the files required by a WordPress theme at the ZIP root:
 
 - `assets/`
 - `parts/`

@@ -2,7 +2,7 @@
 /**
  * Title: Interior What To Bring Section
  * Slug: rarc-theme/interior-what-to-bring
- * Categories: rarc-theme, rarc-interior-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:group {"align":"wide","className":"rarc-content-stack rarc-interior-main-column"} -->

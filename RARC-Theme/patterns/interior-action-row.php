@@ -2,7 +2,7 @@
 /**
  * Title: Interior Action Row Section
  * Slug: rarc-theme/interior-action-row
- * Categories: rarc-theme, rarc-interior-sections, rarc-utility-sections
+ * Categories: rarc-theme
  */
 ?>
 <!-- wp:buttons {"align":"wide","className":"rarc-button-row"} -->
