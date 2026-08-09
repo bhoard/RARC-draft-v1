@@ -1,6 +1,6 @@
 param(
 	[string]$ThemeDir = "RARC-Theme",
-	[string]$ZipPath = "rarc-theme.zip"
+	[string]$ZipPath = "RARC-Theme.zip"
 )
 
 $themeRoot = Join-Path -Path $PSScriptRoot -ChildPath $ThemeDir
@@ -45,6 +45,9 @@ if (Test-Path -LiteralPath $stagingRoot) {
 
 New-Item -ItemType Directory -Path $stagingRoot | Out-Null
 
+$stagedThemeRoot = Join-Path -Path $stagingRoot -ChildPath $ThemeDir
+New-Item -ItemType Directory -Path $stagedThemeRoot | Out-Null
+
 $pathsToZip = @(
 	"assets"
 	"parts"
@@ -58,7 +61,12 @@ $pathsToZip = @(
 
 foreach ($relativePath in $pathsToZip) {
 	$sourcePath = Join-Path -Path $themeRoot -ChildPath $relativePath
-	$destinationPath = Join-Path -Path $stagingRoot -ChildPath $relativePath
+	$destinationPath = Join-Path -Path $stagedThemeRoot -ChildPath $relativePath
+
+	if (-not (Test-Path -LiteralPath $sourcePath)) {
+		throw "Required theme path missing: $sourcePath"
+	}
+
 	Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
 }
 
@@ -75,5 +83,34 @@ $zipStream.Dispose()
 
 Remove-Item -LiteralPath $stagingRoot -Recurse -Force
 
+$requiredEntries = @(
+	"$ThemeDir/style.css",
+	"$ThemeDir/functions.php",
+	"$ThemeDir/theme.json",
+	"$ThemeDir/templates/index.html"
+)
+
+$verifyStream = [System.IO.File]::OpenRead($zipFullPath)
+$verifyArchive = New-Object System.IO.Compression.ZipArchive($verifyStream, [System.IO.Compression.ZipArchiveMode]::Read, $false)
+$entryNames = @($verifyArchive.Entries | ForEach-Object { $_.FullName })
+
+foreach ($requiredEntry in $requiredEntries) {
+	if ($entryNames -notcontains $requiredEntry) {
+		$verifyArchive.Dispose()
+		$verifyStream.Dispose()
+		throw "Invalid WordPress theme ZIP: missing $requiredEntry"
+	}
+}
+
+if ($entryNames -contains "style.css") {
+	$verifyArchive.Dispose()
+	$verifyStream.Dispose()
+	throw "Invalid WordPress theme ZIP: style.css is at ZIP root instead of $ThemeDir/style.css"
+}
+
+$verifyArchive.Dispose()
+$verifyStream.Dispose()
+
 "Built $zipFullPath"
 "Theme version: $nextVersion"
+"Verified WordPress theme ZIP entries: $($requiredEntries -join ', ')"
