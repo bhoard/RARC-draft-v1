@@ -1105,6 +1105,13 @@ img {
 	gap: clamp(28px, 3vw, 40px);
 }
 
+.rarc-layout > .rarc-content-stack,
+.rarc-layout > .wp-block-image {
+	grid-column: 1 / -1 !important;
+	width: 100% !important;
+	max-width: none !important;
+}
+
 .rarc-layout .rarc-prose,
 .rarc-interior-main-column .rarc-prose {
 	gap: 20px;
