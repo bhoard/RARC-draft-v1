@@ -436,10 +436,12 @@ body.block-editor-iframe__body .rarc-sidebar,
 
 body.block-editor-iframe__body .rarc-layout,
 .editor-styles-wrapper .rarc-layout {
+	display: grid !important;
 	width: min(100% - 48px, 1280px) !important;
 	max-width: 1280px !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
+	grid-template-columns: minmax(0, 1fr) minmax(260px, 320px) !important;
 }
 
 body.block-editor-iframe__body .rarc-content-stack,

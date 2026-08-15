@@ -1065,11 +1065,12 @@ img {
 }
 
 .rarc-layout {
-	width: min(100% - 48px, 1280px);
-	max-width: 1280px;
-	margin-left: auto;
-	margin-right: auto;
-	grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+	display: grid !important;
+	width: min(100% - 48px, 1280px) !important;
+	max-width: 1280px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	grid-template-columns: minmax(0, 1fr) minmax(260px, 320px) !important;
 	align-items: start;
 	gap: clamp(28px, 4vw, 48px);
 	padding-top: 56px;
@@ -1077,10 +1078,10 @@ img {
 }
 
 .rarc-post-shell .wp-block-post-content > .rarc-layout {
-	width: min(100% - 48px, 1280px);
-	max-width: 1280px;
-	margin-left: auto;
-	margin-right: auto;
+	width: min(100% - 48px, 1280px) !important;
+	max-width: 1280px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
 }
 
 .rarc-content-stack {

@@ -5,7 +5,8 @@
  * Categories: rarc-theme
  */
 ?>
-<!-- wp:group {"align":"wide","className":"rarc-layout","layout":{"type":"grid"}} -->
+<!-- wp:group {"align":"full","className":"rarc-section","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull rarc-section is-layout-constrained wp-block-group-is-layout-constrained"><!-- wp:group {"align":"wide","className":"rarc-layout","layout":{"type":"grid"}} -->
 <div class="wp-block-group alignwide rarc-layout is-layout-grid wp-block-group-is-layout-grid"><!-- wp:group {"className":"rarc-content-stack"} -->
 <div class="wp-block-group rarc-content-stack is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph {"className":"rarc-feature-image"} --><p class="rarc-feature-image">CC BY-SA placeholder: model aircraft flying over open fields, Wikimedia Commons / Geograph</p><!-- /wp:paragraph -->
 
@@ -34,5 +35,6 @@
 <div class="wp-block-group rarc-sidebar-card is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph --><p><strong>Share this page</strong></p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Local share CTAs can live inside the article or sidebar without also needing a global share action in the main navigation.</p><!-- /wp:paragraph --><!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button {"className":"rarc-share-button"} --><div class="wp-block-button rarc-share-button"><a class="wp-block-button__link wp-element-button">Share page</a></div><!-- /wp:button --></div><!-- /wp:buttons --><!-- wp:paragraph {"className":"rarc-share-note"} --><p class="rarc-share-note">Ready to share Richmond Area RC.</p><!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 
+<!-- /wp:group --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
