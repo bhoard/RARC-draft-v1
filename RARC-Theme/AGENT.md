@@ -15,12 +15,12 @@ For every completed `RARC-Theme` code, CSS, template, pattern, asset, or configu
 1. Increment the theme header `Version:` in `RARC-Theme/style.css` by one patch version.
 2. Inspect `git status --short`, `git diff`, and `git log --oneline -10`.
 3. Commit only the intended tracked changes with a concise message.
-4. Rebuild the WordPress upload ZIP at the workspace root as `RARC-Theme.zip`.
+4. Rebuild the WordPress upload ZIP at the workspace root as `RARC-Theme.zip` by running `powershell -ExecutionPolicy Bypass -File scripts/build-theme-zip.ps1` from the workspace root.
 5. The ZIP must contain a single top-level folder named `rarc-theme` and must include `rarc-theme/style.css`, `rarc-theme/functions.php`, and `rarc-theme/theme.json` using forward-slash paths.
 6. Verify those three ZIP entries before telling the user the package is ready.
 7. Report the new version number, commit hash, and ZIP path in the final response.
 
-Do not use PowerShell `Compress-Archive` directly for the final upload package because it can create archive paths that WordPress may not recognize as a normal theme directory. Use an explicit ZIP writer or another verified method that creates forward-slash entries.
+Do not use PowerShell `Compress-Archive` directly for the final upload package because it can create archive paths that WordPress may not recognize as a normal theme directory. The `scripts/build-theme-zip.ps1` script is the canonical packaging method because it creates forward-slash entries and fails if `rarc-theme/style.css` is missing.
 
 ## If The Reference Theme Is Missing
 
