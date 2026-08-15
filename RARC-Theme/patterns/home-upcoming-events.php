@@ -12,10 +12,6 @@
 <div class="wp-block-group rarc-section-head is-layout-flow wp-block-group-is-layout-flow"><!-- wp:group --><div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph {"className":"rarc-eyebrow"} --><p class="rarc-eyebrow">Upcoming events</p><!-- /wp:paragraph --><!-- wp:heading {"level":2} --><h2 class="wp-block-heading">This month at the field.</h2><!-- /wp:heading --></div><!-- /wp:group --><!-- wp:paragraph --><p>Keep the homepage summary practical: what is happening next, whether a newcomer can comfortably show up, and where the fuller event details live.</p><!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"rarc-story-state"} -->
-<div class="wp-block-group rarc-story-state is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph --><p><strong>Weather and field-condition updates should post before driving time.</strong></p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Use this slim note for same-day changes, soft-field closures, or a reminder that guest visits are easiest during scheduled intro mornings.</p><!-- /wp:paragraph --></div>
-<!-- /wp:group -->
-
 <!-- wp:buttons {"className":"rarc-actions"} -->
 <div class="wp-block-buttons rarc-actions"><!-- wp:button {"className":"is-style-fill"} --><div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="#contact">Ask about upcoming events</a></div><!-- /wp:button -->
 

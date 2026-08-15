@@ -909,6 +909,11 @@ img {
 	max-width: 42ch;
 }
 
+.rarc-story-state > p:empty,
+.rarc-story-state > p:has(> br:only-child) {
+	display: none;
+}
+
 .rarc-story-state:not(:has(> p:not(:empty))) {
 	display: none;
 }
