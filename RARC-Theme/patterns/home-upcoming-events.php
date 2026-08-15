@@ -24,11 +24,11 @@
 
 <!-- wp:group {"className":"rarc-story-list"} -->
 <div class="wp-block-group rarc-story-list is-layout-flow wp-block-group-is-layout-flow"><!-- wp:group {"className":"rarc-story-item"} -->
-<div class="wp-block-group rarc-story-item is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph {"className":"rarc-story-meta"} --><p class="rarc-story-meta">July 13 · Intro flight morning</p><!-- /wp:paragraph --><!-- wp:paragraph --><p><strong>New visitors can meet members, walk the flight line, and see trainer setups before noon flying starts.</strong></p><!-- /wp:paragraph --></div>
+<div class="wp-block-group rarc-story-item is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph {"className":"rarc-story-meta"} --><p class="rarc-story-meta">July 13 · Intro flight morning</p><!-- /wp:paragraph --><!-- wp:paragraph --><p><strong>New visitors can meet members, walk the flight line, and see trainer setups before noon flying starts.</strong></p><!-- /wp:paragraph --><!-- wp:paragraph --><p>A low-pressure first-visit window with parking guidance, flight-line orientation, and informal mentoring for newcomers.</p><!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"rarc-story-item"} -->
-<div class="wp-block-group rarc-story-item is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph {"className":"rarc-story-meta"} --><p class="rarc-story-meta">July 27 · Scale and sport showcase</p><!-- /wp:paragraph --><!-- wp:paragraph --><p><strong>Members bring current builds, favorite sport planes, and a few scale models for an easy summer field day.</strong></p><!-- /wp:paragraph --></div>
+<div class="wp-block-group rarc-story-item is-layout-flow wp-block-group-is-layout-flow"><!-- wp:paragraph {"className":"rarc-story-meta"} --><p class="rarc-story-meta">July 27 · Scale and sport showcase</p><!-- /wp:paragraph --><!-- wp:paragraph --><p><strong>Members bring current builds, favorite sport planes, and a few scale models for an easy summer field day.</strong></p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Useful as a homepage teaser, with arrival timing, pilot notes, and any rain call living on the interior page.</p><!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

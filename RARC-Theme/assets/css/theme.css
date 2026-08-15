@@ -910,9 +910,7 @@ img {
 }
 
 .rarc-story-state > p:empty,
-.rarc-story-state > p:has(> br:only-child),
-.rarc-story-item > p:empty,
-.rarc-story-item > p:has(> br:only-child) {
+.rarc-story-state > p:has(> br:only-child) {
 	display: none;
 }
 
@@ -929,19 +927,11 @@ img {
 	border-top: 1px solid var(--rarc-border-soft);
 }
 
-.rarc-story-list:not(:has(.rarc-story-item :where(p, h1, h2, h3, h4, h5, h6):not(:empty))) {
-	display: none;
-}
-
 .rarc-story-item {
 	display: grid;
 	gap: var(--rarc-space-2);
 	padding: var(--rarc-space-4) 0;
 	border-bottom: 1px solid var(--rarc-border-soft);
-}
-
-.rarc-story-item:not(:has(> p:not(:empty))) {
-	display: none;
 }
 
 .rarc-cta-band {
