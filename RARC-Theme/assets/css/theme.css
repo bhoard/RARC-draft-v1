@@ -1075,6 +1075,8 @@ img {
 .rarc-content-stack {
 	display: grid;
 	gap: clamp(28px, 3vw, 40px);
+	width: 100%;
+	max-width: none;
 }
 
 .rarc-layout .rarc-content-stack {
@@ -1084,6 +1086,8 @@ img {
 .rarc-layout .rarc-prose,
 .rarc-interior-main-column .rarc-prose {
 	gap: 20px;
+	width: 100%;
+	max-width: none;
 }
 
 .rarc-layout .rarc-prose > *,
@@ -1094,6 +1098,12 @@ img {
 .rarc-sidebar-card > * {
 	margin-top: 0;
 	margin-bottom: 0;
+}
+
+.rarc-layout .rarc-content-stack > *,
+.rarc-layout .rarc-prose > * {
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .rarc-layout .rarc-prose p,
