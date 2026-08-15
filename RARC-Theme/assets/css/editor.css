@@ -434,6 +434,14 @@ body.block-editor-iframe__body .rarc-sidebar,
 	width: 100%;
 }
 
+body.block-editor-iframe__body .rarc-layout,
+.editor-styles-wrapper .rarc-layout {
+	width: min(100% - 48px, 1280px) !important;
+	max-width: 1280px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
 body.block-editor-iframe__body .rarc-content-stack,
 .editor-styles-wrapper .rarc-content-stack {
 	width: 100%;

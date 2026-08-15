@@ -1065,11 +1065,22 @@ img {
 }
 
 .rarc-layout {
+	width: min(100% - 48px, 1280px);
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
 	grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
 	align-items: start;
 	gap: clamp(28px, 4vw, 48px);
 	padding-top: 56px;
 	padding-bottom: 56px;
+}
+
+.rarc-post-shell .wp-block-post-content > .rarc-layout {
+	width: min(100% - 48px, 1280px);
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .rarc-content-stack {
