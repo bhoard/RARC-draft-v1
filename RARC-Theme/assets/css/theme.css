@@ -1281,7 +1281,10 @@ img {
 
 .rarc-post-body {
 	display: grid;
+	grid-template-columns: minmax(0, 1fr);
 	gap: var(--rarc-space-5);
+	width: 100%;
+	min-width: 0;
 }
 
 .rarc-post-shell .wp-block-post-title,
@@ -1309,6 +1312,8 @@ img {
 
 .rarc-post-shell .wp-block-post-content {
 	max-width: none;
+	width: 100%;
+	min-width: 0;
 	margin-left: 0;
 	margin-right: 0;
 }

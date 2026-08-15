@@ -444,6 +444,19 @@ body.block-editor-iframe__body .rarc-layout,
 	grid-template-columns: 1fr !important;
 }
 
+body.block-editor-iframe__body .rarc-post-body,
+.editor-styles-wrapper .rarc-post-body {
+	grid-template-columns: minmax(0, 1fr) !important;
+	width: 100% !important;
+	min-width: 0 !important;
+}
+
+body.block-editor-iframe__body .rarc-post-shell .wp-block-post-content,
+.editor-styles-wrapper .rarc-post-shell .wp-block-post-content {
+	width: 100% !important;
+	min-width: 0 !important;
+}
+
 body.block-editor-iframe__body .rarc-layout:has(> .wp-block-image),
 .editor-styles-wrapper .rarc-layout:has(> .wp-block-image) {
 	grid-template-columns: 1fr !important;
