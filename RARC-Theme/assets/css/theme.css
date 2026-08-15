@@ -931,7 +931,7 @@ img {
 	display: grid;
 	gap: var(--rarc-space-2);
 	padding: var(--rarc-space-4) 0;
-	border-bottom: 1px solid var(--rarc-border-soft);
+	/* border-bottom: 1px solid var(--rarc-border-soft); */
 }
 
 .rarc-cta-band {
