@@ -441,7 +441,7 @@ body.block-editor-iframe__body .rarc-layout,
 	max-width: 1280px !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
-	grid-template-columns: minmax(0, 1fr) minmax(260px, 320px) !important;
+	grid-template-columns: 1fr !important;
 }
 
 body.block-editor-iframe__body .rarc-layout:has(> .wp-block-image),
