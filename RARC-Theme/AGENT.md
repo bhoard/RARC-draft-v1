@@ -8,6 +8,20 @@ The target standard is strong: a client should be able to compare the client's p
 
 This file must remain useful even when the reference implementation is not present in the workspace. Future LLMs should be able to use this document alone as the implementation brief for preserving those fingerprints.
 
+## Mandatory Release Workflow
+
+For every completed `RARC-Theme` code, CSS, template, pattern, asset, or configuration change, do all of the following before reporting completion unless the user explicitly says not to:
+
+1. Increment the theme header `Version:` in `RARC-Theme/style.css` by one patch version.
+2. Inspect `git status --short`, `git diff`, and `git log --oneline -10`.
+3. Commit only the intended tracked changes with a concise message.
+4. Rebuild the WordPress upload ZIP at the workspace root as `RARC-Theme.zip`.
+5. The ZIP must contain a single top-level folder named `rarc-theme` and must include `rarc-theme/style.css`, `rarc-theme/functions.php`, and `rarc-theme/theme.json` using forward-slash paths.
+6. Verify those three ZIP entries before telling the user the package is ready.
+7. Report the new version number, commit hash, and ZIP path in the final response.
+
+Do not use PowerShell `Compress-Archive` directly for the final upload package because it can create archive paths that WordPress may not recognize as a normal theme directory. Use an explicit ZIP writer or another verified method that creates forward-slash entries.
+
 ## If The Reference Theme Is Missing
 
 Do not block on re-finding or re-reading the reference theme.
