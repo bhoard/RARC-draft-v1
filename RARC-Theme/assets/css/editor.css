@@ -2,7 +2,7 @@ body.block-editor-iframe__body,
 .editor-styles-wrapper {
 	background: var(--rarc-bg, #121212);
 	color: var(--rarc-fg, #ffffff);
-	font-family: var(--wp--preset--font-family--manrope, Manrope, "SpotifyMixUITitle", "CircularSp", "Helvetica Neue", Helvetica, Arial, sans-serif);
+	font-family: var(--wp--preset--font-family--abeezee, ABeeZee, "SpotifyMixUITitle", "CircularSp", "Helvetica Neue", Helvetica, Arial, sans-serif);
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -163,7 +163,7 @@ body.block-editor-iframe__body .wp-block-post-content > .alignfull.has-global-pa
 
 body.block-editor-iframe__body :where(h1, h2, h3, h4, h5, h6),
 .editor-styles-wrapper :where(h1, h2, h3, h4, h5, h6) {
-	font-family: var(--wp--preset--font-family--manrope, Manrope, "SpotifyMixUITitle", "CircularSp", "Helvetica Neue", Helvetica, Arial, sans-serif);
+	font-family: var(--wp--preset--font-family--abeezee, ABeeZee, "SpotifyMixUITitle", "CircularSp", "Helvetica Neue", Helvetica, Arial, sans-serif);
 	font-weight: 800;
 	line-height: 0.98;
 	letter-spacing: -0.02em;

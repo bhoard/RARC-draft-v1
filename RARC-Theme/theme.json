@@ -44,9 +44,9 @@
       "fluid": true,
       "fontFamilies": [
         {
-          "fontFamily": "Manrope, \"SpotifyMixUITitle\", \"CircularSp\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
-          "name": "Manrope",
-          "slug": "manrope"
+          "fontFamily": "ABeeZee, \"SpotifyMixUITitle\", \"CircularSp\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+          "name": "ABeeZee",
+          "slug": "abeezee"
         },
         {
           "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
@@ -104,13 +104,13 @@
       "text": "var(--wp--preset--color--fg)"
     },
     "typography": {
-      "fontFamily": "var(--wp--preset--font-family--manrope)",
+      "fontFamily": "var(--wp--preset--font-family--abeezee)",
       "lineHeight": "1.5"
     },
     "elements": {
       "heading": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--manrope)",
+          "fontFamily": "var(--wp--preset--font-family--abeezee)",
           "fontWeight": "800",
           "lineHeight": "0.98",
           "letterSpacing": "-0.02em"

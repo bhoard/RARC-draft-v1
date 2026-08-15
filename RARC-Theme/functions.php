@@ -35,7 +35,7 @@ function rarc_theme_get_version() {
 }
 
 function rarc_theme_fonts_url() {
-	return 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800;900&display=swap';
+	return 'https://fonts.googleapis.com/css2?family=ABeeZee&display=swap';
 }
 
 function rarc_theme_default_logo_markup() {

@@ -13,8 +13,8 @@ Derived from the provided Richmond Flying Club reference and the requested Spoti
 
 ## Type
 
-- Display: `Manrope`, then system sans-serif fallbacks
-- Body: `Manrope`, then system sans-serif fallbacks
+- Display: `ABeeZee`, then system sans-serif fallbacks
+- Body: `ABeeZee`, then system sans-serif fallbacks
 - Mono: `ui-monospace`, `SFMono-Regular`, `Menlo`, `Consolas`, monospace
 
 ## Layout Posture
