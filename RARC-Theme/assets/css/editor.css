@@ -444,6 +444,19 @@ body.block-editor-iframe__body .rarc-layout,
 	grid-template-columns: minmax(0, 1fr) minmax(260px, 320px) !important;
 }
 
+body.block-editor-iframe__body .rarc-layout:has(> .wp-block-image),
+.editor-styles-wrapper .rarc-layout:has(> .wp-block-image) {
+	grid-template-columns: 1fr !important;
+}
+
+body.block-editor-iframe__body .rarc-layout:has(> .wp-block-image) > .rarc-content-stack,
+body.block-editor-iframe__body .rarc-layout:has(> .wp-block-image) > .wp-block-image,
+.editor-styles-wrapper .rarc-layout:has(> .wp-block-image) > .rarc-content-stack,
+.editor-styles-wrapper .rarc-layout:has(> .wp-block-image) > .wp-block-image {
+	width: 100% !important;
+	max-width: none !important;
+}
+
 body.block-editor-iframe__body .rarc-content-stack,
 .editor-styles-wrapper .rarc-content-stack {
 	width: 100%;

@@ -1084,6 +1084,16 @@ img {
 	margin-right: auto !important;
 }
 
+.rarc-layout:has(> .wp-block-image) {
+	grid-template-columns: 1fr !important;
+}
+
+.rarc-layout:has(> .wp-block-image) > .rarc-content-stack,
+.rarc-layout:has(> .wp-block-image) > .wp-block-image {
+	width: 100% !important;
+	max-width: none !important;
+}
+
 .rarc-content-stack {
 	display: grid;
 	gap: clamp(28px, 3vw, 40px);
