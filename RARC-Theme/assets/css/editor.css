@@ -594,6 +594,14 @@ body.block-editor-iframe__body .rarc-interior-main-column .rarc-prose h3,
 	max-width: 16ch;
 }
 
+body.block-editor-iframe__body .rarc-layout .rarc-status-note :where(.is-layout-grid, .wp-block-group-is-layout-grid),
+.editor-styles-wrapper .rarc-layout .rarc-status-note :where(.is-layout-grid, .wp-block-group-is-layout-grid) {
+	display: grid !important;
+	grid-template-columns: minmax(180px, 0.42fr) minmax(0, 1fr) !important;
+	width: 100% !important;
+	max-width: none !important;
+}
+
 body.block-editor-iframe__body .rarc-sidebar-card,
 .editor-styles-wrapper .rarc-sidebar-card {
 	max-width: 320px;
