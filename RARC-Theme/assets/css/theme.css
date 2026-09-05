@@ -176,6 +176,57 @@ img {
 	text-transform: uppercase;
 }
 
+.rarc-site-header .wp-block-navigation .wp-block-navigation__submenu-icon {
+	color: var(--rarc-muted);
+}
+
+.rarc-site-header .wp-block-navigation .wp-block-navigation__submenu-icon svg {
+	stroke: currentColor;
+}
+
+.rarc-site-header .wp-block-navigation .wp-block-navigation__submenu-container {
+	min-width: 220px;
+	padding: var(--rarc-space-2);
+	border: 1px solid var(--rarc-border-soft) !important;
+	border-radius: var(--rarc-radius-lg);
+	background: var(--rarc-surface) !important;
+	box-shadow: 0 18px 40px rgba(0, 0, 0, 0.48), var(--rarc-shadow-line);
+	color: var(--rarc-fg-soft) !important;
+}
+
+.rarc-site-header .wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item {
+	background: transparent !important;
+	color: var(--rarc-fg-soft) !important;
+}
+
+.rarc-site-header .wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	width: 100%;
+	padding: 10px 12px !important;
+	border-radius: var(--rarc-radius-md);
+	background: transparent !important;
+	color: var(--rarc-fg-soft) !important;
+	line-height: 1.35;
+	white-space: normal;
+}
+
+.rarc-site-header .wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
+.rarc-site-header .wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content:focus-visible {
+	background: var(--rarc-surface-warm) !important;
+	color: var(--rarc-fg) !important;
+}
+
+.rarc-site-header .wp-block-navigation .wp-block-navigation__submenu-container .current-menu-item > .wp-block-navigation-item__content,
+.rarc-site-header .wp-block-navigation .wp-block-navigation__submenu-container .current-menu-ancestor > .wp-block-navigation-item__content {
+	background: color-mix(in oklab, var(--rarc-accent), transparent 78%) !important;
+	box-shadow: inset 3px 0 0 var(--rarc-accent);
+	color: var(--rarc-fg) !important;
+}
+
+.rarc-site-header .wp-block-navigation__responsive-container.is-menu-open {
+	background: var(--rarc-bg) !important;
+	color: var(--rarc-fg) !important;
+}
+
 .rarc-site-footer {
 	padding: var(--rarc-space-8) 0;
 	border-top: 1px solid var(--rarc-border-soft);
@@ -997,6 +1048,173 @@ img {
 	border-radius: var(--rarc-radius-lg);
 	background: color-mix(in oklab, var(--rarc-surface), transparent 10%);
 	box-shadow: var(--rarc-shadow-line);
+}
+
+/* WPForms uses its own color defaults, so map both its current variables and legacy markup to the theme. */
+div.wpforms-container-full,
+.wpforms-container {
+	--wpforms-field-background-color: color-mix(in oklab, var(--rarc-surface-warm), white 3%) !important;
+	--wpforms-field-border-color: var(--rarc-border) !important;
+	--wpforms-field-border-radius: var(--rarc-radius-md);
+	--wpforms-field-text-color: var(--rarc-fg) !important;
+	--wpforms-label-color: var(--rarc-fg-soft) !important;
+	--wpforms-label-sublabel-color: var(--rarc-muted) !important;
+	--wpforms-button-background-color: var(--rarc-accent) !important;
+	--wpforms-button-border-radius: var(--rarc-radius-pill);
+	--wpforms-button-text-color: #fff !important;
+	color: var(--rarc-fg-soft);
+	font-family: inherit;
+}
+
+div.wpforms-container-full .wpforms-form,
+.wpforms-container .wpforms-form {
+	color: var(--rarc-fg-soft);
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-field,
+.wpforms-container .wpforms-form .wpforms-field {
+	padding: 0 0 var(--rarc-space-5);
+}
+
+div.wpforms-container-full .wpforms-form :where(.wpforms-field-label, .wpforms-field-label-inline),
+.wpforms-container .wpforms-form :where(.wpforms-field-label, .wpforms-field-label-inline) {
+	color: var(--rarc-fg-soft) !important;
+	font-size: 14px;
+	font-weight: 800;
+	line-height: 1.35;
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-required-label,
+.wpforms-container .wpforms-form .wpforms-required-label {
+	color: var(--rarc-accent) !important;
+}
+
+div.wpforms-container-full .wpforms-form :where(.wpforms-field-sublabel, .wpforms-field-description),
+.wpforms-container .wpforms-form :where(.wpforms-field-sublabel, .wpforms-field-description) {
+	color: var(--rarc-muted) !important;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+div.wpforms-container-full .wpforms-form :where(input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="password"], input[type="date"], input[type="time"], input[type="file"], select, textarea),
+.wpforms-container .wpforms-form :where(input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="password"], input[type="date"], input[type="time"], input[type="file"], select, textarea) {
+	width: 100%;
+	max-width: none;
+	min-height: 48px;
+	padding: 12px 14px;
+	border: 1px solid var(--rarc-border) !important;
+	border-radius: var(--rarc-radius-md);
+	background-color: color-mix(in oklab, var(--rarc-surface-warm), white 3%) !important;
+	box-shadow: none;
+	color: var(--rarc-fg) !important;
+	font: inherit;
+	line-height: 1.4;
+	transition: border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+	color-scheme: dark;
+}
+
+div.wpforms-container-full .wpforms-form textarea,
+.wpforms-container .wpforms-form textarea {
+	min-height: 160px;
+	resize: vertical;
+}
+
+div.wpforms-container-full .wpforms-form :where(input, textarea)::placeholder,
+.wpforms-container .wpforms-form :where(input, textarea)::placeholder {
+	color: var(--rarc-muted) !important;
+	opacity: 0.8;
+}
+
+div.wpforms-container-full .wpforms-form :where(input, select, textarea):focus,
+.wpforms-container .wpforms-form :where(input, select, textarea):focus {
+	border-color: var(--rarc-accent) !important;
+	background-color: color-mix(in oklab, var(--rarc-surface-warm), white 6%) !important;
+	box-shadow: var(--rarc-focus);
+	outline: 0;
+}
+
+div.wpforms-container-full .wpforms-form :where(input[type="checkbox"], input[type="radio"]),
+.wpforms-container .wpforms-form :where(input[type="checkbox"], input[type="radio"]) {
+	accent-color: var(--rarc-accent);
+}
+
+div.wpforms-container-full .wpforms-form select option,
+.wpforms-container .wpforms-form select option {
+	background: var(--rarc-surface-warm) !important;
+	color: var(--rarc-fg) !important;
+}
+
+div.wpforms-container-full .wpforms-form input[type="file"]::file-selector-button,
+.wpforms-container .wpforms-form input[type="file"]::file-selector-button {
+	margin-right: var(--rarc-space-3);
+	padding: 8px 12px;
+	border: 0;
+	border-radius: var(--rarc-radius-md);
+	background: var(--rarc-border);
+	color: var(--rarc-fg);
+	font: inherit;
+	font-weight: 800;
+	cursor: pointer;
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-submit-container,
+.wpforms-container .wpforms-form .wpforms-submit-container {
+	padding-top: var(--rarc-space-1);
+}
+
+div.wpforms-container-full .wpforms-form button[type="submit"],
+.wpforms-container .wpforms-form button[type="submit"] {
+	min-height: 46px;
+	padding: 0 22px;
+	border: 0 !important;
+	border-radius: var(--rarc-radius-pill);
+	background: var(--rarc-accent) !important;
+	box-shadow: none;
+	color: #fff !important;
+	font-family: inherit;
+	font-size: 13px;
+	font-weight: 900;
+	letter-spacing: 0.1em;
+	line-height: 1;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
+}
+
+div.wpforms-container-full .wpforms-form button[type="submit"]:hover,
+div.wpforms-container-full .wpforms-form button[type="submit"]:focus-visible,
+.wpforms-container .wpforms-form button[type="submit"]:hover,
+.wpforms-container .wpforms-form button[type="submit"]:focus-visible {
+	background: color-mix(in oklab, var(--rarc-accent), black 16%) !important;
+	color: #fff !important;
+	transform: translateY(-2px);
+}
+
+div.wpforms-container-full .wpforms-form :where(label.wpforms-error, em.wpforms-error),
+.wpforms-container .wpforms-form :where(label.wpforms-error, em.wpforms-error) {
+	color: #ff8d95 !important;
+	font-size: 12px;
+}
+
+div.wpforms-container-full .wpforms-form :where(input, select, textarea).wpforms-error,
+.wpforms-container .wpforms-form :where(input, select, textarea).wpforms-error {
+	border-color: #ff5c67 !important;
+}
+
+div.wpforms-container-full .wpforms-confirmation-container-full,
+.wpforms-container .wpforms-confirmation-container-full,
+.wpforms-confirmation-container-full {
+	padding: var(--rarc-space-4) var(--rarc-space-5);
+	border: 1px solid color-mix(in oklab, var(--rarc-accent), white 18%);
+	border-radius: var(--rarc-radius-lg);
+	background: color-mix(in oklab, var(--rarc-accent), transparent 84%);
+	color: var(--rarc-fg);
+}
+
+div.wpforms-container-full .wpforms-confirmation-container-full p:last-child,
+.wpforms-container .wpforms-confirmation-container-full p:last-child,
+.wpforms-confirmation-container-full p:last-child {
+	margin-bottom: 0;
 }
 
 .rarc-page-hero {
